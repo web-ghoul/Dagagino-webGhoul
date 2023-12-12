@@ -1,15 +1,13 @@
 "use client"
-import Forms from '@/components/Forms/Forms'
+import Forms from '@/Forms/Forms'
 import LogoImage from '@/components/LogoImage/LogoImage'
 import { PrimaryBox } from '@/muiCustomize/PrimaryBox'
-import { Box, Divider, Typography } from '@mui/material'
+import { Box, Typography } from '@mui/material'
 import { LazyLoadImage } from 'react-lazy-load-image-component'
 import styles from "./VerifyOTPSection.module.scss"
 import { PrimaryContainer } from '@/muiCustomize/PrimaryContainer'
 import smileImg from "../../assets/images/smile.svg"
 import { useTranslation } from "react-i18next";
-import { SecondaryButton } from '@/muiCustomize/SecondaryButton'
-import { useState } from 'react'
 
 const VerifyOTPSection = () => {
     const {t} = useTranslation()

@@ -1,5 +1,5 @@
 import { Box, Skeleton } from "@mui/material"
-import styles from "./confirmedPurchase.module.scss"
+import styles from "./ConfirmedPurchase.module.scss"
 
 const LoadingConfirmedPurchase = () => {
   return (

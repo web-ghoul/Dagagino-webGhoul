@@ -1,9 +1,9 @@
 "use client"
 import { PrimaryBox } from '@/muiCustomize/PrimaryBox'
 import { PrimaryContainer } from '@/muiCustomize/PrimaryContainer'
-import { Box, Typography } from '@mui/material'
+import { Typography } from '@mui/material'
 import { useTranslation } from "react-i18next";
-import Forms from '@/components/Forms/Forms'
+import Forms from '@/Forms/Forms'
 
 const ComplaintSection = () => {
     const {t} = useTranslation()
