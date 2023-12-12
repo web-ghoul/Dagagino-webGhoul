@@ -15,4 +15,10 @@
             width:auto;
         }
     }
+    @media (max-width:$md_size) {
+        grid-template-columns: repeat(1,1fr);
+        .logo{
+            display:none !important;
+        }
+    }
 }
