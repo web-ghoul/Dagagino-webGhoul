@@ -1,0 +1,11 @@
+@import "../../assets/styles/variable.scss";
+.seller{
+    border: 2px solid #ddd;
+    background-color:$white;
+    .seller_image{
+        height:200px;
+        background-repeat:no-repeat;
+        background-size:cover;
+        background-position:center;
+    }
+}

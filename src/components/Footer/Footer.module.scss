@@ -1,0 +1,71 @@
+@import "../../assets/styles/variable.scss";
+
+.footer{
+    background-color:$main;
+    position: relative;
+    .footer_contain{
+        .footer_text{
+            color:$white;
+        }
+        .footer_image_circles{
+            position: absolute;
+            left: 0;
+            opacity:0.2;
+            width:90px;
+        }
+
+        .footer_image_circle{
+            position: absolute;
+            right: 0;
+            opacity:0.2;
+            width:50px;
+        }
+    }
+
+    @media (max-width:$lg_size) {
+        .footer_contain{
+            .footer_image_circles{
+                width:70px;
+            }
+
+            .footer_image_circle{
+                width:40px;
+            }
+        }
+    }
+
+    @media (max-width:$md_size) {
+        .footer_contain{
+            .footer_image_circles{
+                width:60px;
+            }
+
+            .footer_image_circle{
+                width:30px;
+            }
+        }
+    }
+
+    @media (max-width:$sm_size) {
+        .footer_contain{
+            .footer_image_circles{
+                width:50px;
+            }
+
+            .footer_image_circle{
+                width:25px;
+            }
+        }
+    }
+
+    @media (max-width:$xs_size) {
+        .footer_contain{
+            .footer_image_circles{
+                width:50px;
+            }
+            .footer_image_circle{
+                width:20px;
+            }
+        }
+    }
+}

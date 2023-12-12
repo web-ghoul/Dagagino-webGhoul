@@ -1,0 +1,21 @@
+@import "../../assets/styles/variable.scss";
+.register_section_contain{
+    height:100%;
+    grid-template-columns: repeat(2,1fr);
+    .client_types{
+        .active{
+            background-color:$main;
+            color:$white;
+        }
+    }
+    .logo{
+        background-color: $main;
+        width: 100%;
+        height: 100%;
+        overflow:hidden;
+        img{
+            height: auto;
+            width:100%;
+        }
+    }
+}

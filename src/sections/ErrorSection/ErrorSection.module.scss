@@ -1,0 +1,11 @@
+.error_section_contain{
+  grid-template-rows:auto 1fr auto;
+  .error_image_box{
+    height:100%;
+    width:100%;
+    img{
+      height:100%;
+      width:auto;
+    }
+  }
+}

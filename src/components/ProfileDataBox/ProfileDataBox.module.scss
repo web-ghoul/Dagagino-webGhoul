@@ -1,0 +1,11 @@
+@import "../../assets/styles/variable.scss";
+.profile{
+    .profile_box{
+        border:2px solid #ddd;
+        .data_box{
+            background-color: $gray;
+            color:$dark;
+            box-shadow:$box_shadow;
+        }
+    }
+}

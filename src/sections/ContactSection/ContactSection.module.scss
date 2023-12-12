@@ -1,0 +1,72 @@
+@import "../../assets/styles/variable.scss";
+
+.contact_section_contain{
+    .form_and_contacts{
+        grid-template-columns:repeat(2,1fr);
+        .contacts{
+            .contact{
+                .icon{
+                    background-color:$main;
+                    width:40px;
+                    height:40px;
+                    svg{
+                        color:$white;
+                    }
+                }
+            }
+        }
+    }
+    @media (max-width:$md_size) {
+        .form_and_contacts{
+            grid-template-columns:repeat(1,1fr);
+            .contacts{
+                display:flex !important;
+                justify-content : space-between !important; 
+                .contact{
+                    .icon{
+                        width:30px;
+                        height:30px;
+                        svg{
+                            font-size:20px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    @media (max-width:$sm_size) {
+        .form_and_contacts{
+            .contacts{
+                .contact{
+                    display:grid !important;
+                    .icon{
+                        width:25px;
+                        height:25px;
+                        svg{
+                            font-size:18px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    @media (max-width:$xs_size) {
+        .form_and_contacts{
+            .contacts{
+                flex-wrap:wrap;
+                .contact{
+                    display:flex !important;
+                    .icon{
+                        width:20px;
+                        height:20px;
+                        svg{
+                            font-size:15px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

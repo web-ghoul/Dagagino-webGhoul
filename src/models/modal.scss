@@ -1,0 +1,22 @@
+@import "../assets/styles/variable.scss";
+.modal{
+  background-color:$white;
+  outline:none;
+  overflow:auto;
+  max-height:90vh;
+  max-width:90vw;
+  &.edit_profile{
+    min-width:60vw ;
+  }
+  &.view_avatar{
+    .avatar_box{
+      height:100%;
+      width:100%;
+      img{
+        height:auto;
+        width:100%;
+      }
+    }
+  }
+  
+}

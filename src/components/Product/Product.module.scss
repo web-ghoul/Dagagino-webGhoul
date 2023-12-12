@@ -1,0 +1,44 @@
+@import "../../assets/styles/variable.scss";
+.product{
+    box-shadow:$box_shadow;
+    background-color:$gray;
+    transition:$transition;
+    border:2px solid $white;
+    &:hover{
+        border:2px solid $main;
+        cursor: pointer;
+        transform:translateY(-5px);
+    }
+    .product_image_box{
+        width:100%;
+        height:200px;
+        background-color:$white;
+        background-repeat:no-repeat;
+        background-position:center;
+        background-size:cover;
+    }
+
+    @media (max-width:$lg_size) {
+        .product_image_box{
+            height:180px;
+        }
+    }
+
+    @media (max-width:$md_size) {
+        .product_image_box{
+            height:170px;
+        }
+    }
+
+    @media (max-width:$sm_size) {
+        .product_image_box{
+            height:160px;
+        }
+    }
+
+    @media (max-width:$xs_size) {
+        .product_image_box{
+            height:200px;
+        }
+    }
+}

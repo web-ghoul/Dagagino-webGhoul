@@ -1,0 +1,162 @@
+@import "../../assets/styles/variable.scss";
+.header{
+    background-color:$white !important;
+    box-shadow: none !important;
+    position: fixed;
+    &.active{
+        box-shadow:$box_shadow !important;
+        .header_contain{
+            .header_contain_box{
+                border-bottom:none;
+            }
+        }
+    }
+    .header_contain{
+        .header_contain_box{
+            height: 100px;
+            position: relative;
+
+            .header_menu{
+                position: absolute;
+                background-color:$white;
+                top:100%;
+                box-shadow: $box_shadow;
+                transition:$transition;
+                transform:translateY(-100%);
+                opacity:0;
+                z-index: -1;
+                width:max-content;
+                &.header_menu_arabic{
+                    left :0;
+                }
+                &.header_menu_english{
+                    right:0;
+                }
+                &.header_menu_active{
+                    transform:translateY(0);
+                    opacity:1;
+                    z-index: 100;
+                }
+                li{
+                    a{
+                        width:100% !important; 
+                    }
+                    &:hover{
+                        background-color:$main;
+                        color:$white;
+                    }
+                }
+            }
+
+            .header_languages_menu{
+                position: absolute;
+                background-color:$white;
+                top:100%;
+                box-shadow: $box_shadow;
+                transition:$transition;
+                transform:translateY(-100%);
+                opacity:0;
+                z-index: -1;
+                &.header_languages_menu_active{
+                    transform:translateY(0);
+                    opacity:1;
+                    z-index: 100;
+                }
+                li{
+                    &.active ,&:hover{
+                        background-color:$main;
+                        color:$white;
+                    }
+                }
+            }
+
+            li{
+                color:$dark;
+                transition:$transition;
+                &:hover{
+                    color:$main;
+                    cursor: pointer;
+                }
+                a{
+                    width:max-content !important;
+                }
+            }
+
+            .header_lang_switch{
+                color:$main;
+            }
+
+            .header_menu_button{
+                box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
+                background-color: $white;
+                transition: $transition;
+                svg{
+                    font-size:30px;
+                }
+
+                &:hover{
+                    cursor: pointer;
+                    background-color: $main;
+                    svg{
+                        color:$white;
+                    }
+                }
+
+                &:focus{
+                    background-color: $main;
+                    box-shadow: rgba(0, 0, 0, 0.05) 0px 0px 0px 1px, rgb(209, 213, 219) 0px 0px 0px 1px inset;
+                    svg{
+                        color:$white;
+                    }
+                }
+            }
+        }
+    }
+    @media(max-width:$lg_size){
+        .header_contain{
+            .header_contain_box{
+                height: 90px;
+    
+                .header_menu_button{
+                    svg{
+                        font-size:30px;
+                    }
+                }
+            }
+        }
+    }
+
+    @media(max-width:$md_size){
+        .header_contain{
+            .header_contain_box{
+                height: 80px;
+                .header_menu_button{
+                    svg{
+                        font-size:22px;
+                    }
+                }
+            }
+        }
+    }
+
+    @media(max-width:$sm_size){
+        .header_contain{
+            .header_contain_box{
+                height: 70px;
+                .header_menu_button{
+                    svg{
+                        font-size:20px;
+                    }
+                }
+            }
+        }
+    }
+
+    @media(max-width:$xs_size){
+        .header_contain{
+            .header_contain_box{
+                height: 65px;
+            }
+        }
+    }
+}
