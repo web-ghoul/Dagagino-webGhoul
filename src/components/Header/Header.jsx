@@ -62,7 +62,7 @@ const Header = () => {
       }
 
       //For Languages List
-      if (!(classes.contains("css-1qnayxv-MuiTypography-root") || classes.contains("css-wtk2ev-MuiButtonBase-root-MuiButton-root") || classes.contains("MuiSvgIcon-root") || e.target.parentElement.classList.contains("MuiSvgIcon-root"))) {
+      if (!(classes.contains("css-1qnayxv-MuiTypography-root") || classes.contains("css-wtk2ev-MuiButtonBase-root-MuiButton-root") || classes.contains("MuiSvgIcon-root") || (e.target.parentElement && e.target.parentElement.classList.contains("MuiSvgIcon-root")))) {
         setActiveLanguagesMenu(false)
       }
     })

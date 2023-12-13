@@ -1,11 +1,31 @@
 @import "../../assets/styles/variable.scss";
-.seller{
+
+.seller {
     border: 2px solid #ddd;
-    background-color:$white;
-    .seller_image{
-        height:200px;
-        background-repeat:no-repeat;
-        background-size:cover;
-        background-position:center;
+    background-color: $white;
+
+    .seller_image {
+        height: 200px;
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-position: center;
+    }
+
+    @media (max-width:$md_size) {
+        .seller_image {
+            height: 180px;
+        }
+    }
+
+    @media (max-width:$sm_size) {
+        .seller_image {
+            height: 150px;
+        }
+    }
+
+    @media (max-width:$xs_size) {
+        .seller_image {
+            height: 120px;
+        }
     }
 }
