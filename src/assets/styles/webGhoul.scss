@@ -11,9 +11,9 @@ body {
     background-color: $back_color;
     font-family: $cairo_font !important;
 
-    main{
-        min-height:100vh;
-        padding-top:100px;
+    main {
+        min-height: 100vh;
+        padding-top: 100px;
         grid-template-rows: 1fr auto;
     }
 
@@ -45,7 +45,7 @@ body {
         border-color: $main !important;
     }
 
-    button{
+    button {
         outline: none;
         border: none;
     }
@@ -54,39 +54,64 @@ body {
         color: $main !important;
     }
 
-    //Upload Image Input
-    .jWkLDY{
-        display:none !important;
+    //Tabs
+    .css-145v6pe-MuiButtonBase-root-MuiTabScrollButton-root.Mui-disabled {
+        opacity: 1 !important;
+        pointer-events: all !important;
+        cursor: pointer !important;
     }
 
-    .guZdik{
-        justify-content:center !important;
-        width:100%;
-        max-width:100% !important;
-        height:60px !important;
-        border-color:$main;
-        transition:$transition;
-        svg{
-            color:$main;
-            path{
-                fill:$main;
+    .css-bkleb-MuiButtonBase-root-MuiTab-root.Mui-selected {
+        background-color: $main !important;
+        color: $white !important;
+    }
+
+    .css-1k473ji-MuiButtonBase-root-MuiTab-root.Mui-selected {
+        background-color: $main !important;
+        color: $white !important;
+    }
+
+    //Tabs
+
+    //Upload Image Input
+    .jWkLDY {
+        display: none !important;
+    }
+
+    .guZdik {
+        justify-content: center !important;
+        width: 100%;
+        max-width: 100% !important;
+        height: 60px !important;
+        border-color: $main;
+        transition: $transition;
+
+        svg {
+            color: $main;
+
+            path {
+                fill: $main;
             }
         }
-        &:hover{
-            background-color:$main;
-            cursor:pointer;
-            svg{
-                color:$white;
-                path{
-                    fill:$white;
+
+        &:hover {
+            background-color: $main;
+            cursor: pointer;
+
+            svg {
+                color: $white;
+
+                path {
+                    fill: $white;
                 }
             }
         }
     }
+
     //Upload Image Input
 
     //Contains
-    .contain{
+    .contain {
         padding-left: 100px;
         padding-right: 100px;
         padding-top: 40px;
@@ -164,9 +189,11 @@ body {
     .acs {
         align-content: stretch !important;
     }
+
     .acc {
         align-content: center !important;
     }
+
     .acsb {
         align-content: space-between !important;
     }
@@ -238,7 +265,7 @@ body {
     }
 
     //Positions
-    .relative{
+    .relative {
         position: relative !important;
     }
 
@@ -246,16 +273,16 @@ body {
         position: absolute !important;
     }
 
-    .fixed{
+    .fixed {
         position: fixed !important;
     }
 
-    .sticky{
+    .sticky {
         position: sticky !important;
     }
 
     /*Start Gap*/
-    
+
 
     .g5 {
         gap: 5px !important;
@@ -375,65 +402,81 @@ body {
 
 
     /*Start Border Radius*/
-    .br2{
+    .br2 {
         border-radius: 2px;
     }
-    .br4{
+
+    .br4 {
         border-radius: 4px;
     }
-    .br6{
+
+    .br6 {
         border-radius: 6px;
     }
-    .br8{
+
+    .br8 {
         border-radius: 8px;
     }
-    .br10{
+
+    .br10 {
         border-radius: 10px;
     }
-    .br12{
+
+    .br12 {
         border-radius: 12px;
     }
-    .br14{
+
+    .br14 {
         border-radius: 14px;
     }
-    .br16{
+
+    .br16 {
         border-radius: 16px;
     }
-    .br18{
+
+    .br18 {
         border-radius: 18px;
     }
-    .br20{
+
+    .br20 {
         border-radius: 20px;
     }
-    .br22{
+
+    .br22 {
         border-radius: 22px;
     }
-    .br24{
+
+    .br24 {
         border-radius: 24px;
     }
-    .br26{
+
+    .br26 {
         border-radius: 26px;
     }
-    .br28{
+
+    .br28 {
         border-radius: 28px;
     }
-    .br30{
+
+    .br30 {
         border-radius: 30px;
     }
+
     /*End Border Radius*/
 
     @media(max-width: $lg_size) {
-        main{
-            padding-top:90px;
+        main {
+            padding-top: 90px;
         }
 
         //Contains
-        .contain{
+        .contain {
             padding-top: 35px;
             padding-bottom: 35px;
             padding-left: 80px;
             padding-right: 80px;
         }
+
         /*Start Gap*/
         .g5 {
             gap: 4px !important;
@@ -520,76 +563,95 @@ body {
 
         .pad50 {
             padding: 45px !important;
-        };
+        }
+
+        ;
 
         /*End Padding*/
         /*Start Border Radius*/
-        .br2{
+        .br2 {
             border-radius: 2px;
         }
-        .br4{
+
+        .br4 {
             border-radius: 3px;
         }
-        .br6{
+
+        .br6 {
             border-radius: 5px;
         }
-        .br8{
+
+        .br8 {
             border-radius: 7px;
         }
-        .br10{
+
+        .br10 {
             border-radius: 9px;
         }
-        .br12{
+
+        .br12 {
             border-radius: 10px;
         }
-        .br14{
+
+        .br14 {
             border-radius: 12px;
         }
-        .br16{
+
+        .br16 {
             border-radius: 14px;
         }
-        .br18{
+
+        .br18 {
             border-radius: 16px;
         }
-        .br20{
+
+        .br20 {
             border-radius: 18px;
         }
-        .br22{
+
+        .br22 {
             border-radius: 20px;
         }
-        .br24{
+
+        .br24 {
             border-radius: 22px;
         }
-        .br26{
+
+        .br26 {
             border-radius: 24px;
         }
-        .br28{
+
+        .br28 {
             border-radius: 25px;
         }
-        .br30{
+
+        .br30 {
             border-radius: 26px;
         }
+
         /*End Border Radius*/
     }
 
     @media(max-width: $md_size) {
-        main{
-            padding-top:80px;
+        main {
+            padding-top: 80px;
         }
 
         //Upload Image Input
-        .guZdik{
-            height:50px !important;
+        .guZdik {
+            height: 50px !important;
         }
+
         //Upload Image Input
 
         //Contains
-        .contain{
+        .contain {
             padding-top: 30px;
             padding-bottom: 30px;
             padding-left: 60px;
             padding-right: 60px;
         }
+
         /*Start Gap*/
         .g5 {
             gap: 3px !important;
@@ -634,6 +696,7 @@ body {
         .g100 {
             gap: 90px !important;
         }
+
         /*End Gap*/
 
         /*Start Padding*/
@@ -676,77 +739,96 @@ body {
 
         .pad50 {
             padding: 40px !important;
-        };
+        }
+
+        ;
 
         /*End Padding*/
 
         /*Start Border Radius*/
-        .br2{
+        .br2 {
             border-radius: 1px;
         }
-        .br4{
+
+        .br4 {
             border-radius: 2px;
         }
-        .br6{
+
+        .br6 {
             border-radius: 4px;
         }
-        .br8{
+
+        .br8 {
             border-radius: 6px;
         }
-        .br10{
+
+        .br10 {
             border-radius: 8px;
         }
-        .br12{
+
+        .br12 {
             border-radius: 9px;
         }
-        .br14{
+
+        .br14 {
             border-radius: 10px;
         }
-        .br16{
+
+        .br16 {
             border-radius: 12px;
         }
-        .br18{
+
+        .br18 {
             border-radius: 14px;
         }
-        .br20{
+
+        .br20 {
             border-radius: 16px;
         }
-        .br22{
+
+        .br22 {
             border-radius: 18px;
         }
-        .br24{
+
+        .br24 {
             border-radius: 20px;
         }
-        .br26{
+
+        .br26 {
             border-radius: 22px;
         }
-        .br28{
+
+        .br28 {
             border-radius: 24px;
         }
-        .br30{
+
+        .br30 {
             border-radius: 25px;
         }
+
         /*End Border Radius*/
     }
 
     @media(max-width: $sm_size) {
-        main{
-            padding-top:70px;
+        main {
+            padding-top: 70px;
         }
 
         //Upload Image Input
-        .guZdik{
-            height:40px !important;
+        .guZdik {
+            height: 40px !important;
         }
+
         //Upload Image Input
 
         //Contains
-        .contain{
+        .contain {
             padding-top: 25px;
             padding-bottom: 25px;
             padding-left: 40px;
             padding-right: 40px;
         }
+
         /*Start Gap*/
         .g5 {
             gap: 2px !important;
@@ -791,6 +873,7 @@ body {
         .g100 {
             gap: 80px !important;
         }
+
         /*End Gap*/
 
         /*Start Padding*/
@@ -833,77 +916,96 @@ body {
 
         .pad50 {
             padding: 35px !important;
-        };
+        }
+
+        ;
 
         /*End Padding*/
 
         /*Start Border Radius*/
-        .br2{
+        .br2 {
             border-radius: 0px;
         }
-        .br4{
+
+        .br4 {
             border-radius: 1px;
         }
-        .br6{
+
+        .br6 {
             border-radius: 3px;
         }
-        .br8{
+
+        .br8 {
             border-radius: 4px;
         }
-        .br10{
+
+        .br10 {
             border-radius: 6px;
         }
-        .br12{
+
+        .br12 {
             border-radius: 8px;
         }
-        .br14{
+
+        .br14 {
             border-radius: 9px;
         }
-        .br16{
+
+        .br16 {
             border-radius: 10px;
         }
-        .br18{
+
+        .br18 {
             border-radius: 12px;
         }
-        .br20{
+
+        .br20 {
             border-radius: 14px;
         }
-        .br22{
+
+        .br22 {
             border-radius: 16px;
         }
-        .br24{
+
+        .br24 {
             border-radius: 18px;
         }
-        .br26{
+
+        .br26 {
             border-radius: 19px;
         }
-        .br28{
+
+        .br28 {
             border-radius: 20px;
         }
-        .br30{
+
+        .br30 {
             border-radius: 22px;
         }
+
         /*End Border Radius*/
     }
 
     @media(max-width: $xs_size) {
-        main{
-            padding-top:65px;
+        main {
+            padding-top: 65px;
         }
 
         //Upload Image Input
-        .guZdik{
-            height:35px !important;
+        .guZdik {
+            height: 35px !important;
         }
+
         //Upload Image Input
 
         //Contains
-        .contain{
+        .contain {
             padding-top: 20px;
             padding-bottom: 20px;
             padding-left: 20px;
             padding-right: 20px;
         }
+
         /*Start Gap*/
         .g10 {
             gap: 3px !important;
@@ -984,52 +1086,68 @@ body {
 
         .pad50 {
             padding: 30px !important;
-        };
+        }
+
+        ;
         /*End Padding*/
 
-         /*Start Border Radius*/
-        .br4{
+        /*Start Border Radius*/
+        .br4 {
             border-radius: 0px;
         }
-        .br6{
+
+        .br6 {
             border-radius: 2px;
         }
-        .br8{
+
+        .br8 {
             border-radius: 2px;
         }
-        .br10{
+
+        .br10 {
             border-radius: 4px;
         }
-        .br12{
+
+        .br12 {
             border-radius: 6px;
         }
-        .br14{
+
+        .br14 {
             border-radius: 7px;
         }
-        .br16{
+
+        .br16 {
             border-radius: 8px;
         }
-        .br18{
+
+        .br18 {
             border-radius: 10px;
         }
-        .br20{
+
+        .br20 {
             border-radius: 12px;
         }
-        .br22{
+
+        .br22 {
             border-radius: 14px;
         }
-        .br24{
+
+        .br24 {
             border-radius: 16px;
         }
-        .br26{
+
+        .br26 {
             border-radius: 17px;
         }
-        .br28{
+
+        .br28 {
             border-radius: 18px;
         }
-        .br30{
+
+        .br30 {
             border-radius: 20px;
         }
+
         /*End Border Radius*/
     }
 }

@@ -9,6 +9,9 @@ export const PrimaryTextField = styled(TextField)(({ theme }) => ({
         fontSize: "25px"
     },
     [theme.breakpoints.down("lg")]: {
+        "& input": {
+            padding: "15px"
+        },
         "& input , & select , & option": {
             fontSize: "18px"
         },
@@ -17,11 +20,17 @@ export const PrimaryTextField = styled(TextField)(({ theme }) => ({
         },
     },
     [theme.breakpoints.down("md")]: {
+        "& input": {
+            padding: "14px"
+        },
         "& input , & select , & option": {
             fontSize: "17px"
         }
     },
     [theme.breakpoints.down("sm")]: {
+        "& input": {
+            padding: "12px"
+        },
         "& input , & select , & option": {
             fontSize: "14px"
         },

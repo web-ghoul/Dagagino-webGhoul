@@ -1,17 +1,29 @@
 @import "../../assets/styles/variable.scss";
-.client_box{
-  &.default_box{
-    background-color:$main;
-    color:$white;
+
+.client_box {
+  &.default_box {
+    background-color: $main;
+    color: $white;
   }
-  .client_box_number{
-    color:$main;
+
+  .client_box_number {
+    color: $main;
   }
+
   background-color:$gray;
   box-shadow:$box_shadow;
   color:$dark;
   grid-template-columns: 10% 20% 25% 25% 20%;
-  &.loading_box{
+
+  &.loading_box {
     grid-template-columns: 7.5% 17.5% 22.5% 22.5% 17.5%;
+  }
+
+  @media (max-width:$sm_size) {
+    grid-template-columns: 10% 30% 30% 30%;
+
+    &.loading_box {
+      grid-template-columns: 7.5% 27.5% 27.5% 27.5%;
+    }
   }
 }

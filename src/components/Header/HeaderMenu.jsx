@@ -1,4 +1,4 @@
-import { Button, List,useMediaQuery, ListItem, ListItemButton , Divider, Typography } from '@mui/material'
+import { Button, List, useMediaQuery, ListItem, ListItemButton, Divider, Typography } from '@mui/material'
 import { PrimaryButton } from '@/muiCustomize/PrimaryButton'
 import { SecondaryButton } from '@/muiCustomize/SecondaryButton'
 import Link from 'next/link'
@@ -9,9 +9,9 @@ import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 import { Box } from '@mui/material'
 
-const HeaderMenu = ({activeMenu,activeLanguagesMenu,handleLogout,handleToggleLanguagesMenu, handleCloseMenu}) => {
-  const {signed , userId  ,userType} = useSelector((state)=>state.auth)
-  const {t} = useTranslation()
+const HeaderMenu = ({ activeMenu, activeLanguagesMenu, handleLogout, handleToggleLanguagesMenu, handleCloseMenu }) => {
+  const { signed, userId, userType } = useSelector((state) => state.auth)
+  const { t } = useTranslation()
   const router = useRouter()
   const lgSize = useMediaQuery("(max-width:1200px)")
   const mdSize = useMediaQuery("(max-width:992px)")
@@ -29,7 +29,7 @@ const HeaderMenu = ({activeMenu,activeLanguagesMenu,handleLogout,handleToggleLan
 
             <ListItem>
               <Link href={`${process.env.NEXT_PUBLIC_DASHBOARD_ROUTE}/${userId}`}>
-                <Typography variant="h6">{t('header.navbar.dashboard')}</Typography>
+                <Typography variant="h6">{userType === "client" ? t('header.navbar.purchases') : t('header.navbar.dashboard')}</Typography>
               </Link>
             </ListItem>
 
@@ -46,7 +46,7 @@ const HeaderMenu = ({activeMenu,activeLanguagesMenu,handleLogout,handleToggleLan
                 <Typography variant="h6">{t('header.navbar.profile')}</Typography>
               </Link>
             </ListItem>
-            <Divider/>
+            <Divider />
           </>
         )
       }
@@ -77,14 +77,14 @@ const HeaderMenu = ({activeMenu,activeLanguagesMenu,handleLogout,handleToggleLan
         smSize && (
           signed ? (
             <PrimaryButton onClick={handleLogout}>
-            {t('header.logout')}</PrimaryButton>
-          ):(
+              {t('header.logout')}</PrimaryButton>
+          ) : (
             <Box className={`grid jcs aic g20`}>
-              <PrimaryButton onClick={()=>router.push(`${process.env.NEXT_PUBLIC_LOGIN_ROUTE}`)}>{t('header.login')}</PrimaryButton>
-              <SecondaryButton onClick={()=>router.push(`${process.env.NEXT_PUBLIC_REGISTER_ROUTE}`)}>{t('header.register')}</SecondaryButton>
+              <PrimaryButton onClick={() => router.push(`${process.env.NEXT_PUBLIC_LOGIN_ROUTE}`)}>{t('header.login')}</PrimaryButton>
+              <SecondaryButton onClick={() => router.push(`${process.env.NEXT_PUBLIC_REGISTER_ROUTE}`)}>{t('header.register')}</SecondaryButton>
             </Box>
           )
-        )      
+        )
       }
     </List>
   )

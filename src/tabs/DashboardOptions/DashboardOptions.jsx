@@ -1,17 +1,16 @@
 "use client"
-import {useState, useContext } from 'react';
+import { useState, useContext } from 'react';
 import PropTypes from 'prop-types';
-import {Tabs , Box} from '@mui/material';
+import { Tabs, Box } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 import { PrimaryTab } from '@/muiCustomize/PrimaryTab';
-import styles from "./DashboardOptions.module.scss"
 import { DashboardContext } from '@/context/DashboardContext';
 import UserProductsSection from '../../sections/UserProductsSection/UserProductsSection';
 import PendingSalesSection from '../../sections/PendingSalesSection/PendingSalesSection';
 import ConfirmedInvoicesSection from '../../sections/ConfirmedInvoicesSection/ConfirmedInvoicesSection';
 import PendingPurchasesSection from '../../sections/PendingPurchasesSection/PendingPurchasesSection';
 import ConfirmedPurchasesSection from '../../sections/ConfirmedPurchasesSection/ConfirmedPurchasesSection';
-
+import { useSelector } from 'react-redux';
 
 
 function CustomTabPanel(props) {
@@ -45,18 +44,33 @@ function a11yProps(index) {
 
 
 const DashboardOptions = () => {
-  const {setDashboardOption} = useContext(DashboardContext)
+  const { setDashboardOption } = useContext(DashboardContext)
   const [value, setValue] = useState(0)
-  const {t} = useTranslation()
+  const { t } = useTranslation()
+  const { userType } = useSelector((state) => state.auth)
 
   const handleChange = (event, newValue) => {
     setDashboardOption(newValue)
     setValue(newValue);
   };
 
-  return (
-    <Box className={`${styles.dashboard_options_box} grid jcs aic g30`}>
-      <Tabs className={`${styles.tabs}`} value={value} onChange={handleChange} aria-label="basic tabs example">
+  return userType === "client" ? (
+    <Box className={`grid jcs aic g30`}>
+      <Tabs value={value} onChange={handleChange} variant='scrollable' scrollButtons="auto" aria-label="scrollable auto tabs example" >
+        <PrimaryTab label={t("dashboard.pending_purchases.tab")} {...a11yProps(0)} />
+        <PrimaryTab label={t("dashboard.confirmed_purchases.tab")} {...a11yProps(1)} />
+      </Tabs>
+
+      <CustomTabPanel value={value} index={0}>
+        <PendingPurchasesSection />
+      </CustomTabPanel>
+      <CustomTabPanel value={value} index={1}>
+        <ConfirmedPurchasesSection />
+      </CustomTabPanel>
+    </Box>
+  ) : (
+    <Box className={`grid jcs aic g30`}>
+      <Tabs value={value} onChange={handleChange} variant='scrollable' scrollButtons="auto" aria-label="scrollable auto tabs example" >
         <PrimaryTab label={t("dashboard.current_products.tab")} {...a11yProps(0)} />
         <PrimaryTab label={t("dashboard.add_new_product.tab")} {...a11yProps(1)} />
         <PrimaryTab label={t("dashboard.pending_sales.tab")} {...a11yProps(2)} />
@@ -66,24 +80,24 @@ const DashboardOptions = () => {
       </Tabs>
 
       <CustomTabPanel value={value} index={0}>
-        <UserProductsSection/>
+        <UserProductsSection />
       </CustomTabPanel>
       <CustomTabPanel value={value} index={1}>
       </CustomTabPanel>
       <CustomTabPanel value={value} index={2}>
-        <PendingSalesSection/>
+        <PendingSalesSection />
       </CustomTabPanel>
       <CustomTabPanel value={value} index={3}>
-        <ConfirmedInvoicesSection/>
+        <ConfirmedInvoicesSection />
       </CustomTabPanel>
       <CustomTabPanel value={value} index={4}>
-        <PendingPurchasesSection/>
+        <PendingPurchasesSection />
       </CustomTabPanel>
       <CustomTabPanel value={value} index={5}>
-        <ConfirmedPurchasesSection/>
+        <ConfirmedPurchasesSection />
       </CustomTabPanel>
     </Box>
-  );
+  )
 }
 
 export default DashboardOptions
