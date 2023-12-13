@@ -34,10 +34,12 @@ const LoginForm = ({ loading, formik }) => {
         error={formik.touched.password && Boolean(formik.errors.password)}
         helperText={formik.touched.password && formik.errors.password}
       />
-      <LoadButton loading={loading}>
-        <PrimaryButton type={"submit"}>{t("forms.login.button.text")}</PrimaryButton>
-      </LoadButton>
-      <SecondaryButton onClick={() => router.push(`${process.env.NEXT_PUBLIC_REGISTER_ROUTE}`)}>{t('header.register')}</SecondaryButton>
+      <Box className={`grid jcs aic g20`}>
+        <LoadButton loading={loading}>
+          <PrimaryButton type={"submit"}>{t("forms.login.button.text")}</PrimaryButton>
+        </LoadButton>
+        <SecondaryButton onClick={() => router.push(`${process.env.NEXT_PUBLIC_REGISTER_ROUTE}`)}>{t('header.register')}</SecondaryButton>
+      </Box>
     </Box>
   )
 }

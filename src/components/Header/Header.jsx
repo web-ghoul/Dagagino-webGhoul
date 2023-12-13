@@ -249,10 +249,7 @@ const Header = () => {
               <PrimaryButton onClick={handleLogout}>
                 <LogoutRounded /></PrimaryButton>
             ) : (
-              <>
-                <PrimaryButton onClick={() => router.push(`${process.env.NEXT_PUBLIC_LOGIN_ROUTE}`)}>{t('header.login')}</PrimaryButton>
-                <SecondaryButton onClick={() => router.push(`${process.env.NEXT_PUBLIC_REGISTER_ROUTE}`)}>{t('header.register')}</SecondaryButton>
-              </>
+              <PrimaryButton onClick={() => router.push(`${process.env.NEXT_PUBLIC_LOGIN_ROUTE}`)}>{t('header.login')}</PrimaryButton>
             )
           }
         </Box>

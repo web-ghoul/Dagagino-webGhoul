@@ -23,9 +23,25 @@
     }
   }
 
+  &.dashboard_option {
+    width: 60vw;
+  }
+
+  &.delete {
+    width: 50vw;
+  }
+
   @media (max-width:$lg_size) {
     &.change_avatar {
       width: 50vw;
+    }
+
+    &.delete {
+      width: 60vw;
+    }
+
+    &.dashboard_option {
+      width: 70vw;
     }
 
     &.view_avatar {
@@ -43,6 +59,14 @@
       width: 60vw;
     }
 
+    &.delete {
+      width: 70vw;
+    }
+
+    &.dashboard_option {
+      width: 80vw;
+    }
+
     &.view_avatar {
       width: 80vw;
 
@@ -55,7 +79,15 @@
 
   @media (max-width:$sm_size) {
     &.change_avatar {
-      width: 100vw;
+      width: 80vw;
+    }
+
+    &.delete {
+      width: 80vw;
+    }
+
+    &.dashboard_option {
+      width: 90vw;
     }
 
     &.view_avatar {
@@ -65,6 +97,12 @@
         height: 100%;
         width: 100%;
       }
+    }
+  }
+
+  @media (max-width:$xs_size) {
+    &.delete {
+      width: 90vw;
     }
   }
 }

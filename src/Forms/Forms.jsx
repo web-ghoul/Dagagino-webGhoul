@@ -30,10 +30,13 @@ import { getMostBoughtProducts } from '@/store/mostBoughtProductsSlice'
 import { getMostBoughtFrom } from '@/store/mostBoughtFromSlice'
 import { getMostSoldProducts } from '@/store/mostSoldProductsSlice'
 import { getProfile } from '@/store/profileSlice'
+import { DashboardContext } from "../context/DashboardContext";
+import DeleteUserProductForm from "./DeleteUserProductForm";
+import { getUserProducts } from "../store/userProductsSlice";
 
 const Forms = ({ type }) => {
   const { t } = useTranslation()
-  const { token, userType, userId } = useSelector((state) => state.auth)
+  const { token, userType, userTypeId, userId } = useSelector((state) => state.auth)
   const [loading, setLoading] = useState(false)
   const [confirmation, setConfirmation] = useState(false)
   const [sendOTP, setSendOTP] = useState(false)
@@ -41,10 +44,12 @@ const Forms = ({ type }) => {
   const router = useRouter()
   const dispatch = useDispatch()
   const { profileData, handleCloseEditProfileModal, handleCloseChangeAvatarModal } = useContext(ProfileContext)
+  const { deleteUserProductId, handleCloseDeleteUserProductModal } = useContext(DashboardContext)
   const { avatarForRegister, setAvatarForChange, setAvatarForEdit, avatarForChange, avatarForEdit } = useContext(UploadImageContext)
   const server_url = process.env.NEXT_PUBLIC_SERVER_URL
   const { id } = useParams()
   const { option } = useContext(AnalysisReportContext)
+
 
   //Check is user Exist or not
   const checkIfUserExist = async (phone) => {
@@ -421,23 +426,49 @@ const Forms = ({ type }) => {
 
 
   //Add Product
-  const addProductInitialValues = {
-    arName: "",
-    enName: "",
-    arDescription: "",
-    enDescription: "",
-    imageURL: "",
-    stock: "",
-    price: "",
-    priceAfterDiscount: "",
-    category: "",
-    provider: ""
+  // const addProductInitialValues = {
+  //   arName: "",
+  //   enName: "",
+  //   arDescription: "",
+  //   enDescription: "",
+  //   imageURL: "",
+  //   stock: "",
+  //   price: "",
+  //   priceAfterDiscount: "",
+  //   category: "",
+  //   provider: ""
+  // }
+
+
+  //Delete User Product
+  const handleDeleteUserProduct = async (e) => {
+    e.preventDefault()
+    setLoading(true)
+
+    await axios.delete(`${server_url}/Products/${userType === "farm" ? "RemoveFarmProduct?farmID" : userType === "supplier" && "RemoveSupplierProduct?supplierID"}=${userTypeId}&productID=${deleteUserProductId}`, {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    }).then((res) => {
+      try {
+        handleAlert(t("forms.user_product.delete_successfully_message"), "success")
+        handleCloseDeleteUserProductModal()
+        dispatch(getUserProducts())
+      } catch (err) {
+        console.log(err)
+        handleAlert(t("forms.fetch.public_error.message"), "erorr")
+      }
+    }).catch((err) => {
+      console.log(err)
+      handleAlert(t("forms.fetch.public_error.message"), "erorr")
+    })
+    setLoading(false)
   }
 
   return (
-    <form onSubmit={type === "login" ? loginFormik.handleSubmit : (type === "supplier" || type === "farmer" || type === "client") ? registerFormik.handleSubmit : type === "contact" ? contactFormik.handleSubmit : type === "verify_otp" ? verifyOTPFormik.handleSubmit : (type === "edit_profile" || type === "change_avatar") ? editProfileFormik.handleSubmit : type === "handle_report_dates" ? handleReportDatesFormik.handleSubmit : type === "complaint" && complaintFormik.handleSubmit} className={`${t("lang") === "ar" ? "form_arabic" : "form_english"}`}>
+    <form onSubmit={type === "login" ? loginFormik.handleSubmit : (type === "supplier" || type === "farmer" || type === "client") ? registerFormik.handleSubmit : type === "contact" ? contactFormik.handleSubmit : type === "verify_otp" ? verifyOTPFormik.handleSubmit : (type === "edit_profile" || type === "change_avatar") ? editProfileFormik.handleSubmit : type === "handle_report_dates" ? handleReportDatesFormik.handleSubmit : type === "complaint" ? complaintFormik.handleSubmit : type === "delete_user_product" && handleDeleteUserProduct} className={`${t("lang") === "ar" ? "form_arabic" : "form_english"}`}>
       {
-        type === "login" ? <LoginForm loading={loading} formik={loginFormik} /> : (type === "client" || type === "supplier" || type === "farmer") ? <RegisterForm type={type} loading={loading} formik={registerFormik} /> : type === "contact" ? <ContactForm loading={loading} formik={contactFormik} /> : type === "verify_otp" ? <VerifyOTPForm loading={loading} sendOTP={sendOTP} formik={verifyOTPFormik} /> : type === "edit_profile" ? <EditProfileForm type={userType} loading={loading} formik={editProfileFormik} /> : type === "handle_report_dates" ? <HandleReportDateForm loading={loading} formik={handleReportDatesFormik} /> : type === "change_avatar" ? <ChangeAvatarForm loading={loading} formik={editProfileFormik} /> : type === "complaint" && <ComplaintForm loading={loading} formik={complaintFormik} />
+        type === "login" ? <LoginForm loading={loading} formik={loginFormik} /> : (type === "client" || type === "supplier" || type === "farmer") ? <RegisterForm type={type} loading={loading} formik={registerFormik} /> : type === "contact" ? <ContactForm loading={loading} formik={contactFormik} /> : type === "verify_otp" ? <VerifyOTPForm loading={loading} sendOTP={sendOTP} formik={verifyOTPFormik} /> : type === "edit_profile" ? <EditProfileForm type={userType} loading={loading} formik={editProfileFormik} /> : type === "handle_report_dates" ? <HandleReportDateForm loading={loading} formik={handleReportDatesFormik} /> : type === "change_avatar" ? <ChangeAvatarForm loading={loading} formik={editProfileFormik} /> : type === "complaint" ? <ComplaintForm loading={loading} formik={complaintFormik} /> : type === "delete_user_product" && <DeleteUserProductForm loading={loading} />
       }
     </form>
   )

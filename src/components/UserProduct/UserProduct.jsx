@@ -9,7 +9,7 @@ import { DashboardContext } from "../../context/DashboardContext";
 
 const UserProduct = ({ def, product, number }) => {
   const { t } = useTranslation()
-  const { handleOpenUserProductModal } = useContext(DashboardContext)
+  const { handleOpenUserProductModal, handleOpenDeleteUserProductModal } = useContext(DashboardContext)
   const mdSize = useMediaQuery("(max-width:992px)")
   return def ? (
     <Box className={`${styles.default_box} ${styles.product_box} br6 pad20 grid jcs aic`}>
@@ -40,7 +40,7 @@ const UserProduct = ({ def, product, number }) => {
           <VisibilityRounded />
           {!mdSize && <Typography variant={"h6"}>{t("dashboard.view_product.button")}</Typography>}
         </PrimaryButton>
-        <DeleteButton className={`flex jcc aic g10`}>
+        <DeleteButton onClick={() => handleOpenDeleteUserProductModal(product._id)} className={`flex jcc aic g10`}>
           <DeleteRounded />
           {!mdSize && <Typography variant={"h6"}>{t("dashboard.delete_product.button")}</Typography>}
         </DeleteButton>

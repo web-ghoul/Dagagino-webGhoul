@@ -15,24 +15,26 @@ import pendingSalesReducer from "./pendingSalesSlice"
 import confirmedInvoicesReducer from "./confirmedInvoicesSlice"
 import pendingPurchasesReducer from "./pendingPurchasesSlice"
 import confirmedPurchasesReducer from "./confirmedPurchasesSlice"
+import categoryDetailsReducer from "./categoryDetailsSlice"
 
 export const store = configureStore({
   reducer: {
-    "auth":authReducer,
-    "product":productReducer,
-    "products":productsReducer,
-    "userTypes":userTypesReducer,
-    "sellers":sellersReducer,
-    "profile":profileReducer,
-    "mostPurchasedClients":mostPurchasedClientsReducer,
-    "mostBoughtFrom":mostBoughtFromReducer,
-    "mostBoughtProducts":mostBoughtProductsReducer,
-    "mostSoldProducts":mostSoldProductsReducer,
-    "systemProducts" :systemProductsReducer,
-    "userProducts":userProductsReducer,
-    "pendingSales":pendingSalesReducer,
-    "confirmedInvoices":confirmedInvoicesReducer,
-    "pendingPurchases":pendingPurchasesReducer,
-    "confirmedPurchases":confirmedPurchasesReducer
+    "auth": authReducer,
+    "product": productReducer,
+    "products": productsReducer,
+    "userTypes": userTypesReducer,
+    "sellers": sellersReducer,
+    "profile": profileReducer,
+    "mostPurchasedClients": mostPurchasedClientsReducer,
+    "mostBoughtFrom": mostBoughtFromReducer,
+    "mostBoughtProducts": mostBoughtProductsReducer,
+    "mostSoldProducts": mostSoldProductsReducer,
+    "systemProducts": systemProductsReducer,
+    "userProducts": userProductsReducer,
+    "pendingSales": pendingSalesReducer,
+    "confirmedInvoices": confirmedInvoicesReducer,
+    "pendingPurchases": pendingPurchasesReducer,
+    "confirmedPurchases": confirmedPurchasesReducer,
+    "categoryDetails": categoryDetailsReducer
   },
 })

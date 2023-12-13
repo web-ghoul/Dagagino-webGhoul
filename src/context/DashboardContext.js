@@ -1,80 +1,113 @@
-import { useState , createContext } from "react"
+import { useState, createContext } from "react"
 
 export const DashboardContext = createContext()
 
-const DashboardProvider = ({children})=>{
+const DashboardProvider = ({ children }) => {
     const [dashboardOption, setDashboardOption] = useState(false)
 
     //User Product
     const [openUserProductModal, setOpenUserProductModal] = useState(false)
-    const [userProduct , setUserProduct] = useState(null)
+    const [userProduct, setUserProduct] = useState(null)
 
-    const handleOpenUserProductModal = (data)=>{
+    const handleOpenUserProductModal = (data) => {
         setUserProduct(data)
         setOpenUserProductModal(true)
     }
 
-    const handleCloseUserProductModal = ()=>{
+    const handleCloseUserProductModal = () => {
         setOpenUserProductModal(false)
     }
-    
+
+
+    //Delete User Product
+    const [openDeleteUserProductModal, setOpenDeleteUserProductModal] = useState(false)
+    const [deleteUserProductId, setDeleteUserProductId] = useState(null)
+
+    const handleOpenDeleteUserProductModal = (id) => {
+        setOpenUserProductModal(false)
+        setDeleteUserProductId(id)
+        setOpenDeleteUserProductModal(true)
+    }
+
+    const handleCloseDeleteUserProductModal = () => {
+        setOpenDeleteUserProductModal(false)
+    }
+
+
+    //Edit User Product
+    const [openEditUserProductModal, setOpenEditUserProductModal] = useState(false)
+    const [editUserProduct, setEditUserProduct] = useState(null)
+
+    const handleOpenEditUserProductModal = (data) => {
+        setOpenUserProductModal(false)
+        setEditUserProduct(data)
+        setOpenEditUserProductModal(true)
+    }
+
+    const handleCloseEditUserProductModal = () => {
+        setOpenEditUserProductModal(false)
+    }
+
+
     //Pending Sales
     const [openPendingSaleModal, setOpenPendingSaleModal] = useState(false)
-    const [pendingSale , setPendingSale] = useState(null)
+    const [pendingSale, setPendingSale] = useState(null)
 
-    const handleOpenPendingSaleModal = (data)=>{
+    const handleOpenPendingSaleModal = (data) => {
         setPendingSale(data)
         setOpenPendingSaleModal(true)
     }
 
-    const handleClosePendingSaleModal = ()=>{
+    const handleClosePendingSaleModal = () => {
         setOpenPendingSaleModal(false)
     }
 
     //Confirmed Invoices
     const [openConfirmedInvoiceModal, setOpenConfirmedInvoiceModal] = useState(false)
-    const [confirmedInvoice , setConfirmedInvoice] = useState(null)
+    const [confirmedInvoice, setConfirmedInvoice] = useState(null)
 
-    const handleOpenConfirmedInvoiceModal = (data)=>{
+    const handleOpenConfirmedInvoiceModal = (data) => {
         setConfirmedInvoice(data)
         setOpenConfirmedInvoiceModal(true)
     }
 
-    const handleCloseConfirmedInvoiceModal = ()=>{
+    const handleCloseConfirmedInvoiceModal = () => {
         setOpenConfirmedInvoiceModal(false)
     }
 
 
     //Pending Purchases
     const [openPendingPurchaseModal, setOpenPendingPurchaseModal] = useState(false)
-    const [pendingPurchase , setPendingPurchase] = useState(null)
+    const [pendingPurchase, setPendingPurchase] = useState(null)
 
-    const handleOpenPendingPurchaseModal = (data)=>{
+    const handleOpenPendingPurchaseModal = (data) => {
         setPendingPurchase(data)
         setOpenPendingPurchaseModal(true)
     }
 
-    const handleClosePendingPurchaseModal = ()=>{
+    const handleClosePendingPurchaseModal = () => {
         setOpenPendingPurchaseModal(false)
     }
-    
+
 
     //Confirmed Purchases
     const [openConfirmedPurchaseModal, setOpenConfirmedPurchaseModal] = useState(false)
-    const [confirmedPurchase , setConfirmedPurchase] = useState(null)
+    const [confirmedPurchase, setConfirmedPurchase] = useState(null)
 
-    const handleOpenConfirmedPurchaseModal = (data)=>{
+    const handleOpenConfirmedPurchaseModal = (data) => {
         setConfirmedPurchase(data)
         setOpenConfirmedPurchaseModal(true)
     }
 
-    const handleCloseConfirmedPurchaseModal = ()=>{
+    const handleCloseConfirmedPurchaseModal = () => {
         setOpenConfirmedPurchaseModal(false)
     }
 
-    const obj = {dashboardOption, setDashboardOption,openUserProductModal,openPendingSaleModal,openConfirmedInvoiceModal,openPendingPurchaseModal,openConfirmedPurchaseModal,handleOpenUserProductModal,handleCloseUserProductModal,handleOpenPendingSaleModal,handleClosePendingSaleModal,handleOpenConfirmedInvoiceModal,handleCloseConfirmedInvoiceModal,handleOpenPendingPurchaseModal,handleClosePendingPurchaseModal,handleOpenConfirmedPurchaseModal,handleCloseConfirmedPurchaseModal,userProduct,pendingSale,confirmedInvoice,pendingPurchase,confirmedPurchase}
 
-    return(
+
+    const obj = { dashboardOption, setDashboardOption, openUserProductModal, openPendingSaleModal, openConfirmedInvoiceModal, openPendingPurchaseModal, openConfirmedPurchaseModal, handleOpenUserProductModal, handleCloseUserProductModal, handleOpenDeleteUserProductModal, handleCloseDeleteUserProductModal, deleteUserProductId, openDeleteUserProductModal, handleOpenEditUserProductModal, handleCloseEditUserProductModal, editUserProduct, openEditUserProductModal, handleOpenPendingSaleModal, handleClosePendingSaleModal, handleOpenConfirmedInvoiceModal, handleCloseConfirmedInvoiceModal, handleOpenPendingPurchaseModal, handleClosePendingPurchaseModal, handleOpenConfirmedPurchaseModal, handleCloseConfirmedPurchaseModal, userProduct, pendingSale, confirmedInvoice, pendingPurchase, confirmedPurchase }
+
+    return (
         <DashboardContext.Provider value={obj}>
             {children}
         </DashboardContext.Provider>

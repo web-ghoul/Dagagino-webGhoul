@@ -1,24 +1,67 @@
 @import "../../assets/styles/variable.scss";
-.product_box{
-  &.default_box{
-    background-color:$main;
-    color:$white;
+
+.product_box {
+  &.default_box {
+    background-color: $main;
+    color: $white;
   }
-  .product_box_number{
-    color:$main;
+
+  .product_box_number {
+    color: $main;
   }
+
   background-color:$gray;
   box-shadow:$box_shadow;
   color:$dark;
   transition:$transition;
   grid-template-columns: 10% 25% 15% 15% 10% 25%;
-  &.loading_box{
+
+  &.loading_box {
     grid-template-columns: 7.5% 22.5% 12.5% 12.5% 7.5% 22.5%;
   }
-  &:not(.default_box):hover{
-    transform:translateY(-5px);
-    color:$main;
-    cursor:pointer;
+
+  &:not(.default_box):hover {
+    transform: translateY(-5px);
+    color: $main;
+    cursor: pointer;
   }
 }
 
+.user_product_details {
+  .data_image_box {
+    img {
+      width: 400px;
+      height: auto;
+    }
+  }
+
+  .user_product_details_box {
+    grid-template-columns: repeat(2, 1fr);
+
+
+    .data_box {
+      background-color: $gray;
+      box-shadow: $box_shadow;
+    }
+  }
+
+  @media (max-width:$sm_size) {
+    .data_image_box {
+      img {
+        width: 300px;
+      }
+    }
+
+    .user_product_details_box {
+      grid-template-columns: repeat(1, 1fr);
+    }
+  }
+
+  @media (max-width:$xs_size) {
+    .data_image_box {
+      img {
+        width: 200px;
+      }
+    }
+  }
+}

@@ -1,11 +1,11 @@
 import { Box } from "@mui/material"
-import LoadButton from "../LoadButton/LoadButton"
 import { PrimaryButton } from "@/muiCustomize/PrimaryButton"
 import { PrimaryTextField } from "@/muiCustomize/PrimaryTextField"
 import { useTranslation } from "react-i18next";
+import LoadButton from "../components/LoadButton/LoadButton";
 
-const AddProductForm = ({loading, formik}) => {
-  const {t} = useTranslation()
+const AddProductForm = ({ loading, formik }) => {
+  const { t } = useTranslation()
   return (
     <Box className={`grid jcs aic g30`}>
       <Box className={`flex jcs aic g20`}>
