@@ -1,11 +1,15 @@
 @import "../../assets/styles/variable.scss";
-.profile{
-    .profile_box{
-        border:2px solid #ddd;
-        .data_box{
+
+.profile {
+    width: 100%;
+
+    .profile_box {
+        border: 2px solid #ddd;
+
+        .data_box {
             background-color: $gray;
-            color:$dark;
-            box-shadow:$box_shadow;
+            color: $dark;
+            box-shadow: $box_shadow;
         }
     }
 }

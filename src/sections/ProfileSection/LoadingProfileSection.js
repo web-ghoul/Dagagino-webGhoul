@@ -1,13 +1,13 @@
 import LoadingAvatar from '@/components/Avatar/LoadingAvatar'
-import LoadingProfileDataBox from '@/components/ProfileDataBox/LoadingProfileDataBox'
+import LoadingProfileDataBox from '../../components/ProfileDataBox/LoadingProfileDataBox'
 
 const LoadingProfileSection = () => {
-    return (
-      <>
-          <LoadingAvatar />
-          <LoadingProfileDataBox/>
-      </> 
-    )
+  return (
+    <>
+      <LoadingAvatar />
+      <LoadingProfileDataBox />
+    </>
+  )
 }
 
 export default LoadingProfileSection

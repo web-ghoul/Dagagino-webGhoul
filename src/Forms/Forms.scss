@@ -72,6 +72,15 @@ form {
     }
 
     @media (max-width:$sm_size) {
+        .change_avatar_box {
+            .change_avatar_box {
+                .change_avatar {
+                    width: 200px;
+                    height: 200px;
+                }
+            }
+        }
+
         .handle_report_dates_box {
             grid-template-columns: repeat(2, 1fr);
         }

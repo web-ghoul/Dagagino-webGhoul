@@ -9,17 +9,15 @@ import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 import { Box } from '@mui/material'
 
-const HeaderMenu = ({ activeMenu, activeLanguagesMenu, handleLogout, handleToggleLanguagesMenu, handleCloseMenu }) => {
+const HeaderMenu = ({ activeMenu, handleLogout, handleCloseMenu }) => {
   const { signed, userId, userType } = useSelector((state) => state.auth)
   const { t } = useTranslation()
   const router = useRouter()
-  const lgSize = useMediaQuery("(max-width:1200px)")
-  const mdSize = useMediaQuery("(max-width:992px)")
   const smSize = useMediaQuery("(max-width:768px)")
   return (
     <List className={`${styles.header_menu} ${t("lang") === "ar" ? styles.header_menu_arabic : styles.header_menu_english} ${activeMenu && styles.header_menu_active} grid jcs aic pad20 br10 g10`} >
       {
-        signed && mdSize && (
+        signed && smSize && (
           <>
             <ListItem>
               <Link href={`${process.env.NEXT_PUBLIC_PRODUCTS_ROUTE}`}>

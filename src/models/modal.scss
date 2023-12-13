@@ -1,22 +1,70 @@
 @import "../assets/styles/variable.scss";
-.modal{
-  background-color:$white;
-  outline:none;
-  overflow:auto;
-  max-height:90vh;
-  max-width:90vw;
-  &.edit_profile{
-    min-width:60vw ;
+
+.modal {
+  background-color: $white;
+  outline: none;
+  overflow: auto;
+  max-height: 90vh;
+  max-width: 90vw;
+
+  &.edit_profile {
+    min-width: 60vw;
   }
-  &.view_avatar{
-    .avatar_box{
-      height:100%;
-      width:100%;
-      img{
-        height:auto;
-        width:100%;
+
+  &.view_avatar {
+    .avatar_box {
+      height: 100%;
+      width: 100%;
+
+      img {
+        height: auto;
+        width: 100%;
       }
     }
   }
-  
+
+  @media (max-width:$lg_size) {
+    &.change_avatar {
+      width: 50vw;
+    }
+
+    &.view_avatar {
+      width: 70vw;
+
+      .avatar_box {
+        height: 100%;
+        width: 100%;
+      }
+    }
+  }
+
+  @media (max-width:$md_size) {
+    &.change_avatar {
+      width: 60vw;
+    }
+
+    &.view_avatar {
+      width: 80vw;
+
+      .avatar_box {
+        height: 100%;
+        width: 100%;
+      }
+    }
+  }
+
+  @media (max-width:$sm_size) {
+    &.change_avatar {
+      width: 100vw;
+    }
+
+    &.view_avatar {
+      width: 90vw;
+
+      .avatar_box {
+        height: 100%;
+        width: 100%;
+      }
+    }
+  }
 }

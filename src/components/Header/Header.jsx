@@ -55,10 +55,16 @@ const Header = () => {
   if (typeof window !== "undefined") {
     window.addEventListener('click', (e) => {
       const classes = e.target.classList
-      console.log(e.target, classes)
-      // if (!classes.contains("header_menu_active") && !classes.contains("header_menu_button")) {
-      //   setActiveMenu(false)
-      // }
+
+      //For Menu List
+      if (!(classes.contains("Header_header_menu_button__Qgj0A") || classes.contains("MuiSvgIcon-root") || e.target.parentElement.classList.contains("MuiSvgIcon-root"))) {
+        setActiveMenu(false)
+      }
+
+      //For Languages List
+      if (!(classes.contains("css-1qnayxv-MuiTypography-root") || classes.contains("css-wtk2ev-MuiButtonBase-root-MuiButton-root") || classes.contains("MuiSvgIcon-root") || e.target.parentElement.classList.contains("MuiSvgIcon-root"))) {
+        setActiveLanguagesMenu(false)
+      }
     })
   }
 
@@ -79,6 +85,7 @@ const Header = () => {
     }
   }, [active]);
 
+  //Responsive Header
   const lgHeader = (
     <>
       <List className={`${styles.header_list} flex jcc aic g10`}>
@@ -142,7 +149,7 @@ const Header = () => {
       </List>
 
       <Box className={`flex jcfe aic g20`}>
-        {signed && <IconButton onClick={handleToggleMenu} className={` ${styles.header_menu_button} flex jcc aic`}>
+        {signed && <IconButton onClick={handleToggleMenu} className={`${styles.header_menu_button} flex jcc aic`}>
           <ViewListRounded sx={{ color: (theme) => theme.palette.primary.main }} />
         </IconButton>}
 
@@ -159,7 +166,7 @@ const Header = () => {
             )
           }
         </Box>
-        <PrimaryButton onClick={handleToggleLanguagesMenu} className={`flex jcc aic g10`}>
+        <PrimaryButton onClick={handleToggleLanguagesMenu} className={`${styles.header_languages_list_button} flex jcc aic g10`}>
           {
             activeLanguagesMenu ? <ArrowDropUpRounded /> : <ArrowDropDownRounded />
           }
@@ -232,7 +239,7 @@ const Header = () => {
       </List>
 
       <Box className={`flex jcfe aic g20`}>
-        {signed && <IconButton onClick={handleToggleMenu} className={` ${styles.header_menu_button} flex jcc aic`}>
+        {signed && <IconButton onClick={handleToggleMenu} className={`${styles.header_menu_button} flex jcc aic`}>
           <ViewListRounded sx={{ color: (theme) => theme.palette.primary.main }} />
         </IconButton>}
 
@@ -249,7 +256,7 @@ const Header = () => {
             )
           }
         </Box>
-        <PrimaryButton onClick={handleToggleLanguagesMenu} className={`flex jcc aic`}>
+        <PrimaryButton onClick={handleToggleLanguagesMenu} className={`${styles.header_languages_list_button} flex jcc aic`}>
           {
             activeLanguagesMenu ? <ArrowDropUpRounded /> : <ArrowDropDownRounded />
           }
@@ -265,7 +272,7 @@ const Header = () => {
         <IconButton onClick={handleToggleMenu} className={` ${styles.header_menu_button} flex jcc aic`}>
           <ViewListRounded sx={{ color: (theme) => theme.palette.primary.main }} />
         </IconButton>
-        <PrimaryButton onClick={handleToggleLanguagesMenu} className={`flex jcc aic`}>
+        <PrimaryButton onClick={handleToggleLanguagesMenu} className={`${styles.header_languages_list_button} flex jcc aic`}>
           {
             activeLanguagesMenu ? <ArrowDropUpRounded /> : <ArrowDropDownRounded />
           }
@@ -279,8 +286,9 @@ const Header = () => {
     <AppBar className={`${active && styles.active} ${styles.header}`}>
       <PrimaryContainer className={`${styles.header_contain}`}>
         <Box className={`${styles.header_contain_box} flex jcsb aic g20`}>
+
           {/* Menus */}
-          <HeaderMenu handleLogout={handleLogout} activeMenu={activeMenu} handleCloseMenu={handleCloseMenu} handleToggleLanguagesMenu={handleToggleLanguagesMenu} activeLanguagesMenu={activeLanguagesMenu} />
+          <HeaderMenu handleLogout={handleLogout} activeMenu={activeMenu} handleCloseMenu={handleCloseMenu} />
           <LanguagesMenu activeLanguagesMenu={activeLanguagesMenu} handleCloseLanguagesMenu={handleCloseLanguagesMenu} />
           {/* Menus */}
 
