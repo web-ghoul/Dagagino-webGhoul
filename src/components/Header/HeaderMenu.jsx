@@ -44,6 +44,12 @@ const HeaderMenu = ({ activeMenu, handleLogout, handleCloseMenu }) => {
                 <Typography variant="h6">{t('header.navbar.profile')}</Typography>
               </Link>
             </ListItem>
+
+            <ListItem>
+              <Link href={`${process.env.NEXT_PUBLIC_COMPLAINT_ROUTE}/${userId}`}>
+                <Typography variant="h6">{t('header.navbar.complaint')}</Typography>
+              </Link>
+            </ListItem>
             <Divider />
           </>
         )

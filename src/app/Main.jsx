@@ -26,6 +26,7 @@ import ConfirmedInvoiceModal from './../models/ConfirmedInvoiceModal';
 import ConfirmedPurchaseModal from './../models/ConfirmedPurchaseModal';
 import DeleteUserProductModal from "../models/DeleteUserProductModal"
 import EditUserProductModal from "../models/EditUserProductModal"
+import SlideUp from "../components/SlideUp/SlideUp"
 
 
 const Main = ({ children }) => {
@@ -80,6 +81,7 @@ const Main = ({ children }) => {
                 <PendingPurchaseModal />
                 <ConfirmedInvoiceModal />
                 <ConfirmedPurchaseModal />
+                <SlideUp />
                 {/* Modals */}
                 <Toaster />
                 <Footer />

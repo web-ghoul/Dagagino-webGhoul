@@ -143,6 +143,12 @@ const Header = () => {
                   <Typography variant="h6">{t('header.navbar.contact')}</Typography>
                 </Link>
               </ListItem>
+
+              <ListItem>
+                <Link href={`${process.env.NEXT_PUBLIC_COMPLAINT_ROUTE}/${userId}`}>
+                  <Typography variant="h6">{t('header.navbar.complaint')}</Typography>
+                </Link>
+              </ListItem>
             </>
           )
         }
@@ -231,6 +237,12 @@ const Header = () => {
               <ListItem>
                 <Link href={`${process.env.NEXT_PUBLIC_REPORT_ROUTE}`}>
                   <Typography variant="h6">{t('header.navbar.contact')}</Typography>
+                </Link>
+              </ListItem>
+
+              <ListItem>
+                <Link href={`${process.env.NEXT_PUBLIC_COMPLAINT_ROUTE}/${userId}`}>
+                  <Typography variant="h6">{t('header.navbar.complaint')}</Typography>
                 </Link>
               </ListItem>
             </>
