@@ -3,14 +3,14 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import axios from 'axios'
 import { handleAlert } from "@/functions/handleAlert";
 
-export const getUserTypes = createAsyncThunk("userTypes/getUserTypes",async ()=>{
-    const res = await axios.get(`${process.env.NEXT_PUBLIC_SERVER_URL}/LookUp/GetUsersTypes`)
-    return res.data.data
+export const getUserTypes = createAsyncThunk("userTypes/getUserTypes", async () => {
+  const res = await axios.get(`${process.env.NEXT_PUBLIC_SERVER_URL}/LookUp/GetUsersTypes`)
+  return res.data.data
 })
 
 const initialState = {
   isLoading: true,
-  userTypes:null
+  userTypes: null
 }
 
 export const userTypesSlice = createSlice({
@@ -18,6 +18,9 @@ export const userTypesSlice = createSlice({
   initialState,
   reducers: {},
   extraReducers: (builder) => {
+    builder.addCase(getUserTypes.pending, (state) => {
+      state.isLoading = true
+    })
     builder.addCase(getUserTypes.fulfilled, (state, { payload }) => {
       state.userTypes = payload
       state.isLoading = false
@@ -25,9 +28,9 @@ export const userTypesSlice = createSlice({
     builder.addCase(getUserTypes.rejected, (state, action) => {
       state.isLoading = true
       if (action.payload) {
-        handleAlert(action.payload.errorMessage,"error")
+        handleAlert(action.payload.errorMessage, "error")
       } else {
-        handleAlert(action.error,"error")
+        handleAlert(action.error, "error")
       }
     })
   },

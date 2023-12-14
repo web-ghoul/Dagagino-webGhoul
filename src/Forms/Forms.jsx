@@ -45,7 +45,7 @@ const Forms = ({ type }) => {
   const router = useRouter()
   const dispatch = useDispatch()
   const { profileData, handleCloseEditProfileModal, handleCloseChangeAvatarModal } = useContext(ProfileContext)
-  const { deleteUserProductId, handleCloseDeleteUserProductModal } = useContext(DashboardContext)
+  const { deleteUserProductId, addSystemProduct, handleCloseDeleteUserProductModal } = useContext(DashboardContext)
   const { avatarForRegister, setAvatarForChange, setAvatarForEdit, avatarForChange, avatarForEdit } = useContext(UploadImageContext)
   const server_url = process.env.NEXT_PUBLIC_SERVER_URL
   const { id } = useParams()
@@ -449,27 +449,40 @@ const Forms = ({ type }) => {
     category: yup.string(t("forms.category.string")).required(t("forms.category.required"))
   }
 
+  const addSystemProductInitialValues = {
+    systemProduct: "",
+    stock: "",
+    price: "",
+  }
+
+  const addSystemProductSchema = {
+    systemProduct: yup.string(t("forms.systemProduct.string")).required(t("forms.systemProduct.required")),
+    stock: yup.string(t("forms.quantity.string")).required(t("forms.quantity.required")),
+    price: yup.string(t("forms.price.string")).required(t("forms.price.required")),
+  }
+
   const addProductFormik = useFormik({
-    initialValues: addProductInitialValues,
-    validationSchema: addProductSchema,
+    initialValues: addSystemProduct ? addSystemProductInitialValues : addProductInitialValues,
+    validationSchema: addSystemProduct ? addSystemProductSchema : addProductSchema,
     onSubmit: async (values, { resetForm }) => {
       setLoading(true)
-      await axios.post(`${server_url}`, values, {
-        headers: {
-          "Authorization": `Bearer ${token}`
-        }
-      }).then(() => {
-        try {
-          resetForm()
-          handleAlert(t("forms.add_product_successfully.message"), "success")
-        } catch (err) {
-          console.log(err)
-          handleAlert(t("forms.fetch.public.error"), "error")
-        }
-      }).catch((err) => {
-        console.log(err)
-        handleAlert(t("forms.fetch.public.error"), "error")
-      })
+      console.log(values)
+      // await axios.post(`${server_url}`, values, {
+      //   headers: {
+      //     "Authorization": `Bearer ${token}`
+      //   }
+      // }).then(() => {
+      //   try {
+      //     resetForm()
+      //     handleAlert(t("forms.add_product_successfully.message"), "success")
+      //   } catch (err) {
+      //     console.log(err)
+      //     handleAlert(t("forms.fetch.public.error"), "error")
+      //   }
+      // }).catch((err) => {
+      //   console.log(err)
+      //   handleAlert(t("forms.fetch.public.error"), "error")
+      // })
       setLoading(false)
     }
   })

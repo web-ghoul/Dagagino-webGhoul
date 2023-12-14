@@ -3,21 +3,21 @@ import axios from 'axios'
 import Cookies from 'js-cookie'
 import { handleAlert } from "@/functions/handleAlert";
 
-export const getConfirmedPurchases = createAsyncThunk("confirmedPurchases/getConfirmedInvoices",async ()=>{
-    const token = Cookies.get(`${process.env.NEXT_PUBLIC_TOKEN_NAME}`)
-    const userId = Cookies.get(`${process.env.NEXT_PUBLIC_USERID_NAME}`)
-    const res = await axios.get(`${process.env.NEXT_PUBLIC_SERVER_URL}/Invoices/BoughtConfirmedInvoices?id=${userId}`,{
-        headers:{
-          Authorization: `Bearer ${token}`
-        }
-      }
-    )
-    return res.data.data
+export const getConfirmedPurchases = createAsyncThunk("confirmedPurchases/getConfirmedInvoices", async () => {
+  const token = Cookies.get(`${process.env.NEXT_PUBLIC_TOKEN_NAME}`)
+  const userId = Cookies.get(`${process.env.NEXT_PUBLIC_USERID_NAME}`)
+  const res = await axios.get(`${process.env.NEXT_PUBLIC_SERVER_URL}/Invoices/BoughtConfirmedInvoices?id=${userId}`, {
+    headers: {
+      Authorization: `Bearer ${token}`
+    }
+  }
+  )
+  return res.data.data
 })
 
 const initialState = {
   isLoading: true,
-  confirmedPurchases:null
+  confirmedPurchases: null
 }
 
 export const confirmedPurchasesSlice = createSlice({
@@ -25,6 +25,9 @@ export const confirmedPurchasesSlice = createSlice({
   initialState,
   reducers: {},
   extraReducers: (builder) => {
+    builder.addCase(getConfirmedPurchases.pending, (state) => {
+      state.isLoading = true
+    })
     builder.addCase(getConfirmedPurchases.fulfilled, (state, { payload }) => {
       state.confirmedPurchases = payload
       state.isLoading = false
@@ -32,9 +35,9 @@ export const confirmedPurchasesSlice = createSlice({
     builder.addCase(getConfirmedPurchases.rejected, (state, action) => {
       state.isLoading = true
       if (action.payload) {
-        handleAlert(action.payload.errorMessage,"error")
+        handleAlert(action.payload.errorMessage, "error")
       } else {
-        handleAlert(action.error,"error")
+        handleAlert(action.error, "error")
       }
     })
   },

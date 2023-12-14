@@ -4,6 +4,12 @@ export const DashboardContext = createContext()
 
 const DashboardProvider = ({ children }) => {
     const [dashboardOption, setDashboardOption] = useState(false)
+    const [addSystemProduct, setAddSystemProduct] = useState(true)
+
+    //Toggle Add System Product
+    const handleToggleAddSystemProduct = () => {
+        setAddSystemProduct(!addSystemProduct)
+    }
 
     //User Product
     const [openUserProductModal, setOpenUserProductModal] = useState(false)
@@ -105,7 +111,7 @@ const DashboardProvider = ({ children }) => {
 
 
 
-    const obj = { dashboardOption, setDashboardOption, openUserProductModal, openPendingSaleModal, openConfirmedInvoiceModal, openPendingPurchaseModal, openConfirmedPurchaseModal, handleOpenUserProductModal, handleCloseUserProductModal, handleOpenDeleteUserProductModal, handleCloseDeleteUserProductModal, deleteUserProductId, openDeleteUserProductModal, handleOpenEditUserProductModal, handleCloseEditUserProductModal, editUserProduct, openEditUserProductModal, handleOpenPendingSaleModal, handleClosePendingSaleModal, handleOpenConfirmedInvoiceModal, handleCloseConfirmedInvoiceModal, handleOpenPendingPurchaseModal, handleClosePendingPurchaseModal, handleOpenConfirmedPurchaseModal, handleCloseConfirmedPurchaseModal, userProduct, pendingSale, confirmedInvoice, pendingPurchase, confirmedPurchase }
+    const obj = { dashboardOption, setDashboardOption, openUserProductModal, openPendingSaleModal, openConfirmedInvoiceModal, openPendingPurchaseModal, openConfirmedPurchaseModal, handleOpenUserProductModal, handleCloseUserProductModal, handleOpenDeleteUserProductModal, handleCloseDeleteUserProductModal, deleteUserProductId, openDeleteUserProductModal, handleOpenEditUserProductModal, handleCloseEditUserProductModal, editUserProduct, openEditUserProductModal, handleOpenPendingSaleModal, handleClosePendingSaleModal, handleOpenConfirmedInvoiceModal, handleCloseConfirmedInvoiceModal, handleOpenPendingPurchaseModal, handleClosePendingPurchaseModal, handleOpenConfirmedPurchaseModal, handleCloseConfirmedPurchaseModal, userProduct, pendingSale, confirmedInvoice, pendingPurchase, confirmedPurchase, addSystemProduct, handleToggleAddSystemProduct }
 
     return (
         <DashboardContext.Provider value={obj}>

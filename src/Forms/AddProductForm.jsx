@@ -3,42 +3,100 @@ import { PrimaryButton } from "@/muiCustomize/PrimaryButton"
 import { PrimaryTextField } from "@/muiCustomize/PrimaryTextField"
 import { useTranslation } from "react-i18next";
 import LoadButton from "../components/LoadButton/LoadButton";
+import { useDispatch, useSelector } from "react-redux";
+import { useContext, useEffect, useState } from "react";
+import { getSystemProducts } from "../store/systemProductsSlice";
+import { SecondaryButton } from "../muiCustomize/SecondaryButton";
+import { DashboardContext } from "../context/DashboardContext";
+import { LazyLoadImage } from "react-lazy-load-image-component";
 
 const AddProductForm = ({ loading, formik }) => {
   const { t } = useTranslation()
+  const { handleToggleAddSystemProduct } = useContext(DashboardContext)
+  const [product, setProduct] = useState(null)
+  const { systemProducts } = useSelector((state) => state.systemProducts)
+  const dispatch = useDispatch()
+  const handleChooseSystemProduct = (data) => {
+    setProduct(data)
+  }
+  useEffect(() => {
+    dispatch(getSystemProducts({ index: 0 }))
+  }, [dispatch])
+
+  useEffect(() => {
+    console.log(formik.values)
+    if (systemProducts) {
+      handleChooseSystemProduct(systemProducts[formik.values.systemProduct])
+    }
+  }, [formik, systemProducts])
+
   return (
     <Box className={`grid jcs aic g30`}>
-      <Box className={`flex jcs aic g20`}>
-        <PrimaryTextField
-          fullWidth
-          variant="outlined"
-          type="text"
-          id="arName"
-          name="arName"
-          label={t("forms.arabic_name.label")}
-          value={formik.values.arName}
-          onChange={formik.handleChange}
-          onBlur={formik.handleBlur}
-          error={formik.touched.arName && Boolean(formik.errors.arName)}
-          helperText={formik.touched.arName && formik.errors.arName}
-        />
-        <PrimaryTextField
-          fullWidth
-          variant="outlined"
-          type="text"
-          id="enName"
-          name="enName"
-          label={t("forms.english_name.label")}
-          value={formik.values.enName}
-          onChange={formik.handleChange}
-          onBlur={formik.handleBlur}
-          error={formik.touched.enName && Boolean(formik.errors.enName)}
-          helperText={formik.touched.enName && formik.errors.enName}
-        />
-      </Box>
+      {
+        product && (
+          <Box className={`flex jcc aic`}>
+            <LazyLoadImage src={product.imageURL} alt={"product"} />
+          </Box>
+        )
+      }
+      <PrimaryTextField
+        id="systemProduct"
+        name="systemProduct"
+        select
+        fullWidth
+        SelectProps={{
+          native: true,
+        }}
+        variant="outlined"
+        label={t("forms.systemProduct.label")}
+        value={formik.values.systemProduct}
+        onChange={formik.handleChange}
+        onBlur={formik.handleBlur}
+        error={formik.touched.systemProduct && Boolean(formik.errors.systemProduct)}
+        helperText={formik.touched.systemProduct && formik.errors.systemProduct}
+      >
+        <option key={-1} value={""}>
+        </option>
+        {
+          systemProducts && systemProducts.map((pro, i) => (
+            <option key={i} value={i}>
+              {
+                t("lang") === "ar" ? pro.arName : pro.enName
+              }
+            </option>
+          ))
+        }
+      </PrimaryTextField>
+      <PrimaryTextField
+        fullWidth
+        variant="outlined"
+        type="text"
+        id="price"
+        name="price"
+        label={t("forms.price.label")}
+        value={formik.values.price}
+        onChange={formik.handleChange}
+        onBlur={formik.handleBlur}
+        error={formik.touched.price && Boolean(formik.errors.price)}
+        helperText={formik.touched.price && formik.errors.price}
+      />
+      <PrimaryTextField
+        fullWidth
+        variant="outlined"
+        type="text"
+        id="stock"
+        name="stock"
+        label={t("forms.quantity.label")}
+        value={formik.values.stock}
+        onChange={formik.handleChange}
+        onBlur={formik.handleBlur}
+        error={formik.touched.stock && Boolean(formik.errors.stock)}
+        helperText={formik.touched.stock && formik.errors.stock}
+      />
       <LoadButton loading={loading}>
         <PrimaryButton type={"submit"}>{t("forms.add_product.button.text")}</PrimaryButton>
       </LoadButton>
+      <SecondaryButton onClick={handleToggleAddSystemProduct}>{t("forms.add_product.add_your_product.button.text")}</SecondaryButton>
     </Box>
   )
 }

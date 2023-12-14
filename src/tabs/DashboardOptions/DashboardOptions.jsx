@@ -11,6 +11,7 @@ import ConfirmedInvoicesSection from '../../sections/ConfirmedInvoicesSection/Co
 import PendingPurchasesSection from '../../sections/PendingPurchasesSection/PendingPurchasesSection';
 import ConfirmedPurchasesSection from '../../sections/ConfirmedPurchasesSection/ConfirmedPurchasesSection';
 import { useSelector } from 'react-redux';
+import Forms from '../../Forms/Forms';
 
 
 function CustomTabPanel(props) {
@@ -83,6 +84,7 @@ const DashboardOptions = () => {
         <UserProductsSection />
       </CustomTabPanel>
       <CustomTabPanel value={value} index={1}>
+        <Forms type={"add_product"} />
       </CustomTabPanel>
       <CustomTabPanel value={value} index={2}>
         <PendingSalesSection />

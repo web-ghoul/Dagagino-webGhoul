@@ -24,6 +24,9 @@ export const categoryDetailsSlice = createSlice({
   initialState,
   reducers: {},
   extraReducers: (builder) => {
+    builder.addCase(getCategoryDetails.pending, (state) => {
+      state.isLoading = true
+    })
     builder.addCase(getCategoryDetails.fulfilled, (state, { payload }) => {
       state.categoryDetails = payload
       state.isLoading = false
