@@ -1,18 +1,39 @@
-import { Box } from '@mui/material'
-import { useEffect } from 'react'
+import { Box, Typography } from '@mui/material'
+import { useContext, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { getCategories } from '../store/categoriesSlice'
 import UploadImage from '../components/UploadImage/UploadImage'
+import LoadButton from '../components/LoadButton/LoadButton'
+import { PrimaryButton } from '../muiCustomize/PrimaryButton'
+import { PrimaryTextField } from '../muiCustomize/PrimaryTextField'
+import { useTranslation } from 'react-i18next'
+import { LazyLoadImage } from 'react-lazy-load-image-component'
+import { UploadImageContext } from '../context/UploadImageContext'
 
-const EditUserProductForm = () => {
+const EditUserProductForm = ({ loading, formik }) => {
   const { categories } = useSelector((state) => state.categories)
+  const { productImageForEdit } = useContext(UploadImageContext)
   const dispatch = useDispatch()
+  const { t } = useTranslation()
+
   useEffect(() => {
     dispatch(getCategories())
   }, [dispatch])
+
+  useEffect(() => {
+    if (productImageForEdit) {
+      formik.values.imageURL = productImageForEdit
+    }
+  }, [productImageForEdit])
   return (
     <Box className={`grid jcs aic g30`}>
-      <UploadImage />
+      <Box className={`grid jcs aic g10`}>
+        <Typography>{t("forms.edit_user_product.edit_image.label")}</Typography>
+        <UploadImage type={"edit_product"} />
+        <Box className={`flex jcc aic product_image_box`}>
+          <LazyLoadImage src={productImageForEdit ? productImageForEdit : formik.values.imageURL} alt={"product"} />
+        </Box>
+      </Box>
       <PrimaryTextField
         fullWidth
         variant="outlined"

@@ -7,7 +7,8 @@
   max-height: 90vh;
   max-width: 90vw;
 
-  &.edit_profile {
+  &.edit_profile,
+  &.edit_user_product {
     min-width: 60vw;
   }
 
@@ -53,7 +54,8 @@
       }
     }
 
-    &.edit_profile {
+    &.edit_profile,
+    &.edit_user_product {
       min-width: 70vw;
     }
   }
@@ -80,7 +82,8 @@
       }
     }
 
-    &.edit_profile {
+    &.edit_profile,
+    &.edit_user_product {
       min-width: 80vw;
     }
   }
@@ -107,7 +110,8 @@
       }
     }
 
-    &.edit_profile {
+    &.edit_profile,
+    &.edit_user_product {
       min-width: 90vw;
     }
   }

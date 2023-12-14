@@ -75,10 +75,24 @@ form {
         }
     }
 
+    .product_image_box {
+        img {
+            width: 200px;
+            height: auto;
+        }
+    }
+
     @media (max-width:$md_size) {
         .md_wrap {
             flex-wrap: wrap;
         }
+
+        .product_image_box {
+            img {
+                width: 150px;
+            }
+        }
+
     }
 
     @media (max-width:$sm_size) {
@@ -98,5 +112,12 @@ form {
         .handle_report_dates_box {
             grid-template-columns: repeat(2, 1fr);
         }
+
+        .product_image_box {
+            img {
+                width: 100px;
+            }
+        }
+
     }
 }
