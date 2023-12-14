@@ -29,10 +29,18 @@
 
   @media (max-width:$md_size) {
     grid-template-columns: 10% 35% 20% 20% 15%;
+
+    &.loading_box {
+      grid-template-columns: 7.5% 32.5% 17.5% 17.5% 12.5%;
+    }
   }
 
   @media (max-width:$sm_size) {
     grid-template-columns: 12% 35% 25% 28%;
+
+    &.loading_box {
+      grid-template-columns: 9% 27% 20% 22%;
+    }
   }
 }
 

@@ -17,13 +17,33 @@
   grid-template-columns: 10% 25% 15% 15% 10% 25%;
 
   &.loading_box {
-    grid-template-columns: 7.5% 22.5% 12.5% 12.5% 7.5% 22.5%;
+    grid-template-columns: 7% 22.5% 12% 12% 9% 22%;
   }
 
   &:not(.default_box):hover {
     transform: translateY(-5px);
     color: $main;
     cursor: pointer;
+  }
+
+  @media (max-width:$md_size) {
+    &.loading_box {
+      grid-template-columns: 7% 22.5% 12.5% 12.5% 7.5% 20%;
+    }
+  }
+
+  @media (max-width:$sm_size) {
+    grid-template-columns: 10% 25% 15% 20% 10% 20%;
+
+    &.loading_box {
+      grid-template-columns: 7% 20% 12% 14% 10% 15%;
+    }
+  }
+
+  @media (max-width:$sm_size) {
+    &.loading_box {
+      grid-template-columns: 7% 15% 10% 12% 10% 10%;
+    }
   }
 }
 
