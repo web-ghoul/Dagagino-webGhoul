@@ -154,7 +154,7 @@ const EditUserProductForm = ({ loading, formik }) => {
           id="stock"
           name="stock"
           value={formik.values.stock}
-          onChange={formik.stock}
+          onChange={formik.handleChange}
           onBlur={formik.handleBlur}
           error={formik.touched.stock && Boolean(formik.errors.stock)}
           helperText={formik.touched.stock && formik.errors.stock}
