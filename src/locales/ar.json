@@ -26,6 +26,7 @@
     "forms.edit_profile.title": "تعديل ملفك الشخصى",
     "complaint.send_complaint.title": "قم بارسال شكوتك",
     "forms.register.button.text": "انشاء حساب",
+    "forms.edit_product.button.text": "تعديل المنتج",
     "forms.add_product.add_your_product.button.text": "اضف منتج خاص بك ؟",
     "forms.add_product.choose_product.button.text": "اختر منتج ؟",
     "forms.change_avatar.button.text": "تغير الصورة",

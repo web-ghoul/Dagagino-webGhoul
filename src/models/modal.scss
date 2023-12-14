@@ -52,6 +52,10 @@
         width: 100%;
       }
     }
+
+    &.edit_profile {
+      min-width: 70vw;
+    }
   }
 
   @media (max-width:$md_size) {
@@ -75,6 +79,10 @@
         width: 100%;
       }
     }
+
+    &.edit_profile {
+      min-width: 80vw;
+    }
   }
 
   @media (max-width:$sm_size) {
@@ -97,6 +105,10 @@
         height: 100%;
         width: 100%;
       }
+    }
+
+    &.edit_profile {
+      min-width: 90vw;
     }
   }
 

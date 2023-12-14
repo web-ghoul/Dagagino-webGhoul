@@ -20,6 +20,7 @@
     "footer.text": "All Right are Reserved By Dagagino.",
     "forms.login.button.text": "Login",
     "forms.register.button.text": "Register",
+    "forms.edit_product.button.text": "Edit Product",
     "forms.add_product.add_your_product.button.text": "Add your Own Product ?",
     "forms.add_product.choose_product.button.text": "Choose Product ?",
     "forms.contact.button.text": "Send Now",

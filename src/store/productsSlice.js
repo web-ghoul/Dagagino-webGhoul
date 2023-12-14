@@ -6,11 +6,21 @@ import { handleAlert } from "@/functions/handleAlert";
 
 export const getProducts = createAsyncThunk("products/getProducts", async (args) => {
   const token = Cookies.get(`${process.env.NEXT_PUBLIC_TOKEN_NAME}`)
-  const res = await axios.get(`${process.env.NEXT_PUBLIC_SERVER_URL}/Products/GetAllProducts?start=${args.index}&count=10`, {
+  let url;
+  let b = args.hasOwnProperty("categoryId")
+  if (b) {
+    url = `/Products/GetCategoryProducts?id=${args.categoryId}`
+  } else {
+    url = `/Products/GetAllProducts?start=${args.index}&count=10`
+  }
+  const res = await axios.get(`${process.env.NEXT_PUBLIC_SERVER_URL}${url}`, {
     headers: {
       Authorization: `Bearer ${token}`
     }
   })
+  if (b) {
+    return res.data.data
+  }
   return { data: res.data.data, index: args.index, last: res.data.data.length < 10 }
 })
 
@@ -25,25 +35,26 @@ export const productsSlice = createSlice({
   name: 'products',
   initialState,
   reducers: {
-    filterByCategory: (state, action) => {
-      if (action.payload !== "") {
-        state.products = state.products.filter((e) => e.category === action.payload)
-      }
-    }
+
   },
   extraReducers: (builder) => {
     builder.addCase(getProducts.pending, (state) => {
       state.isLoading = true
     })
     builder.addCase(getProducts.fulfilled, (state, { payload }) => {
-      if (payload.index > 0) {
-        state.products.push(...payload.data)
+      console.log(payload)
+      if (payload.hasOwnProperty("data")) {
+        if (payload.index > 0) {
+          state.products.push(...payload.data)
+        } else {
+          state.products = payload.data
+        }
+        state.index = payload.index
+        state.last = payload.last
       } else {
-        state.products = payload.data
+        state.products = payload
       }
-      state.index = payload.index
       state.isLoading = false
-      state.last = payload.last
     })
     builder.addCase(getProducts.rejected, (state, action) => {
       state.isLoading = true
@@ -55,7 +66,5 @@ export const productsSlice = createSlice({
     })
   },
 })
-
-export const { filterByCategory } = productsSlice.actions
 
 export default productsSlice.reducer

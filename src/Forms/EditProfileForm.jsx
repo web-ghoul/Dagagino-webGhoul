@@ -6,8 +6,8 @@ import { useTranslation } from "react-i18next";
 import 'react-phone-input-2/lib/style.css'
 import { PrimaryButton } from "@/muiCustomize/PrimaryButton";
 import LoadButton from "@/components/LoadButton/LoadButton";
-import { useState , useEffect, useContext } from "react";
-import {useDispatch , useSelector} from "react-redux"
+import { useState, useEffect, useContext } from "react";
+import { useDispatch, useSelector } from "react-redux"
 import governorates from "../data/governorates.json"
 import { getUserTypes } from "@/store/userTypesSlice";
 import UploadImage from "@/components/UploadImage/UploadImage";
@@ -15,26 +15,26 @@ import { LazyLoadImage } from "react-lazy-load-image-component";
 import { UploadImageContext } from "@/context/UploadImageContext";
 import { DeleteButton } from "@/muiCustomize/DeleteButton";
 
-const EditProfileForm = ({loading, formik,type}) => {
-  const {avatarForEdit , setAvatarForEdit} = useContext(UploadImageContext)
-  const {t} = useTranslation()
+const EditProfileForm = ({ loading, formik, type }) => {
+  const { avatarForEdit, setAvatarForEdit } = useContext(UploadImageContext)
+  const { t } = useTranslation()
   const [states, setStates] = useState([])
   const dispatch = useDispatch()
-  const {userTypes} = useSelector((state)=>state.userTypes)
+  const { userTypes } = useSelector((state) => state.userTypes)
 
-  useEffect(()=>{
-    if(type === "client"){
+  useEffect(() => {
+    if (type === "client") {
       dispatch(getUserTypes())
     }
-    if(formik.values.governorate !== ""){
-      const governorate = governorates.governorates.find((gov)=>gov._id === formik.values.governorate)
+    if (formik.values.governorate !== "") {
+      const governorate = governorates.governorates.find((gov) => gov._id === formik.values.governorate)
       setStates(governorate.states)
     }
-  },[formik , dispatch , type])
+  }, [formik, dispatch, type])
 
   return (
     <Box className={`grid jcs aic g30`}>
-      <Box className={`flex jcsb aic g20`}>
+      <Box className={`flex jcsb aic g30 sm_wrap`}>
         <PrimaryTextField
           fullWidth
           variant="outlined"
@@ -88,7 +88,7 @@ const EditProfileForm = ({loading, formik,type}) => {
         error={formik.touched.address && Boolean(formik.errors.address)}
         helperText={formik.touched.address && formik.errors.address}
       />
-      <Box className={`flex jcsb aic g20`}>
+      <Box className={`flex jcsb aic g30 md_wrap`}>
         <PrimaryTextField
           multiline
           rows={4}
@@ -135,7 +135,7 @@ const EditProfileForm = ({loading, formik,type}) => {
             error={formik.touched.commercialRegistrationNo && Boolean(formik.errors.commercialRegistrationNo)}
             helperText={formik.touched.commercialRegistrationNo && formik.errors.commercialRegistrationNo}
           />
-        ):(
+        ) : (
           <PrimaryTextField
             id="clientType"
             name="clientType"
@@ -155,16 +155,16 @@ const EditProfileForm = ({loading, formik,type}) => {
             <option key={-1} value={""}>
             </option>
             {
-              userTypes && userTypes[2].subTypes.map((type,i)=>(
+              userTypes && userTypes[2].subTypes.map((type, i) => (
                 <option key={i} value={type._id}>
-                {t("lang") === "ar" ? type.arName : type.enName}
+                  {t("lang") === "ar" ? type.arName : type.enName}
                 </option>
               ))
             }
           </PrimaryTextField>
         )
       }
-      <Box className={`flex jcsb aic g20`}>
+      <Box className={`flex jcsb aic g30 sm_wrap`}>
         <PrimaryTextField
           id="governorate"
           name="governorate"
@@ -184,13 +184,13 @@ const EditProfileForm = ({loading, formik,type}) => {
           <option key={-1} value={""}>
           </option>
           {
-            governorates.governorates.map((gov,i)=>(
+            governorates.governorates.map((gov, i) => (
               <option key={i} value={gov._id}>
                 {
-                  t("lang") === "ar" ? gov.arName : gov.enName 
+                  t("lang") === "ar" ? gov.arName : gov.enName
                 }
               </option>
-              ))
+            ))
           }
         </PrimaryTextField>
         <PrimaryTextField
@@ -212,23 +212,23 @@ const EditProfileForm = ({loading, formik,type}) => {
           <option key={-1} value={""}>
           </option>
           {
-            states.map((state,i)=>(
+            states.map((state, i) => (
               <option key={i} value={state._id}>
                 {
-                  t("lang") === "ar" ? state.arName : state.enName 
+                  t("lang") === "ar" ? state.arName : state.enName
                 }
               </option>
-              ))
+            ))
           }
         </PrimaryTextField>
       </Box>
       <Box className={`grid jcs aic g20`}>
         <Typography variant={"h6"}>{t("forms.register.upload_avatar.label")}</Typography>
-        {!avatarForEdit && <UploadImage type={"edit_profile"}/>}
+        {!avatarForEdit && <UploadImage type={"edit_profile"} />}
         {
-          avatarForEdit && 
+          avatarForEdit &&
           (<Box className={`grid jcfs aic g20`}>
-            <DeleteButton sx={{width:"fit-content"}} onClick={()=>setAvatarForEdit(null)}>Remove Avatar</DeleteButton>
+            <DeleteButton sx={{ width: "fit-content" }} onClick={() => setAvatarForEdit(null)}>Remove Avatar</DeleteButton>
             <Box className={`flex jcfs aic avatar`}>
               <LazyLoadImage src={avatarForEdit} className={`br6`} alt={"avatar"} />
             </Box>

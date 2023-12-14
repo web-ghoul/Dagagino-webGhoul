@@ -35,7 +35,7 @@ const RegisterForm = ({ loading, formik, type }) => {
 
   return (
     <Box className={`grid jcs aic g30`}>
-      <Box className={`flex jcsb aic g20`}>
+      <Box className={`flex jcsb aic g30 sm_wrap`}>
         <Box className={`grid jcs aic g5`} sx={{ width: "100%" }}>
           <Typography variant="h6" >{t("forms.arabic_name.label")}</Typography>
           <PrimaryTextField
@@ -96,7 +96,7 @@ const RegisterForm = ({ loading, formik, type }) => {
         error={formik.touched.address && Boolean(formik.errors.address)}
         helperText={formik.touched.address && formik.errors.address}
       />
-      <Box className={`flex jcsb aic g20`}>
+      <Box className={`flex jcsb aic g30 md_wrap`}>
         <PrimaryTextField
           fullWidth
           variant="outlined"
@@ -168,7 +168,7 @@ const RegisterForm = ({ loading, formik, type }) => {
           </PrimaryTextField>
         )
       }
-      <Box className={`flex jcsb aic g20`}>
+      <Box className={`flex jcsb aic g30`}>
         <PrimaryTextField
           id="governorate"
           name="governorate"

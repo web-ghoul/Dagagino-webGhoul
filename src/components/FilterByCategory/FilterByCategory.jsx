@@ -4,12 +4,21 @@ import { useDispatch, useSelector } from "react-redux"
 import { getCategories } from "../../store/categoriesSlice"
 import { PrimaryTextField } from "../../muiCustomize/PrimaryTextField"
 import { useTranslation } from "react-i18next"
-import { filterByCategory, getProducts } from "../../store/productsSlice"
+import { getProducts } from "../../store/productsSlice"
 
 const FilterByCategory = () => {
   const { categories } = useSelector((state) => state.categories)
   const dispatch = useDispatch()
   const { t } = useTranslation()
+
+  const handleChange = (e) => {
+    let val = e.target.value
+    if (val === "") {
+      dispatch(getProducts({ index: 0 }))
+    } else {
+      dispatch(getProducts({ categoryId: val }))
+    }
+  }
   useEffect(() => {
     dispatch(getCategories())
   }, [dispatch])
@@ -25,7 +34,7 @@ const FilterByCategory = () => {
         }}
         variant="outlined"
         label={t("filter_by_category.label")}
-        onChange={async (e) => { await dispatch(getProducts({ index: 0 })); dispatch(filterByCategory(e.target.value)) }}
+        onChange={handleChange}
       >
         <option value={""}>
           {t("filter_by_category.all")}

@@ -37,6 +37,10 @@ form {
     }
 
     .react-tel-input {
+        &>input {
+            direction: ltr !important;
+        }
+
         .selected-flag {
             width: 60px !important;
             left: 10px !important;
@@ -71,7 +75,17 @@ form {
         }
     }
 
+    @media (max-width:$md_size) {
+        .md_wrap {
+            flex-wrap: wrap;
+        }
+    }
+
     @media (max-width:$sm_size) {
+        .sm_wrap {
+            flex-wrap: wrap;
+        }
+
         .change_avatar_box {
             .change_avatar_box {
                 .change_avatar {

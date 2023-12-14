@@ -66,7 +66,7 @@ const AddSystemProductForm = ({ loading, formik }) => {
           ))
         }
       </PrimaryTextField>
-      <Box className={`flex jcsb aic g20`}>
+      <Box className={`flex jcsb aic g30 sm_wrap`}>
         <PrimaryTextField
           fullWidth
           variant="outlined"
