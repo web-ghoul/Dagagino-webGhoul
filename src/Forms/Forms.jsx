@@ -33,6 +33,7 @@ import { getProfile } from '@/store/profileSlice'
 import { DashboardContext } from "../context/DashboardContext";
 import DeleteUserProductForm from "./DeleteUserProductForm";
 import { getUserProducts } from "../store/userProductsSlice";
+import AddProductForm from "./AddProductForm";
 
 const Forms = ({ type }) => {
   const { t } = useTranslation()
@@ -333,7 +334,7 @@ const Forms = ({ type }) => {
         headers: {
           "Authorization": `Bearer ${token}`
         }
-      }).then((res) => {
+      }).then(() => {
         try {
           handleCloseEditProfileModal()
           handleCloseChangeAvatarModal()
@@ -408,7 +409,7 @@ const Forms = ({ type }) => {
         headers: {
           "Authorization": `Bearer ${token}`
         }
-      }).then((res) => {
+      }).then(() => {
         try {
           resetForm()
           handleAlert(t("forms.send_complaint_successfully.message"), "success")
@@ -426,18 +427,52 @@ const Forms = ({ type }) => {
 
 
   //Add Product
-  // const addProductInitialValues = {
-  //   arName: "",
-  //   enName: "",
-  //   arDescription: "",
-  //   enDescription: "",
-  //   imageURL: "",
-  //   stock: "",
-  //   price: "",
-  //   priceAfterDiscount: "",
-  //   category: "",
-  //   provider: ""
-  // }
+  const addProductInitialValues = {
+    arName: "",
+    enName: "",
+    arDescription: "",
+    enDescription: "",
+    imageURL: "",
+    stock: "",
+    price: "",
+    category: ""
+  }
+
+  const addProductSchema = {
+    arName: yup.string(t("forms.arabic_name.string")).required(t("forms.arabic_name.required")),
+    enName: yup.string(t("forms.english_name.string")).required(t("forms.english_name.required")),
+    arDescription: yup.string(t("forms.arabic_description.string")).required(t("forms.arabic_description.required")),
+    enDescription: yup.string(t("forms.english_description.string")).required(t("forms.english_description.required")),
+    imageURL: yup.string(),
+    stock: yup.string(t("forms.quantity.string")).required(t("forms.quantity.required")),
+    price: yup.string(t("forms.price.string")).required(t("forms.price.required")),
+    category: yup.string(t("forms.category.string")).required(t("forms.category.required"))
+  }
+
+  const addProductFormik = useFormik({
+    initialValues: addProductInitialValues,
+    validationSchema: addProductSchema,
+    onSubmit: async (values, { resetForm }) => {
+      setLoading(true)
+      await axios.post(`${server_url}`, values, {
+        headers: {
+          "Authorization": `Bearer ${token}`
+        }
+      }).then(() => {
+        try {
+          resetForm()
+          handleAlert(t("forms.add_product_successfully.message"), "success")
+        } catch (err) {
+          console.log(err)
+          handleAlert(t("forms.fetch.public.error"), "error")
+        }
+      }).catch((err) => {
+        console.log(err)
+        handleAlert(t("forms.fetch.public.error"), "error")
+      })
+      setLoading(false)
+    }
+  })
 
 
   //Delete User Product
@@ -466,9 +501,9 @@ const Forms = ({ type }) => {
   }
 
   return (
-    <form onSubmit={type === "login" ? loginFormik.handleSubmit : (type === "supplier" || type === "farmer" || type === "client") ? registerFormik.handleSubmit : type === "contact" ? contactFormik.handleSubmit : type === "verify_otp" ? verifyOTPFormik.handleSubmit : (type === "edit_profile" || type === "change_avatar") ? editProfileFormik.handleSubmit : type === "handle_report_dates" ? handleReportDatesFormik.handleSubmit : type === "complaint" ? complaintFormik.handleSubmit : type === "delete_user_product" && handleDeleteUserProduct} className={`${t("lang") === "ar" ? "form_arabic" : "form_english"}`}>
+    <form onSubmit={type === "login" ? loginFormik.handleSubmit : (type === "supplier" || type === "farmer" || type === "client") ? registerFormik.handleSubmit : type === "contact" ? contactFormik.handleSubmit : type === "verify_otp" ? verifyOTPFormik.handleSubmit : (type === "edit_profile" || type === "change_avatar") ? editProfileFormik.handleSubmit : type === "handle_report_dates" ? handleReportDatesFormik.handleSubmit : type === "add_product" ? addProductFormik.handleSubmit : type === "complaint" ? complaintFormik.handleSubmit : type === "delete_user_product" && handleDeleteUserProduct} className={`${t("lang") === "ar" ? "form_arabic" : "form_english"}`}>
       {
-        type === "login" ? <LoginForm loading={loading} formik={loginFormik} /> : (type === "client" || type === "supplier" || type === "farmer") ? <RegisterForm type={type} loading={loading} formik={registerFormik} /> : type === "contact" ? <ContactForm loading={loading} formik={contactFormik} /> : type === "verify_otp" ? <VerifyOTPForm loading={loading} sendOTP={sendOTP} formik={verifyOTPFormik} /> : type === "edit_profile" ? <EditProfileForm type={userType} loading={loading} formik={editProfileFormik} /> : type === "handle_report_dates" ? <HandleReportDateForm loading={loading} formik={handleReportDatesFormik} /> : type === "change_avatar" ? <ChangeAvatarForm loading={loading} formik={editProfileFormik} /> : type === "complaint" ? <ComplaintForm loading={loading} formik={complaintFormik} /> : type === "delete_user_product" && <DeleteUserProductForm loading={loading} />
+        type === "login" ? <LoginForm loading={loading} formik={loginFormik} /> : (type === "client" || type === "supplier" || type === "farmer") ? <RegisterForm type={type} loading={loading} formik={registerFormik} /> : type === "contact" ? <ContactForm loading={loading} formik={contactFormik} /> : type === "verify_otp" ? <VerifyOTPForm loading={loading} sendOTP={sendOTP} formik={verifyOTPFormik} /> : type === "edit_profile" ? <EditProfileForm type={userType} loading={loading} formik={editProfileFormik} /> : type === "handle_report_dates" ? <HandleReportDateForm loading={loading} formik={handleReportDatesFormik} /> : type === "change_avatar" ? <ChangeAvatarForm loading={loading} formik={editProfileFormik} /> : type === "complaint" ? <ComplaintForm loading={loading} formik={complaintFormik} /> : type === "add_product" ? <AddProductForm loading={loading} formik={addProductFormik} /> : type === "delete_user_product" && <DeleteUserProductForm loading={loading} />
       }
     </form>
   )

@@ -14,6 +14,8 @@
     "header.login": "تسجيل دخول",
     "header.logout": "تسجيل خروج",
     "header.register": "انشاء حساب",
+    "filter_by_category.label": "اختار على حسب الصنف",
+    "filter_by_category.all": "الكل",
     "logout.message": "تم تسجيل الخروج بنجاح",
     "footer.text": "جميع الحقوق محفوظه لدي موقع دجاجينو",
     "forms.login.button.text": "تسجيل دخول",

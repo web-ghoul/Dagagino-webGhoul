@@ -16,6 +16,7 @@ import confirmedInvoicesReducer from "./confirmedInvoicesSlice"
 import pendingPurchasesReducer from "./pendingPurchasesSlice"
 import confirmedPurchasesReducer from "./confirmedPurchasesSlice"
 import categoryDetailsReducer from "./categoryDetailsSlice"
+import categoriesReducer from "./categoriesSlice"
 
 export const store = configureStore({
   reducer: {
@@ -35,6 +36,7 @@ export const store = configureStore({
     "confirmedInvoices": confirmedInvoicesReducer,
     "pendingPurchases": pendingPurchasesReducer,
     "confirmedPurchases": confirmedPurchasesReducer,
-    "categoryDetails": categoryDetailsReducer
+    "categoryDetails": categoryDetailsReducer,
+    "categories": categoriesReducer
   },
 })

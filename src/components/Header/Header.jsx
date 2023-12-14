@@ -57,7 +57,7 @@ const Header = () => {
       const classes = e.target.classList
 
       //For Menu List
-      if (!(classes.contains("Header_header_menu_button__Qgj0A") || classes.contains("MuiSvgIcon-root") || e.target.parentElement.classList.contains("MuiSvgIcon-root"))) {
+      if (!(classes.contains("Header_header_menu_button__Qgj0A") || classes.contains("MuiSvgIcon-root") || (e.target.parentElement && e.target.parentElement.classList.contains("MuiSvgIcon-root")))) {
         setActiveMenu(false)
       }
 

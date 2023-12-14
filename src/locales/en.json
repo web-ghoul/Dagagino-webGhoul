@@ -14,6 +14,8 @@
     "header.login": "Login",
     "header.logout": "Logout",
     "header.register": "Register",
+    "filter_by_category.label": "Filter By Category",
+    "filter_by_category.all": "All",
     "logout.message": "Log Out Successfully",
     "footer.text": "All Right are Reserved By Dagagino.",
     "forms.login.button.text": "Login",

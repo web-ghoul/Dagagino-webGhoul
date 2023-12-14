@@ -3,9 +3,9 @@ import axios from 'axios'
 import Cookies from 'js-cookie'
 import { handleAlert } from "@/functions/handleAlert";
 
-export const getProfile = createAsyncThunk("profile/getProfile", async (args) => {
+export const getCategories = createAsyncThunk("categories/getCategories", async () => {
   const token = Cookies.get(`${process.env.NEXT_PUBLIC_TOKEN_NAME}`)
-  const res = await axios.get(`${process.env.NEXT_PUBLIC_SERVER_URL}/Users/GetProfile?id=${args.id}`, {
+  const res = await axios.get(`${process.env.NEXT_PUBLIC_SERVER_URL}/Products/GetAllCategories`, {
     headers: {
       Authorization: `Bearer ${token}`
     }
@@ -16,22 +16,19 @@ export const getProfile = createAsyncThunk("profile/getProfile", async (args) =>
 
 const initialState = {
   isLoading: true,
-  profile: null
+  categories: null
 }
 
-export const profileSlice = createSlice({
-  name: 'profile',
+export const categoriesSlice = createSlice({
+  name: 'categories',
   initialState,
   reducers: {},
   extraReducers: (builder) => {
-    builder.addCase(getProfile.pending, (state) => {
-      state.isLoading = true
-    })
-    builder.addCase(getProfile.fulfilled, (state, { payload }) => {
-      state.profile = payload
+    builder.addCase(getCategories.fulfilled, (state, { payload }) => {
+      state.categories = payload
       state.isLoading = false
     })
-    builder.addCase(getProfile.rejected, (state, action) => {
+    builder.addCase(getCategories.rejected, (state, action) => {
       state.isLoading = true
       if (action.payload) {
         handleAlert(action.payload.errorMessage, "error")
@@ -42,5 +39,4 @@ export const profileSlice = createSlice({
   },
 })
 
-
-export default profileSlice.reducer
+export default categoriesSlice.reducer
