@@ -168,7 +168,7 @@ const RegisterForm = ({ loading, formik, type }) => {
           </PrimaryTextField>
         )
       }
-      <Box className={`flex jcsb aic g30`}>
+      <Box className={`flex jcsb aic g30 sm_wrap`}>
         <PrimaryTextField
           id="governorate"
           name="governorate"
