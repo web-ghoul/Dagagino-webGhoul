@@ -1,4 +1,4 @@
-import { Box } from "@mui/material"
+import { Box, Typography } from "@mui/material"
 import { PrimaryButton } from "@/muiCustomize/PrimaryButton"
 import { PrimaryTextField } from "@/muiCustomize/PrimaryTextField"
 import { useTranslation } from "react-i18next";
@@ -38,61 +38,67 @@ const AddSystemProductForm = ({ loading, formik }) => {
           </Box>
         )
       }
-      <PrimaryTextField
-        id="systemProduct"
-        name="systemProduct"
-        select
-        fullWidth
-        SelectProps={{
-          native: true,
-        }}
-        variant="outlined"
-        label={t("forms.systemProduct.label")}
-        value={formik.values.systemProduct}
-        onChange={formik.handleChange}
-        onBlur={formik.handleBlur}
-        error={formik.touched.systemProduct && Boolean(formik.errors.systemProduct)}
-        helperText={formik.touched.systemProduct && formik.errors.systemProduct}
-      >
-        <option key={-1} value={""}>
-        </option>
-        {
-          systemProducts && systemProducts.map((pro, i) => (
-            <option key={i} value={i}>
-              {
-                t("lang") === "ar" ? pro.arName : pro.enName
-              }
-            </option>
-          ))
-        }
-      </PrimaryTextField>
+      <Box className={`grid jcs aic g10`} sx={{ width: "100%" }}>
+        <Typography variant="h6">{t("forms.systemProduct.label")}</Typography>
+        <PrimaryTextField
+          id="systemProduct"
+          name="systemProduct"
+          select
+          fullWidth
+          SelectProps={{
+            native: true,
+          }}
+          variant="outlined"
+          value={formik.values.systemProduct}
+          onChange={formik.handleChange}
+          onBlur={formik.handleBlur}
+          error={formik.touched.systemProduct && Boolean(formik.errors.systemProduct)}
+          helperText={formik.touched.systemProduct && formik.errors.systemProduct}
+        >
+          <option key={-1} value={""}>
+          </option>
+          {
+            systemProducts && systemProducts.map((pro, i) => (
+              <option key={i} value={i}>
+                {
+                  t("lang") === "ar" ? pro.arName : pro.enName
+                }
+              </option>
+            ))
+          }
+        </PrimaryTextField>
+      </Box>
       <Box className={`flex jcsb aic g30 sm_wrap`}>
-        <PrimaryTextField
-          fullWidth
-          variant="outlined"
-          type="text"
-          id="price"
-          name="price"
-          label={t("forms.price.label")}
-          value={formik.values.price}
-          onChange={formik.handleChange}
-          onBlur={formik.handleBlur}
-          error={formik.touched.price && Boolean(formik.errors.price)}
-          helperText={formik.touched.price && formik.errors.price}
-        />
-        <PrimaryTextField
-          fullWidth
-          variant="outlined"
-          type="text"
-          id="stock"
-          name="stock"
-          label={t("forms.quantity.label")}
-          value={formik.values.stock}
-          onChange={formik.handleChange}
-          onBlur={formik.handleBlur}
-          error={formik.touched.stock && Boolean(formik.errors.stock)}
-          helperText={formik.touched.stock && formik.errors.stock}
-        />
+        <Box className={`grid jcs aic g10`} sx={{ width: "100%" }}>
+          <Typography variant="h6">{t("forms.price.label")}</Typography>
+          <PrimaryTextField
+            fullWidth
+            variant="outlined"
+            type="text"
+            id="price"
+            name="price"
+            value={formik.values.price}
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+            error={formik.touched.price && Boolean(formik.errors.price)}
+            helperText={formik.touched.price && formik.errors.price}
+          />
+        </Box>
+        <Box className={`grid jcs aic g10`} sx={{ width: "100%" }}>
+          <Typography variant="h6">{t("forms.quantity.label")}</Typography>
+          <PrimaryTextField
+            fullWidth
+            variant="outlined"
+            type="text"
+            id="stock"
+            name="stock"
+            value={formik.values.stock}
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+            error={formik.touched.stock && Boolean(formik.errors.stock)}
+            helperText={formik.touched.stock && formik.errors.stock}
+          />
+        </Box>
       </Box>
       <LoadButton loading={loading}>
         <PrimaryButton type={"submit"}>{t("forms.add_product.button.text")}</PrimaryButton>

@@ -68,6 +68,7 @@
     "forms.systemProduct.label": "Choose a Product",
     "forms.edit_user_product.edit_image.label": "Edit Product Image",
     "forms.category.label": "Choose Category",
+    "forms.product_image.label": "Upload Product Image",
     "forms.arabic_name.string": "Enter your Arabic Name",
     "forms.english_name.string": "Enter your English Name",
     "forms.arabic_description.string": "Enter your Arabic Description",

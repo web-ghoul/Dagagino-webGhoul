@@ -1,4 +1,4 @@
-import { Box } from "@mui/material"
+import { Box, Typography } from "@mui/material"
 import { useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { getCategories } from "../../store/categoriesSlice"
@@ -24,31 +24,33 @@ const FilterByCategory = () => {
   }, [dispatch])
   return (
     <Box className={`flex jcs aic`}>
-      <PrimaryTextField
-        id="categories"
-        name="categories"
-        select
-        fullWidth
-        SelectProps={{
-          native: true,
-        }}
-        variant="outlined"
-        label={t("filter_by_category.label")}
-        onChange={handleChange}
-      >
-        <option value={""}>
-          {t("filter_by_category.all")}
-        </option>
-        {
-          categories && categories.map((cat, i) => (
-            <option key={i} value={cat._id}>
-              {
-                t("lang") === "ar" ? cat.arName : cat.enName
-              }
-            </option>
-          ))
-        }
-      </PrimaryTextField>
+      <Box className={`grid jcs aic g10`} sx={{ width: "100%" }}>
+        <Typography variant="h6">{t("filter_by_category.label")}</Typography>
+        <PrimaryTextField
+          id="categories"
+          name="categories"
+          select
+          fullWidth
+          SelectProps={{
+            native: true,
+          }}
+          variant="outlined"
+          onChange={handleChange}
+        >
+          <option value={""}>
+            {t("filter_by_category.all")}
+          </option>
+          {
+            categories && categories.map((cat, i) => (
+              <option key={i} value={cat._id}>
+                {
+                  t("lang") === "ar" ? cat.arName : cat.enName
+                }
+              </option>
+            ))
+          }
+        </PrimaryTextField>
+      </Box>
     </Box>
   )
 }

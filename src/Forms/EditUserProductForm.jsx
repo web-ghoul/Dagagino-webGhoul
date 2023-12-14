@@ -34,118 +34,132 @@ const EditUserProductForm = ({ loading, formik }) => {
           <LazyLoadImage src={productImageForEdit ? productImageForEdit : formik.values.imageURL} alt={"product"} />
         </Box>
       </Box>
-      <PrimaryTextField
-        fullWidth
-        variant="outlined"
-        id="category"
-        name="category"
-        select
-        label={t("forms.category.label")}
-        SelectProps={{
-          native: true,
-        }}
-        value={formik.values.category}
-        onChange={formik.handleChange}
-        onBlur={formik.handleBlur}
-        error={formik.touched.category && Boolean(formik.errors.category)}
-        helperText={formik.touched.category && formik.errors.category}
-      >
-        <option key={-1} value={""}>
-        </option>
-        {
-          categories && categories.map((cat, i) => (
-            <option key={i} value={cat._id}>
-              {t("lang") === "ar" ? cat.arName : cat.enName}
-            </option>
-          ))
-        }
-      </PrimaryTextField>
+      <Box className={`grid jcs aic g10`} sx={{ width: "100%" }}>
+        <Typography variant="h6">{t("forms.category.label")}</Typography>
+        <PrimaryTextField
+          fullWidth
+          variant="outlined"
+          id="category"
+          name="category"
+          select
+          SelectProps={{
+            native: true,
+          }}
+          value={formik.values.category}
+          onChange={formik.handleChange}
+          onBlur={formik.handleBlur}
+          error={formik.touched.category && Boolean(formik.errors.category)}
+          helperText={formik.touched.category && formik.errors.category}
+        >
+          <option key={-1} value={""}>
+          </option>
+          {
+            categories && categories.map((cat, i) => (
+              <option key={i} value={cat._id}>
+                {t("lang") === "ar" ? cat.arName : cat.enName}
+              </option>
+            ))
+          }
+        </PrimaryTextField>
+      </Box>
       <Box className={`flex jcsb aic g30 sm_wrap`}>
-        <PrimaryTextField
-          fullWidth
-          variant="outlined"
-          type="text"
-          id="arName"
-          name="arName"
-          label={t("forms.arabic_name.label")}
-          value={formik.values.arName}
-          onChange={formik.handleChange}
-          onBlur={formik.handleBlur}
-          error={formik.touched.arName && Boolean(formik.errors.arName)}
-          helperText={formik.touched.arName && formik.errors.arName}
-        />
-        <PrimaryTextField
-          fullWidth
-          variant="outlined"
-          type="text"
-          id="enName"
-          name="enName"
-          label={t("forms.english_name.label")}
-          value={formik.values.enName}
-          onChange={formik.handleChange}
-          onBlur={formik.handleBlur}
-          error={formik.touched.enName && Boolean(formik.errors.enName)}
-          helperText={formik.touched.enName && formik.errors.enName}
-        />
+        <Box className={`grid jcs aic g10`} sx={{ width: "100%" }}>
+          <Typography variant="h6">{t("forms.arabic_name.label")}</Typography>
+          <PrimaryTextField
+            fullWidth
+            variant="outlined"
+            type="text"
+            id="arName"
+            name="arName"
+            value={formik.values.arName}
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+            error={formik.touched.arName && Boolean(formik.errors.arName)}
+            helperText={formik.touched.arName && formik.errors.arName}
+          />
+        </Box>
+        <Box className={`grid jcs aic g10`} sx={{ width: "100%" }}>
+          <Typography variant="h6">{t("forms.english_name.label")}</Typography>
+          <PrimaryTextField
+            fullWidth
+            variant="outlined"
+            type="text"
+            id="enName"
+            name="enName"
+            value={formik.values.enName}
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+            error={formik.touched.enName && Boolean(formik.errors.enName)}
+            helperText={formik.touched.enName && formik.errors.enName}
+          />
+        </Box>
       </Box>
       <Box className={`flex jcsb aic g30 md_wrap`}>
+        <Box className={`grid jcs aic g10`} sx={{ width: "100%" }}>
+          <Typography variant="h6">{t("forms.arabic_description.label")}</Typography>
+          <PrimaryTextField
+            multiline
+            rows={4}
+            fullWidth
+            variant="outlined"
+            type="text"
+            id="arDescription"
+            name="arDescription"
+            value={formik.values.arDescription}
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+            error={formik.touched.arDescription && Boolean(formik.errors.arDescription)}
+            helperText={formik.touched.arDescription && formik.errors.arDescription}
+          />
+        </Box>
+        <Box className={`grid jcs aic g10`} sx={{ width: "100%" }}>
+          <Typography variant="h6">{t("forms.english_description.label")}</Typography>
+          <PrimaryTextField
+            multiline
+            rows={4}
+            fullWidth
+            variant="outlined"
+            type="text"
+            id="enDescription"
+            name="enDescription"
+            value={formik.values.enDescription}
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+            error={formik.touched.enDescription && Boolean(formik.errors.enDescription)}
+            helperText={formik.touched.enDescription && formik.errors.enDescription}
+          />
+        </Box>
+      </Box>
+      <Box className={`grid jcs aic g10`} sx={{ width: "100%" }}>
+        <Typography variant="h6">{t("forms.price.label")}</Typography>
         <PrimaryTextField
-          multiline
-          rows={4}
           fullWidth
           variant="outlined"
           type="text"
-          id="arDescription"
-          name="arDescription"
-          label={t("forms.arabic_description.label")}
-          value={formik.values.arDescription}
+          id="price"
+          name="price"
+          value={formik.values.price}
           onChange={formik.handleChange}
           onBlur={formik.handleBlur}
-          error={formik.touched.arDescription && Boolean(formik.errors.arDescription)}
-          helperText={formik.touched.arDescription && formik.errors.arDescription}
-        />
-        <PrimaryTextField
-          multiline
-          rows={4}
-          fullWidth
-          variant="outlined"
-          type="text"
-          id="enDescription"
-          name="enDescription"
-          label={t("forms.english_description.label")}
-          value={formik.values.enDescription}
-          onChange={formik.handleChange}
-          onBlur={formik.handleBlur}
-          error={formik.touched.enDescription && Boolean(formik.errors.enDescription)}
-          helperText={formik.touched.enDescription && formik.errors.enDescription}
+          error={formik.touched.price && Boolean(formik.errors.price)}
+          helperText={formik.touched.price && formik.errors.price}
         />
       </Box>
-      <PrimaryTextField
-        fullWidth
-        variant="outlined"
-        type="text"
-        id="price"
-        name="price"
-        label={t("forms.price.label")}
-        value={formik.values.price}
-        onChange={formik.handleChange}
-        onBlur={formik.handleBlur}
-        error={formik.touched.price && Boolean(formik.errors.price)}
-        helperText={formik.touched.price && formik.errors.price}
-      />
-      <PrimaryTextField
-        fullWidth
-        variant="outlined"
-        type="text"
-        id="stock"
-        name="stock"
-        label={t("forms.quantity.label")}
-        value={formik.values.stock}
-        onChange={formik.stock}
-        onBlur={formik.handleBlur}
-        error={formik.touched.stock && Boolean(formik.errors.stock)}
-        helperText={formik.touched.stock && formik.errors.stock}
-      />
+      <Box className={`grid jcs aic g10`} sx={{ width: "100%" }}>
+        <Typography variant="h6">{t("forms.quantity.label")}</Typography>
+        <PrimaryTextField
+          fullWidth
+          variant="outlined"
+          type="text"
+          id="stock"
+          name="stock"
+          value={formik.values.stock}
+          onChange={formik.stock}
+          onBlur={formik.handleBlur}
+          error={formik.touched.stock && Boolean(formik.errors.stock)}
+          helperText={formik.touched.stock && formik.errors.stock}
+        />
+      </Box>
       <LoadButton loading={loading}>
         <PrimaryButton type={"submit"}>{t("forms.edit_product.button.text")}</PrimaryButton>
       </LoadButton>

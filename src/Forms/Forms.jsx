@@ -430,22 +430,22 @@ const Forms = ({ type }) => {
 
   //Add Product
   const addProductInitialValues = {
+    imageURL: "",
     arName: "",
     enName: "",
     arDescription: "",
     enDescription: "",
-    imageURL: "",
     stock: "",
     price: "",
     category: ""
   }
 
   const addProductSchema = yup.object({
+    imageURL: yup.string(),
     arName: yup.string(t("forms.arabic_name.string")).required(t("forms.arabic_name.required")),
     enName: yup.string(t("forms.english_name.string")).required(t("forms.english_name.required")),
     arDescription: yup.string(t("forms.arabic_description.string")).required(t("forms.arabic_description.required")),
     enDescription: yup.string(t("forms.english_description.string")).required(t("forms.english_description.required")),
-    imageURL: yup.string(),
     stock: yup.string(t("forms.quantity.string")).required(t("forms.quantity.required")),
     price: yup.string(t("forms.price.string")).required(t("forms.price.required")),
     category: yup.string(t("forms.category.string")).required(t("forms.category.required"))

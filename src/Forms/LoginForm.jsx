@@ -1,5 +1,5 @@
 import { PrimaryTextField } from "@/muiCustomize/PrimaryTextField"
-import { Box } from "@mui/material"
+import { Box, Typography } from "@mui/material"
 import PhoneInput from "react-phone-input-2"
 import { useTranslation } from "react-i18next";
 import 'react-phone-input-2/lib/style.css'
@@ -21,19 +21,21 @@ const LoginForm = ({ loading, formik }) => {
         value={phone}
         onChange={(e) => { setPhone("+" + e); formik.values.phone = "+" + e }}
       />
-      <PrimaryTextField
-        fullWidth
-        variant="outlined"
-        type="password"
-        id="password"
-        name="password"
-        label={t("forms.password.label")}
-        value={formik.values.password}
-        onChange={formik.handleChange}
-        onBlur={formik.handleBlur}
-        error={formik.touched.password && Boolean(formik.errors.password)}
-        helperText={formik.touched.password && formik.errors.password}
-      />
+      <Box className={`grid jcs aic g10`} sx={{ width: "100%" }}>
+        <Typography variant="h6">{t("forms.password.label")}</Typography>
+        <PrimaryTextField
+          fullWidth
+          variant="outlined"
+          type="password"
+          id="password"
+          name="password"
+          value={formik.values.password}
+          onChange={formik.handleChange}
+          onBlur={formik.handleBlur}
+          error={formik.touched.password && Boolean(formik.errors.password)}
+          helperText={formik.touched.password && formik.errors.password}
+        />
+      </Box>
       <Box className={`grid jcs aic g20`}>
         <LoadButton loading={loading}>
           <PrimaryButton type={"submit"}>{t("forms.login.button.text")}</PrimaryButton>

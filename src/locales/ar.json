@@ -70,6 +70,7 @@
     "forms.systemProduct.label": "اختر منتج",
     "forms.edit_user_product.edit_image.label": "قم بتغير صورة المنتج",
     "forms.category.label": "اختر الصنف",
+    "forms.product_image.label": "قم برفع صورة للمنتج",
     "forms.arabic_name.string": "ادخل الاسم بالعربية",
     "forms.english_name.string": "ادخل الاسم بالانجليزية",
     "forms.arabic_description.string": "ادخل الوصف بالعربية",
