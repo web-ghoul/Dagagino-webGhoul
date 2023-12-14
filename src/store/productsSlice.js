@@ -42,7 +42,6 @@ export const productsSlice = createSlice({
       state.isLoading = true
     })
     builder.addCase(getProducts.fulfilled, (state, { payload }) => {
-      console.log(payload)
       if (payload.hasOwnProperty("data")) {
         if (payload.index > 0) {
           state.products.push(...payload.data)

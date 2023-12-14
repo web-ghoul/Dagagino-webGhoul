@@ -93,6 +93,37 @@ form {
             }
         }
 
+        .react-tel-input {
+            .selected-flag {
+                width: 50px !important;
+                left: 10px !important;
+            }
+
+            .form-control {
+                padding: 25px !important;
+                padding-left: 70px !important;
+                font-size: 18px !important;
+            }
+        }
+
+        &.form_arabic {
+            .react-tel-input {
+                .selected-flag {
+                    left: 0px !important;
+                    width: 50px !important;
+
+                    .flag {
+                        left: 8px !important;
+                    }
+                }
+
+                .form-control {
+                    padding: 25px !important;
+                    padding-right: 50px !important;
+                    font-size: 18px !important;
+                }
+            }
+        }
     }
 
     @media (max-width:$sm_size) {
@@ -119,5 +150,36 @@ form {
             }
         }
 
+        .react-tel-input {
+            .selected-flag {
+                width: 40px !important;
+                left: 4px !important;
+            }
+
+            .form-control {
+                padding: 20px !important;
+                padding-left: 60px !important;
+                font-size: 16px !important;
+            }
+        }
+
+        &.form_arabic {
+            .react-tel-input {
+                .selected-flag {
+                    left: 4px !important;
+                    width: 40px !important;
+
+                    .flag {
+                        left: 0px !important;
+                    }
+                }
+
+                .form-control {
+                    padding: 20px !important;
+                    padding-right: 40px !important;
+                    font-size: 16px !important;
+                }
+            }
+        }
     }
 }

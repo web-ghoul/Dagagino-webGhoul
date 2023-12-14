@@ -549,7 +549,8 @@ const Forms = ({ type }) => {
       }
       setLoading(true)
       console.log(editUserProduct)
-      await axios.put(`${server_url}/Products/${userType === "farm" ? "UpdateFarmProduct" : "UpdateSupplierProduct"}?id=${editUserProduct._id}`, values, {
+      values.productID = editUserProduct._id
+      await axios.put(`${server_url}/Products/${userType === "farm" ? "UpdateFarmProduct" : "UpdateSupplierProduct"}?id=${userTypeId}`, values, {
         headers: {
           "Authorization": `Bearer ${token}`
         }

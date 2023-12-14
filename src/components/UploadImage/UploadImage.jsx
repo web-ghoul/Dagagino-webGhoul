@@ -7,7 +7,7 @@ import { FileUploader } from "react-drag-drop-files";
 import { useTranslation } from "react-i18next";
 import LoadUploadingImage from "../LoadUploadingImage/LoadUploadingImage";
 
-const fileTypes = ["JPG", "PNG", "GIF"];
+const fileTypes = ["JPG", "PNG", "GIF", "jpeg"];
 
 const UploadImage = ({ type }) => {
   const { t } = useTranslation()

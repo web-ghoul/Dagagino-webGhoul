@@ -15,6 +15,7 @@ import HeaderMenu from '@/components/Header/HeaderMenu'
 import { logout } from '@/store/authSlice'
 import toast from 'react-hot-toast'
 import LanguagesMenu from '@/components/Header/LanguagesMenu'
+import { handleAlert } from '../../functions/handleAlert'
 
 const Header = () => {
   const router = useRouter()
@@ -35,7 +36,7 @@ const Header = () => {
   const handleLogout = () => {
     dispatch(logout())
     router.push(`${process.env.NEXT_PUBLIC_HOME_ROUTE}`)
-    toast.success(t("logout.message"))
+    handleAlert(t("logout.message"), "success")
     handleCloseMenu()
   }
 
