@@ -82,8 +82,8 @@ const HeaderMenu = ({ activeMenu, handleLogout, handleCloseMenu }) => {
           </ListItem>
         )
       }
-      <PrimaryButton onClick={handleLogout}>
-        {t('header.logout')}</PrimaryButton>
+      {signed && <PrimaryButton onClick={handleLogout}>
+        {t('header.logout')}</PrimaryButton>}
       {
         mdSize && (
           !signed && (
