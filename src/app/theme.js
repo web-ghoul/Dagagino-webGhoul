@@ -36,8 +36,8 @@ export const theme = createTheme({
       width: "1440px",
     },
   },
-  typography:{
-    fontFamily:"Cairo"
+  typography: {
+    fontFamily: "Cairo"
   }
 });
 

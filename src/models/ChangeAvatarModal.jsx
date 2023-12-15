@@ -11,7 +11,7 @@ const ChangeAvatarModal = () => {
 
   return (
     <Modal
-      open={openChangeAvatarModal}
+      open={openChangeAvatarModal ? openChangeAvatarModal : false}
       onClose={handleCloseChangeAvatarModal}
       aria-labelledby="modal-modal-title"
       aria-describedby="modal-modal-description"

@@ -8,7 +8,7 @@ const DeleteUserProductModal = () => {
   const { openDeleteUserProductModal, handleCloseDeleteUserProductModal } = useContext(DashboardContext)
   return (
     <Modal
-      open={openDeleteUserProductModal}
+      open={openDeleteUserProductModal ? openDeleteUserProductModal : false}
       onClose={handleCloseDeleteUserProductModal}
       aria-labelledby="modal-modal-title"
       aria-describedby="modal-modal-description"

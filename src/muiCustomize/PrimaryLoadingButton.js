@@ -8,11 +8,11 @@ export const PrimaryLoadingButton = styled(LoadingButton)(({ theme }) => ({
   borderWidth: "2px",
   borderColor: theme.palette.primary.main,
   borderStyle: "solid",
-  padding: "24px !important",
+  padding: "22px !important",
   borderRadius: "30px",
   boxShadow: "rgba(0, 0, 0, 0.18) 0px 2px 4px;",
-  fontFamily:"Cairo",
-  "& svg":{
+  fontFamily: "Cairo",
+  "& svg": {
     color: theme.palette.white
   },
   "&:hover": {
@@ -20,15 +20,15 @@ export const PrimaryLoadingButton = styled(LoadingButton)(({ theme }) => ({
     color: theme.palette.primary.main,
   },
   [theme.breakpoints.down("lg")]: {
-    padding: "20px",
-  },
-  [theme.breakpoints.down("md")]: {
     padding: "18px",
   },
-  [theme.breakpoints.down("sm")]: {
+  [theme.breakpoints.down("md")]: {
     padding: "16px",
   },
+  [theme.breakpoints.down("sm")]: {
+    padding: "14px",
+  },
   [theme.breakpoints.down("sx")]: {
-    padding: "12px",
+    padding: "10px",
   },
 }));

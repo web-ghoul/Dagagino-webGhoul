@@ -19,7 +19,7 @@ const UserProduct = ({ def, product, number }) => {
 
       <Typography variant={"h6"}>{t("dashboard.user_product.product_price")}</Typography>
 
-      <Typography variant={"h6"}>{t("dashboard.user_product.product_price_after_discount")}</Typography>
+      <Typography variant={"h6"}>{t("dashboard.user_product.product_priceAfterDiscount")}</Typography>
 
       <Typography variant={"h6"}>{t("dashboard.user_product.quantity")}</Typography>
     </Box>

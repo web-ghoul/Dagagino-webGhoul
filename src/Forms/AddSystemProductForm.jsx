@@ -33,7 +33,7 @@ const AddSystemProductForm = ({ loading, formik }) => {
     <Box className={`grid jcs aic g30`}>
       {
         product && (
-          <Box className={`flex jcc aic`}>
+          <Box className={`flex jcc aic product_image_box`}>
             <LazyLoadImage src={product.imageURL} alt={"product"} />
           </Box>
         )
@@ -68,6 +68,21 @@ const AddSystemProductForm = ({ loading, formik }) => {
           }
         </PrimaryTextField>
       </Box>
+      <Box className={`grid jcs aic g10`} sx={{ width: "100%" }}>
+        <Typography variant="h6">{t("forms.quantity.label")}</Typography>
+        <PrimaryTextField
+          fullWidth
+          variant="outlined"
+          type="text"
+          id="stock"
+          name="stock"
+          value={formik.values.stock}
+          onChange={formik.handleChange}
+          onBlur={formik.handleBlur}
+          error={formik.touched.stock && Boolean(formik.errors.stock)}
+          helperText={formik.touched.stock && formik.errors.stock}
+        />
+      </Box>
       <Box className={`flex jcsb aic g30 sm_wrap`}>
         <Box className={`grid jcs aic g10`} sx={{ width: "100%" }}>
           <Typography variant="h6">{t("forms.price.label")}</Typography>
@@ -85,18 +100,18 @@ const AddSystemProductForm = ({ loading, formik }) => {
           />
         </Box>
         <Box className={`grid jcs aic g10`} sx={{ width: "100%" }}>
-          <Typography variant="h6">{t("forms.quantity.label")}</Typography>
+          <Typography variant="h6">{t("forms.priceAfterDiscount.label")}</Typography>
           <PrimaryTextField
             fullWidth
             variant="outlined"
             type="text"
-            id="stock"
-            name="stock"
-            value={formik.values.stock}
+            id="priceAfterDiscount"
+            name="priceAfterDiscount"
+            value={formik.values.priceAfterDiscount}
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
-            error={formik.touched.stock && Boolean(formik.errors.stock)}
-            helperText={formik.touched.stock && formik.errors.stock}
+            error={formik.touched.priceAfterDiscount && Boolean(formik.errors.priceAfterDiscount)}
+            helperText={formik.touched.priceAfterDiscount && formik.errors.priceAfterDiscount}
           />
         </Box>
       </Box>

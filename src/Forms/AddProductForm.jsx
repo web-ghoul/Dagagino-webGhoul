@@ -9,21 +9,36 @@ import { SecondaryButton } from "../muiCustomize/SecondaryButton";
 import { DashboardContext } from "../context/DashboardContext";
 import { getCategories } from "../store/categoriesSlice";
 import UploadImage from "../components/UploadImage/UploadImage";
+import { UploadImageContext } from "../context/UploadImageContext";
+import { LazyLoadImage } from "react-lazy-load-image-component";
 
 const AddProductForm = ({ loading, formik }) => {
   const { t } = useTranslation()
   const { handleToggleAddSystemProduct } = useContext(DashboardContext)
+  const { productImageForCreate } = useContext(UploadImageContext)
   const { categories } = useSelector((state) => state.categories)
   const dispatch = useDispatch()
+
   useEffect(() => {
     dispatch(getCategories())
   }, [dispatch])
 
+  useEffect(() => {
+    formik.values.imageURL = productImageForCreate
+  }, [productImageForCreate])
+
   return (
     <Box className={`grid jcs aic g30`}>
-      <Box className={`grid jcs aic g10`} sx={{ width: "100%" }}>
+      <Box className={`grid  jcs aic g10`} sx={{ width: "100%" }}>
         <Typography variant="h6">{t("forms.product_image.label")}</Typography>
         <UploadImage type={"add_product"} />
+        {productImageForCreate &&
+          (
+            <Box className={`flex jcc aic product_image_box`}>
+              <LazyLoadImage src={productImageForCreate} alt={"product"} />
+            </Box>
+          )
+        }
       </Box>
       <Box className={`grid jcs aic g10`} sx={{ width: "100%" }}>
         <Typography variant="h6">{t("forms.category.label")}</Typography>
@@ -91,6 +106,8 @@ const AddProductForm = ({ loading, formik }) => {
         <Box className={`grid jcs aic g10`} sx={{ width: "100%" }}>
           <Typography variant="h6">{t("forms.arabic_description.label")}</Typography>
           <PrimaryTextField
+            multiline
+            rows={4}
             fullWidth
             variant="outlined"
             type="text"
@@ -106,6 +123,8 @@ const AddProductForm = ({ loading, formik }) => {
         <Box className={`grid jcs aic g10`} sx={{ width: "100%" }}>
           <Typography variant="h6">{t("forms.english_description.label")}</Typography>
           <PrimaryTextField
+            multiline
+            rows={4}
             fullWidth
             variant="outlined"
             type="text"
@@ -119,7 +138,7 @@ const AddProductForm = ({ loading, formik }) => {
           />
         </Box>
       </Box>
-      <Box className={`flex jcsb aic g30 sm_wrap`}>
+      <Box className={`flex jcsb aic g30 md_wrap`}>
         <Box className={`grid jcs aic g10`} sx={{ width: "100%" }}>
           <Typography variant="h6">{t("forms.price.label")}</Typography>
           <PrimaryTextField
@@ -133,6 +152,21 @@ const AddProductForm = ({ loading, formik }) => {
             onBlur={formik.handleBlur}
             error={formik.touched.price && Boolean(formik.errors.price)}
             helperText={formik.touched.price && formik.errors.price}
+          />
+        </Box>
+        <Box className={`grid jcs aic g10`} sx={{ width: "100%" }}>
+          <Typography variant="h6">{t("forms.priceAfterDiscount.label")}</Typography>
+          <PrimaryTextField
+            fullWidth
+            variant="outlined"
+            type="text"
+            id="priceAfterDiscount"
+            name="priceAfterDiscount"
+            value={formik.values.priceAfterDiscount}
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+            error={formik.touched.priceAfterDiscount && Boolean(formik.errors.priceAfterDiscount)}
+            helperText={formik.touched.priceAfterDiscount && formik.errors.priceAfterDiscount}
           />
         </Box>
         <Box className={`grid jcs aic g10`} sx={{ width: "100%" }}>

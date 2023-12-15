@@ -36,10 +36,13 @@ import { getUserProducts } from "../store/userProductsSlice";
 import AddProductForm from "./AddProductForm";
 import AddSystemProductForm from "./AddSystemProductForm";
 import EditUserProductForm from "./EditUserProductForm";
+import ConfirmPendingSaleForm from "./ConfirmPendingSaleForm";
+import { getPendingSales } from "../store/pendingSalesSlice";
+import { getConfirmedInvoices } from "../store/confirmedInvoicesSlice";
 
 const Forms = ({ type }) => {
   const { t } = useTranslation()
-  const { token, userType, userTypeId, userId } = useSelector((state) => state.auth)
+  const { token, userType, userTypeId, userId, providerTypeId } = useSelector((state) => state.auth)
   const [loading, setLoading] = useState(false)
   const [confirmation, setConfirmation] = useState(false)
   const [sendOTP, setSendOTP] = useState(false)
@@ -47,12 +50,22 @@ const Forms = ({ type }) => {
   const router = useRouter()
   const dispatch = useDispatch()
   const { profileData, handleCloseEditProfileModal, handleCloseChangeAvatarModal } = useContext(ProfileContext)
-  const { deleteUserProductId, editUserProduct, addSystemProduct, handleCloseDeleteUserProductModal, handleCloseEditUserProductModal } = useContext(DashboardContext)
-  const { avatarForRegister, setAvatarForChange, setAvatarForEdit, avatarForChange, avatarForEdit } = useContext(UploadImageContext)
+  const { deleteUserProductId, editUserProduct, addSystemProduct, handleCloseDeleteUserProductModal, handleCloseEditUserProductModal, pendingSaleId, handleCloseConfirmPendingSaleModal } = useContext(DashboardContext)
+  const { avatarForRegister, setAvatarForChange, setAvatarForEdit, avatarForChange, avatarForEdit, handleClearAll } = useContext(UploadImageContext)
   const server_url = process.env.NEXT_PUBLIC_SERVER_URL
   const { id } = useParams()
   const { option } = useContext(AnalysisReportContext)
+  const { systemProducts } = useSelector((state) => state.systemProducts)
 
+  //handle Catch Error
+  const handleCatchError = (err) => {
+    try {
+      handleAlert(t("lang") === "ar" ? err.response.data.arError : err.response.data.enError, "error")
+    } catch (error) {
+      console.log(error)
+      handleAlert(t("forms.fetch.public.error"), "error")
+    }
+  }
 
   //Check is user Exist or not
   const checkIfUserExist = async (phone) => {
@@ -118,22 +131,25 @@ const Forms = ({ type }) => {
           const user = res.data.data.user
           let userTypeId;
           let userType;
+          let providerTypeId;
           const isVerified = jwtDecode(token)
           if (!isVerified) {
             handleAlert(t("forms.fetch.error.jwt.decode"), "error")
           } else {
+            console.log(user)
+            providerTypeId = user.type._id
             if (user.hasOwnProperty("farm")) {
-              userTypeId = user.farm._id
               userType = 'farm'
+              userTypeId = user.farm._id
             } else if (user.hasOwnProperty("supplier")) {
-              userTypeId = user.supplier._id
               userType = 'supplier'
+              userTypeId = user.supplier._id
             } else if (user.hasOwnProperty("client")) {
               userType = 'client'
               userTypeId = user.client._id
             }
             handleAlert(t("forms.login.success_request.message"), "success")
-            dispatch(login({ token, userId: isVerified.id, userType, userTypeId }))
+            dispatch(login({ token, userId: isVerified.id, userType, userTypeId, providerTypeId }))
             router.push(`${process.env.NEXT_PUBLIC_DASHBOARD_ROUTE}/${isVerified.id}`)
           }
         } catch (err) {
@@ -141,16 +157,7 @@ const Forms = ({ type }) => {
           handleAlert(t("forms.fetch.public_error.message"), "error")
         }
       }).catch((err) => {
-        try {
-          if (t("lang") === "ar") {
-            handleAlert(err.data.arError, "error")
-          } else {
-            handleAlert(err.data.enError, "error")
-          }
-        } catch (err) {
-          console.log(err)
-          handleAlert(t("forms.fetch.public.error"), "error")
-        }
+        handleCatchError(err)
       })
       setLoading(false)
     }
@@ -208,6 +215,7 @@ const Forms = ({ type }) => {
       values.imageURL = avatarForRegister
       localStorage.setItem("userData", JSON.stringify({ values, type }))
       router.push(`${process.env.NEXT_PUBLIC_VERIFY_OTP_ROUTE}`)
+      handleClearAll()
       setLoading(false)
     }
   })
@@ -247,8 +255,7 @@ const Forms = ({ type }) => {
             handleAlert(err.data.enError, "error")
           }
         } catch (err) {
-          console.log(err)
-          handleAlert(t("forms.fetch.public.error"), "error")
+          handleCatchError(err)
         }
       })
       setLoading(false)
@@ -284,8 +291,7 @@ const Forms = ({ type }) => {
             handleAlert(err.data.enError, "error")
           }
         } catch (err) {
-          console.log(err)
-          handleAlert(t("forms.fetch.public.error"), "error")
+          handleCatchError(err)
         }
       })
       setLoading(false)
@@ -343,6 +349,7 @@ const Forms = ({ type }) => {
           setAvatarForChange(null)
           setAvatarForEdit(null)
           dispatch(getProfile({ id: userId }))
+          handleClearAll()
           if (type === "edit_profile") {
             handleAlert(t("forms.edit_profile_successfully.message"), "success")
           } else if (type === "change_avatar") {
@@ -353,12 +360,12 @@ const Forms = ({ type }) => {
           handleAlert(t("forms.fetch.public.error"), "error")
         }
       }).catch((err) => {
-        console.log(err)
-        handleAlert(t("forms.fetch.public.error"), "error")
+        handleCatchError(err)
       })
       setLoading(false)
     }
   })
+
 
   //Handle Report Dates
   const handleReportDatesInitialValues = {
@@ -420,8 +427,7 @@ const Forms = ({ type }) => {
           handleAlert(t("forms.fetch.public.error"), "error")
         }
       }).catch((err) => {
-        console.log(err)
-        handleAlert(t("forms.fetch.public.error"), "error")
+        handleCatchError(err)
       })
       setLoading(false)
     }
@@ -437,17 +443,19 @@ const Forms = ({ type }) => {
     enDescription: "",
     stock: "",
     price: "",
+    priceAfterDiscount: "",
     category: ""
   }
 
   const addProductSchema = yup.object({
-    imageURL: yup.string(),
+    imageURL: yup.string().required(),
     arName: yup.string(t("forms.arabic_name.string")).required(t("forms.arabic_name.required")),
     enName: yup.string(t("forms.english_name.string")).required(t("forms.english_name.required")),
     arDescription: yup.string(t("forms.arabic_description.string")).required(t("forms.arabic_description.required")),
     enDescription: yup.string(t("forms.english_description.string")).required(t("forms.english_description.required")),
     stock: yup.string(t("forms.quantity.string")).required(t("forms.quantity.required")),
     price: yup.string(t("forms.price.string")).required(t("forms.price.required")),
+    priceAfterDiscount: yup.string(t("forms.priceAfterDiscount.string")),
     category: yup.string(t("forms.category.string")).required(t("forms.category.required"))
   })
 
@@ -456,37 +464,46 @@ const Forms = ({ type }) => {
     validationSchema: addProductSchema,
     onSubmit: async (values, { resetForm }) => {
       setLoading(true)
-      console.log(values)
-      // await axios.post(`${server_url}`, values, {
-      //   headers: {
-      //     "Authorization": `Bearer ${token}`
-      //   }
-      // }).then(() => {
-      //   try {
-      //     resetForm()
-      //     handleAlert(t("forms.add_product_successfully.message"), "success")
-      //   } catch (err) {
-      //     console.log(err)
-      //     handleAlert(t("forms.fetch.public.error"), "error")
-      //   }
-      // }).catch((err) => {
-      //   console.log(err)
-      //   handleAlert(t("forms.fetch.public.error"), "error")
-      // })
+      if (values.imageURL === "") {
+        handleAlert(t("forms.image.required"), "error")
+        setLoading(false)
+        return
+      }
+      values.providerType = providerTypeId
+      await axios.post(`${server_url}/Products/CreateProduct?id=${userId}`, values, {
+        headers: {
+          "Authorization": `Bearer ${token}`
+        }
+      }).then(() => {
+        try {
+          resetForm()
+          handleAlert(t("forms.add_product_successfully.message"), "success")
+          dispatch(getUserProducts())
+          handleClearAll()
+        } catch (err) {
+          console.log(err)
+          handleAlert(t("forms.fetch.public.error"), "error")
+        }
+      }).catch((err) => {
+        handleCatchError(err)
+      })
       setLoading(false)
     }
   })
 
   const addSystemProductInitialValues = {
     systemProduct: "",
+    category: "",
     stock: "",
     price: "",
+    priceAfterDiscount: "",
   }
 
   const addSystemProductSchema = yup.object({
     systemProduct: yup.string(t("forms.systemProduct.string")).required(t("forms.systemProduct.required")),
     stock: yup.string(t("forms.quantity.string")).required(t("forms.quantity.required")),
     price: yup.string(t("forms.price.string")).required(t("forms.price.required")),
+    priceAfterDiscount: yup.string(t("forms.priceAfterDiscount.string")),
   })
 
   const addSystemProductFormik = useFormik({
@@ -494,23 +511,24 @@ const Forms = ({ type }) => {
     validationSchema: addSystemProductSchema,
     onSubmit: async (values, { resetForm }) => {
       setLoading(true)
-      console.log(values)
-      // await axios.post(`${server_url}`, values, {
-      //   headers: {
-      //     "Authorization": `Bearer ${token}`
-      //   }
-      // }).then(() => {
-      //   try {
-      //     resetForm()
-      //     handleAlert(t("forms.add_product_successfully.message"), "success")
-      //   } catch (err) {
-      //     console.log(err)
-      //     handleAlert(t("forms.fetch.public.error"), "error")
-      //   }
-      // }).catch((err) => {
-      //   console.log(err)
-      //   handleAlert(t("forms.fetch.public.error"), "error")
-      // })
+      values.productID = systemProducts[values.systemProduct]._id
+      values.categoryID = systemProducts[values.systemProduct].category
+      await axios.post(`${server_url}/Products/${userType === "farm" ? "SelectFarmProduct" : userType === "supplier" && "SelectSupplierProduct"}?id=${userTypeId}`, values, {
+        headers: {
+          "Authorization": `Bearer ${token}`
+        }
+      }).then(() => {
+        try {
+          resetForm()
+          handleAlert(t("forms.add_product_successfully.message"), "success")
+          dispatch(getUserProducts())
+        } catch (err) {
+          console.log(err)
+          handleAlert(t("forms.fetch.public.error"), "error")
+        }
+      }).catch((err) => {
+        handleCatchError(err)
+      })
       setLoading(false)
     }
   })
@@ -525,6 +543,7 @@ const Forms = ({ type }) => {
     arDescription: editUserProduct && editUserProduct.product.arDescription,
     enDescription: editUserProduct && editUserProduct.product.enDescription,
     price: editUserProduct && editUserProduct.price,
+    priceAfterDiscount: editUserProduct && editUserProduct.priceAfterDiscount,
     stock: editUserProduct && editUserProduct.stock,
   }
 
@@ -536,37 +555,48 @@ const Forms = ({ type }) => {
     arDescription: yup.string(t("forms.arabic_description.string")).required(t("forms.arabic_description.required")),
     enDescription: yup.string(t("forms.english_description.string")).required(t("forms.english_description.required")),
     price: yup.string(t("forms.price.string")).required(t("forms.price.required")),
+    priceAfterDiscount: yup.string(t("forms.priceAfterDiscount.string")).required(t("forms.priceAfterDiscount.required")),
+    stock: yup.string(t("forms.quantity.string")).required(t("forms.quantity.required")),
+  })
+
+  const editUserSystemProductInitialValues = {
+    price: editUserProduct && editUserProduct.price,
+    priceAfterDiscount: editUserProduct && editUserProduct.priceAfterDiscount,
+    stock: editUserProduct && editUserProduct.stock,
+  }
+
+  const editUserSystemProductSchema = yup.object({
+    price: yup.string(t("forms.price.string")).required(t("forms.price.required")),
+    priceAfterDiscount: yup.string(t("forms.priceAfterDiscount.string")).required(t("forms.priceAfterDiscount.required")),
     stock: yup.string(t("forms.quantity.string")).required(t("forms.quantity.required")),
   })
 
   const editUserProductFormik = useFormik({
-    initialValues: editUserProductInitialValues,
-    validationSchema: editUserProductSchema,
+    initialValues: editUserProduct && editUserProduct.product.systemProduct ? editUserSystemProductInitialValues : editUserProductInitialValues,
+    validationSchema: editUserProduct && editUserProduct.product.systemProduct ? editUserSystemProductSchema : editUserProductSchema,
     onSubmit: async (values) => {
       if (userType === "client") {
         handleAlert(t("forms.fetch.public.error"), "error")
         return;
       }
       setLoading(true)
-      console.log(editUserProduct)
       values.productID = editUserProduct._id
       await axios.put(`${server_url}/Products/${userType === "farm" ? "UpdateFarmProduct" : "UpdateSupplierProduct"}?id=${userTypeId}`, values, {
         headers: {
           "Authorization": `Bearer ${token}`
         }
-      }).then((res) => {
+      }).then(() => {
         try {
-          console.log(res)
           dispatch(getUserProducts())
           handleCloseEditUserProductModal()
+          handleClearAll()
           handleAlert(t("forms.edit_product_successfully.message"), "success")
         } catch (err) {
           console.log(err)
           handleAlert(t("forms.fetch.public.error"), "error")
         }
       }).catch((err) => {
-        console.log(err)
-        handleAlert(t("forms.fetch.public.error"), "error")
+        handleCatchError(err)
       })
       setLoading(false)
     }
@@ -591,16 +621,40 @@ const Forms = ({ type }) => {
         handleAlert(t("forms.fetch.public_error.message"), "erorr")
       }
     }).catch((err) => {
-      console.log(err)
-      handleAlert(t("forms.fetch.public_error.message"), "erorr")
+      handleCatchError(err)
+    })
+    setLoading(false)
+  }
+
+
+  //Confirm Pending Sale
+  const handleConfirmPendngSale = async (e) => {
+    e.preventDefault()
+    setLoading(true)
+    await axios.post(`${server_url}/Invoices/ConfirmOrder`, { "id": pendingSaleId }, {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    }).then(() => {
+      try {
+        handleAlert(t("forms.pending_sale.confirm_successfully_message"), "success")
+        handleCloseConfirmPendingSaleModal()
+        dispatch(getPendingSales())
+        dispatch(getConfirmedInvoices())
+      } catch (err) {
+        console.log(err)
+        handleAlert(t("forms.fetch.public_error.message"), "erorr")
+      }
+    }).catch((err) => {
+      handleCatchError(err)
     })
     setLoading(false)
   }
 
   return (
-    <form onSubmit={type === "login" ? loginFormik.handleSubmit : (type === "supplier" || type === "farmer" || type === "client") ? registerFormik.handleSubmit : type === "contact" ? contactFormik.handleSubmit : type === "verify_otp" ? verifyOTPFormik.handleSubmit : (type === "edit_profile" || type === "change_avatar") ? editProfileFormik.handleSubmit : type === "handle_report_dates" ? handleReportDatesFormik.handleSubmit : type === "add_product" ? addSystemProduct ? addSystemProductFormik.handleSubmit : addProductFormik.handleSubmit : type === "edit_user_product" ? editUserProductFormik.handleSubmit : type === "complaint" ? complaintFormik.handleSubmit : type === "delete_user_product" && handleDeleteUserProduct} className={`${t("lang") === "ar" ? "form_arabic" : "form_english"}`}>
+    <form onSubmit={type === "login" ? loginFormik.handleSubmit : (type === "supplier" || type === "farmer" || type === "client") ? registerFormik.handleSubmit : type === "contact" ? contactFormik.handleSubmit : type === "verify_otp" ? verifyOTPFormik.handleSubmit : (type === "edit_profile" || type === "change_avatar") ? editProfileFormik.handleSubmit : type === "handle_report_dates" ? handleReportDatesFormik.handleSubmit : type === "add_product" ? addSystemProduct ? addSystemProductFormik.handleSubmit : addProductFormik.handleSubmit : type === "edit_user_product" ? editUserProductFormik.handleSubmit : type === "complaint" ? complaintFormik.handleSubmit : type === "delete_user_product" ? handleDeleteUserProduct : type === "confirm_pending_sale" && handleConfirmPendngSale} className={`${t("lang") === "ar" ? "form_arabic" : "form_english"}`}>
       {
-        type === "login" ? <LoginForm loading={loading} formik={loginFormik} /> : (type === "client" || type === "supplier" || type === "farmer") ? <RegisterForm type={type} loading={loading} formik={registerFormik} /> : type === "contact" ? <ContactForm loading={loading} formik={contactFormik} /> : type === "verify_otp" ? <VerifyOTPForm loading={loading} sendOTP={sendOTP} formik={verifyOTPFormik} /> : type === "edit_profile" ? <EditProfileForm type={userType} loading={loading} formik={editProfileFormik} /> : type === "handle_report_dates" ? <HandleReportDateForm loading={loading} formik={handleReportDatesFormik} /> : type === "change_avatar" ? <ChangeAvatarForm loading={loading} formik={editProfileFormik} /> : type === "complaint" ? <ComplaintForm loading={loading} formik={complaintFormik} /> : type === "add_product" ? addSystemProduct ? <AddSystemProductForm loading={loading} formik={addSystemProductFormik} /> : <AddProductForm loading={loading} formik={addProductFormik} /> : type === "edit_user_product" ? <EditUserProductForm loading={loading} formik={editUserProductFormik} /> : type === "delete_user_product" && <DeleteUserProductForm loading={loading} />
+        type === "login" ? <LoginForm loading={loading} formik={loginFormik} /> : (type === "client" || type === "supplier" || type === "farmer") ? <RegisterForm type={type} loading={loading} formik={registerFormik} /> : type === "contact" ? <ContactForm loading={loading} formik={contactFormik} /> : type === "verify_otp" ? <VerifyOTPForm loading={loading} sendOTP={sendOTP} formik={verifyOTPFormik} /> : type === "edit_profile" ? <EditProfileForm type={userType} loading={loading} formik={editProfileFormik} /> : type === "handle_report_dates" ? <HandleReportDateForm loading={loading} formik={handleReportDatesFormik} /> : type === "change_avatar" ? <ChangeAvatarForm loading={loading} formik={editProfileFormik} /> : type === "complaint" ? <ComplaintForm loading={loading} formik={complaintFormik} /> : type === "add_product" ? addSystemProduct ? <AddSystemProductForm loading={loading} formik={addSystemProductFormik} /> : <AddProductForm loading={loading} formik={addProductFormik} /> : type === "edit_user_product" ? <EditUserProductForm loading={loading} formik={editUserProductFormik} /> : type === "delete_user_product" ? <DeleteUserProductForm loading={loading} /> : type === "confirm_pending_sale" & <ConfirmPendingSaleForm loading={loading} />
       }
     </form>
   )

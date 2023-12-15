@@ -9,7 +9,7 @@ const PendingSaleModal = () => {
 
   return (
     <Modal
-      open={openPendingSaleModal}
+      open={openPendingSaleModal ? openPendingSaleModal : false}
       onClose={handleClosePendingSaleModal}
       aria-labelledby="modal-modal-title"
       aria-describedby="modal-modal-description"

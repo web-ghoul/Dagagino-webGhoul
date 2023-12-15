@@ -9,7 +9,7 @@ import { LazyLoadImage } from "react-lazy-load-image-component";
 const ConfirmedInvoiceDetails = () => {
   const { t } = useTranslation()
   const { confirmedInvoice } = useContext(DashboardContext)
-
+  console.log(confirmedInvoice)
   return (
     <Box className={`grid jcs aic g30 ${styles.confirmed_invoice_details}`}>
       <Typography sx={{ color: (theme) => theme.palette.primary.main }} variant={"h4"} className={`tac`}>{t("dashboard.confirmed_invoice_details.title")}</Typography>
@@ -24,16 +24,41 @@ const ConfirmedInvoiceDetails = () => {
           <Typography sx={{ color: (theme) => theme.palette.primary.main }} variant="h6">{handleDate(confirmedInvoice.updatedAt, t("lang"))}</Typography>
         </Box>
         <Box className={`${styles.data_box} pad20 br6 flex jcs aic flex_wrap g10`}>
-          <Typography sx={{ color: (theme) => theme.palette.dark }} variant="h6">{t("dashboard.confirmed_invoice_details.quantity")}</Typography>
-          <Typography sx={{ color: (theme) => theme.palette.primary.main }} variant="h6">{confirmedInvoice.products[0].qty}</Typography>
+          <Typography sx={{ color: (theme) => theme.palette.dark }} variant="h6">{t("dashboard.confirmed_invoice_details.total_price")}</Typography>
+          <Typography sx={{ color: (theme) => theme.palette.primary.main }} variant="h6">{confirmedInvoice.totalValue.toFixed(1)}</Typography>
         </Box>
         <Box className={`${styles.data_box} pad20 br6 flex jcs aic flex_wrap g10`}>
-          <Typography sx={{ color: (theme) => theme.palette.dark }} variant="h6">{t("dashboard.confirmed_invoice_details.total_price")}</Typography>
-          <Typography sx={{ color: (theme) => theme.palette.primary.main }} variant="h6">{confirmedInvoice.products[0].totalPrice.toFixed(1)}</Typography>
+          <Typography sx={{ color: (theme) => theme.palette.dark }} variant="h6">{t("dashboard.confirmed_invoice_details.total_priceAfterDiscount")}</Typography>
+          <Typography sx={{ color: (theme) => theme.palette.primary.main }} variant="h6">{confirmedInvoice.totalAfterDiscount.toFixed(1)}</Typography>
         </Box>
       </Box>
-      <Box className={`grid cjs aic pad20 br10 g20 ${styles.confirmed_invoice_details_product_box}`}>
-        <Box className={`${styles.data_box_image_box} flex jcc aic`}>
+      <Box className={`grid cjs aic br10 g20 ${styles.confirmed_invoice_details_products_box}`}>
+        <Box className={`grid jcs aic pad10 ${styles.table_head} ${styles.table_row}`}>
+          <Typography variant="h6">#</Typography>
+          <Typography variant="h6">{t("dashboard.confirmed_invoice_details.product_name")}</Typography>
+          <Typography variant="h6">{t("dashboard.confirmed_invoice_details.quantity")}</Typography>
+          <Typography variant="h6">{t("dashboard.confirmed_invoice_details.product_price")}</Typography>
+          <Typography variant="h6">{t("dashboard.confirmed_invoice_details.product_priceAfterDiscount")}</Typography>
+        </Box>
+        {
+          confirmedInvoice.products.map((product, i) => (
+            <Box className={`grid jcs aic pad10 ${styles.table_row_data} ${styles.table_row}`}>
+              <Typography variant="h6">#{i + 1}</Typography>
+              <Typography variant="h6">{t("lang") === "ar" ? product.product.arName : product.product.enName}</Typography>
+              <Typography variant="h6">{product.qty}</Typography>
+              <Typography variant="h6">{product.price.toFixed(1)}</Typography>
+              <Typography variant="h6">{product.priceAfterDiscount.toFixed(1)}</Typography>
+            </Box>
+          ))
+        }
+      </Box>
+    </Box>
+  )
+}
+export default ConfirmedInvoiceDetails
+
+
+{/* <Box className={`${styles.data_box_image_box} flex jcc aic`}>
           <LazyLoadImage src={confirmedInvoice.products[0].product.imageURL} alt={"product"} />
         </Box>
         <Box className={`grid jcs aic g10`}>
@@ -49,9 +74,4 @@ const ConfirmedInvoiceDetails = () => {
             <Typography sx={{ color: (theme) => theme.palette.dark }} variant="h6">{t("dashboard.confirmed_invoice_details.product_price")}</Typography>
             <Typography sx={{ color: (theme) => theme.palette.primary.main }} variant="h6">{confirmedInvoice.products[0].price.toFixed(1)}</Typography>
           </Box>
-        </Box>
-      </Box>
-    </Box>
-  )
-}
-export default ConfirmedInvoiceDetails
+        </Box> */}

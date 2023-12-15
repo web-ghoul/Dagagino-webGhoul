@@ -1,5 +1,5 @@
 import { DashboardContext } from '@/context/DashboardContext';
-import { Modal, Box, Typography } from '@mui/material';
+import { Modal, Box } from '@mui/material';
 import { useContext } from 'react';
 import ConfirmedInvoiceDetails from '../components/ConfirmedInvoice/ConfirmedInvoiceDetails';
 
@@ -9,7 +9,7 @@ const ConfirmedInvoiceModal = () => {
 
   return (
     <Modal
-      open={openConfirmedInvoiceModal}
+      open={openConfirmedInvoiceModal ? openConfirmedInvoiceModal : false}
       onClose={handleCloseConfirmedInvoiceModal}
       aria-labelledby="modal-modal-title"
       aria-describedby="modal-modal-description"

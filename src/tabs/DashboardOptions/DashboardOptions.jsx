@@ -1,7 +1,7 @@
 "use client"
 import { useState, useContext } from 'react';
 import PropTypes from 'prop-types';
-import { Tabs, Box } from '@mui/material';
+import { Tabs, Box, Typography } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 import { PrimaryTab } from '@/muiCustomize/PrimaryTab';
 import { DashboardContext } from '@/context/DashboardContext';
@@ -56,48 +56,53 @@ const DashboardOptions = () => {
   };
 
   return userType === "client" ? (
-    <Box className={`grid jcs aic g30`}>
-      <Tabs value={value} onChange={handleChange} variant='scrollable' scrollButtons="auto" aria-label="scrollable auto tabs example" >
-        <PrimaryTab label={t("dashboard.pending_purchases.tab")} {...a11yProps(0)} />
-        <PrimaryTab label={t("dashboard.confirmed_purchases.tab")} {...a11yProps(1)} />
-      </Tabs>
-
-      <CustomTabPanel value={value} index={0}>
-        <PendingPurchasesSection />
-      </CustomTabPanel>
-      <CustomTabPanel value={value} index={1}>
-        <ConfirmedPurchasesSection />
-      </CustomTabPanel>
+    <Box className={`grid jcs aic g50`}>
+      <Typography variant='h4' className={`tac`}>{t("dashboard.title_page")}</Typography>
+      <Box className={`grid jcs aic g30`}>
+        <Tabs value={value} onChange={handleChange} variant='scrollable' scrollButtons="auto" aria-label="scrollable auto tabs example" >
+          <PrimaryTab label={t("dashboard.pending_purchases.tab")} {...a11yProps(0)} />
+          <PrimaryTab label={t("dashboard.confirmed_purchases.tab")} {...a11yProps(1)} />
+        </Tabs>
+        <CustomTabPanel value={value} index={0}>
+          <PendingPurchasesSection />
+        </CustomTabPanel>
+        <CustomTabPanel value={value} index={1}>
+          <ConfirmedPurchasesSection />
+        </CustomTabPanel>
+      </Box>
     </Box>
   ) : (
-    <Box className={`grid jcs aic g30`}>
-      <Tabs value={value} onChange={handleChange} variant='scrollable' scrollButtons="auto" aria-label="scrollable auto tabs example" >
-        <PrimaryTab label={t("dashboard.current_products.tab")} {...a11yProps(0)} />
-        <PrimaryTab label={t("dashboard.add_new_product.tab")} {...a11yProps(1)} />
-        <PrimaryTab label={t("dashboard.pending_sales.tab")} {...a11yProps(2)} />
-        <PrimaryTab label={t("dashboard.confirmed_invoices.tab")} {...a11yProps(3)} />
-        <PrimaryTab label={t("dashboard.pending_purchases.tab")} {...a11yProps(4)} />
-        <PrimaryTab label={t("dashboard.confirmed_purchases.tab")} {...a11yProps(5)} />
-      </Tabs>
+    <Box className={`grid jcs aic g50`}>
+      <Typography variant='h4' className={`tac`}>{t("dashboard.title_page")}</Typography>
+      <Box className={`grid jcs aic g30`}>
+        <Tabs value={value} onChange={handleChange} variant='scrollable' scrollButtons="auto" aria-label="scrollable auto tabs example" >
+          <PrimaryTab label={t("dashboard.current_products.tab")} {...a11yProps(0)} />
+          <PrimaryTab label={t("dashboard.add_new_product.tab")} {...a11yProps(1)} />
+          <PrimaryTab label={t("dashboard.pending_sales.tab")} {...a11yProps(2)} />
+          <PrimaryTab label={t("dashboard.confirmed_invoices.tab")} {...a11yProps(3)} />
+          <PrimaryTab label={t("dashboard.pending_purchases.tab")} {...a11yProps(4)} />
+          <PrimaryTab label={t("dashboard.confirmed_purchases.tab")} {...a11yProps(5)} />
+        </Tabs>
 
-      <CustomTabPanel value={value} index={0}>
-        <UserProductsSection />
-      </CustomTabPanel>
-      <CustomTabPanel value={value} index={1}>
-        <Forms type={"add_product"} />
-      </CustomTabPanel>
-      <CustomTabPanel value={value} index={2}>
-        <PendingSalesSection />
-      </CustomTabPanel>
-      <CustomTabPanel value={value} index={3}>
-        <ConfirmedInvoicesSection />
-      </CustomTabPanel>
-      <CustomTabPanel value={value} index={4}>
-        <PendingPurchasesSection />
-      </CustomTabPanel>
-      <CustomTabPanel value={value} index={5}>
-        <ConfirmedPurchasesSection />
-      </CustomTabPanel>
+        <CustomTabPanel value={value} index={0}>
+          <UserProductsSection />
+        </CustomTabPanel>
+        <CustomTabPanel value={value} index={1}>
+          <Forms type={"add_product"} />
+        </CustomTabPanel>
+        <CustomTabPanel value={value} index={2}>
+          <PendingSalesSection />
+        </CustomTabPanel>
+        <CustomTabPanel value={value} index={3}>
+          <ConfirmedInvoicesSection />
+        </CustomTabPanel>
+        <CustomTabPanel value={value} index={4}>
+          <PendingPurchasesSection />
+        </CustomTabPanel>
+        <CustomTabPanel value={value} index={5}>
+          <ConfirmedPurchasesSection />
+        </CustomTabPanel>
+      </Box>
     </Box>
   )
 }

@@ -9,13 +9,13 @@ const UserProductModal = () => {
 
   return (
     <Modal
-      open={openUserProductModal}
+      open={openUserProductModal ? openUserProductModal : false}
       onClose={handleCloseUserProductModal}
       aria-labelledby="modal-modal-title"
       aria-describedby="modal-modal-description"
     >
       <Box className={`pad20 dashboard_option center_abs_x_y br10 modal grid jcs aic g30`}>
-        <UserProductDetails product={userProduct} />
+        <UserProductDetails />
       </Box>
     </Modal>
   );

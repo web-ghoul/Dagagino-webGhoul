@@ -2,9 +2,8 @@ import ProductsSection from "@/sections/ProductsSection/ProductsSection"
 
 const page = () => {
     return (
-        <ProductsSection/>
+        <ProductsSection />
     )
 }
 
 export default page
-  

@@ -50,7 +50,7 @@
 .user_product_details {
   .data_image_box {
     img {
-      width: 400px;
+      width: 200px;
       height: auto;
     }
   }
@@ -65,10 +65,26 @@
     }
   }
 
+  @media (max-width:$lg_size) {
+    .data_image_box {
+      img {
+        width: 180px;
+      }
+    }
+  }
+
+  @media (max-width:$md_size) {
+    .data_image_box {
+      img {
+        width: 160px;
+      }
+    }
+  }
+
   @media (max-width:$sm_size) {
     .data_image_box {
       img {
-        width: 300px;
+        width: 120px;
       }
     }
 
@@ -80,7 +96,7 @@
   @media (max-width:$xs_size) {
     .data_image_box {
       img {
-        width: 200px;
+        width: 100px;
       }
     }
   }

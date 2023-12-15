@@ -68,6 +68,20 @@ const DashboardProvider = ({ children }) => {
         setOpenPendingSaleModal(false)
     }
 
+    //Confirm Pending Sale
+    const [openConfirmPendingSaleModal, setOpenConfirmPendingSaleModal] = useState(false)
+    const [pendingSaleId, setPendingSaleId] = useState(null)
+
+    const handleOpenConfirmPendingSaleModal = (id) => {
+        setPendingSaleId(id)
+        setOpenConfirmPendingSaleModal(true)
+    }
+
+    const handleCloseConfirmPendingSaleModal = () => {
+        setOpenConfirmPendingSaleModal(false)
+    }
+
+
     //Confirmed Invoices
     const [openConfirmedInvoiceModal, setOpenConfirmedInvoiceModal] = useState(false)
     const [confirmedInvoice, setConfirmedInvoice] = useState(null)
@@ -111,7 +125,7 @@ const DashboardProvider = ({ children }) => {
 
 
 
-    const obj = { dashboardOption, setDashboardOption, openUserProductModal, openPendingSaleModal, openConfirmedInvoiceModal, openPendingPurchaseModal, openConfirmedPurchaseModal, handleOpenUserProductModal, handleCloseUserProductModal, handleOpenDeleteUserProductModal, handleCloseDeleteUserProductModal, deleteUserProductId, openDeleteUserProductModal, handleOpenEditUserProductModal, handleCloseEditUserProductModal, editUserProduct, openEditUserProductModal, handleOpenPendingSaleModal, handleClosePendingSaleModal, handleOpenConfirmedInvoiceModal, handleCloseConfirmedInvoiceModal, handleOpenPendingPurchaseModal, handleClosePendingPurchaseModal, handleOpenConfirmedPurchaseModal, handleCloseConfirmedPurchaseModal, userProduct, pendingSale, confirmedInvoice, pendingPurchase, confirmedPurchase, addSystemProduct, handleToggleAddSystemProduct }
+    const obj = { dashboardOption, setDashboardOption, openUserProductModal, openPendingSaleModal, openConfirmedInvoiceModal, openPendingPurchaseModal, openConfirmedPurchaseModal, handleOpenUserProductModal, handleCloseUserProductModal, handleOpenDeleteUserProductModal, handleCloseDeleteUserProductModal, deleteUserProductId, openDeleteUserProductModal, handleOpenEditUserProductModal, handleCloseEditUserProductModal, editUserProduct, openEditUserProductModal, handleOpenPendingSaleModal, handleClosePendingSaleModal, handleOpenConfirmedInvoiceModal, handleCloseConfirmedInvoiceModal, handleOpenPendingPurchaseModal, handleClosePendingPurchaseModal, handleOpenConfirmedPurchaseModal, handleCloseConfirmedPurchaseModal, userProduct, pendingSale, confirmedInvoice, pendingPurchase, confirmedPurchase, addSystemProduct, handleToggleAddSystemProduct, pendingSaleId, openConfirmPendingSaleModal, handleOpenConfirmPendingSaleModal, handleCloseConfirmPendingSaleModal }
 
     return (
         <DashboardContext.Provider value={obj}>

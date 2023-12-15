@@ -10,7 +10,7 @@ const EditUserProductModal = () => {
   const { t } = useTranslation()
   return (
     <Modal
-      open={openEditUserProductModal}
+      open={openEditUserProductModal ? openEditUserProductModal : false}
       onClose={handleCloseEditUserProductModal}
       aria-labelledby="modal-modal-title"
       aria-describedby="modal-modal-description"

@@ -9,7 +9,7 @@ const ConfirmedPurchaseModal = () => {
 
   return (
     <Modal
-      open={openConfirmedPurchaseModal}
+      open={openConfirmedPurchaseModal ? openConfirmedPurchaseModal : false}
       onClose={handleCloseConfirmedPurchaseModal}
       aria-labelledby="modal-modal-title"
       aria-describedby="modal-modal-description"

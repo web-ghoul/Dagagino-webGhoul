@@ -9,7 +9,7 @@ export const getProducts = createAsyncThunk("products/getProducts", async (args)
   let url;
   let b = args.hasOwnProperty("categoryId")
   if (b) {
-    url = `/Products/GetCategoryProducts?id=${args.categoryId}`
+    url = `/Products/GetCategoryProducts?id=${args.categoryId}&start=${args.index}&count=10`
   } else {
     url = `/Products/GetAllProducts?start=${args.index}&count=10`
   }

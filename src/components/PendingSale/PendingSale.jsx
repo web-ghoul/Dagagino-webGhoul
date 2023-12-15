@@ -10,7 +10,7 @@ import { useContext } from "react"
 
 const PendingSale = ({ def, sale, number }) => {
   const { t } = useTranslation()
-  const { handleOpenPendingSaleModal } = useContext(DashboardContext)
+  const { handleOpenPendingSaleModal, handleOpenConfirmPendingSaleModal } = useContext(DashboardContext)
   const mdSize = useMediaQuery("(max-width:992px)")
   const smSize = useMediaQuery("(max-width:768px)")
   return def ? (
@@ -38,7 +38,7 @@ const PendingSale = ({ def, sale, number }) => {
           <VisibilityRounded />
           {!mdSize && <Typography variant={"h6"}>{t("dashboard.view_product.button")}</Typography>}
         </PrimaryButton>
-        <ConfirmButton className={`flex jcc aic g10`}>
+        <ConfirmButton onClick={() => handleOpenConfirmPendingSaleModal(sale._id)} className={`flex jcc aic g10`}>
           <CheckRounded />
           {!mdSize && <Typography variant={"h6"}>{t("dashboard.confirm.button")}</Typography>}
         </ConfirmButton>

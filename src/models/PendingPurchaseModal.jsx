@@ -9,7 +9,7 @@ const PendingPurchaseModal = () => {
 
   return (
     <Modal
-      open={openPendingPurchaseModal}
+      open={openPendingPurchaseModal ? openPendingPurchaseModal : false}
       onClose={handleClosePendingPurchaseModal}
       aria-labelledby="modal-modal-title"
       aria-describedby="modal-modal-description"

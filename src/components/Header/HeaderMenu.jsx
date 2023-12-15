@@ -13,6 +13,8 @@ const HeaderMenu = ({ activeMenu, handleLogout, handleCloseMenu }) => {
   const { signed, userId, userType } = useSelector((state) => state.auth)
   const { t } = useTranslation()
   const router = useRouter()
+  const lgSize = useMediaQuery("(max-width:1200px)")
+  const mdSize = useMediaQuery("(max-width:992px)")
   const smSize = useMediaQuery("(max-width:768px)")
   return (
     <List className={`${styles.header_menu} ${t("lang") === "ar" ? styles.header_menu_arabic : styles.header_menu_english} ${activeMenu && styles.header_menu_active} grid jcs aic pad20 br10 g10`} >
@@ -44,12 +46,6 @@ const HeaderMenu = ({ activeMenu, handleLogout, handleCloseMenu }) => {
                 <Typography variant="h6">{t('header.navbar.profile')}</Typography>
               </Link>
             </ListItem>
-
-            <ListItem>
-              <Link href={`${process.env.NEXT_PUBLIC_COMPLAINT_ROUTE}/${userId}`}>
-                <Typography variant="h6">{t('header.navbar.complaint')}</Typography>
-              </Link>
-            </ListItem>
             <Divider />
           </>
         )
@@ -78,11 +74,19 @@ const HeaderMenu = ({ activeMenu, handleLogout, handleCloseMenu }) => {
         </Link>
       </ListItem>
       {
-        smSize && (
-          signed ? (
-            <PrimaryButton onClick={handleLogout}>
-              {t('header.logout')}</PrimaryButton>
-          ) : (
+        signed && (
+          <ListItem>
+            <Link href={`${process.env.NEXT_PUBLIC_COMPLAINT_ROUTE}/${userId}`}>
+              <Typography variant="h6">{t('header.navbar.complaint')}</Typography>
+            </Link>
+          </ListItem>
+        )
+      }
+      <PrimaryButton onClick={handleLogout}>
+        {t('header.logout')}</PrimaryButton>
+      {
+        mdSize && (
+          !signed && (
             <Box className={`grid jcs aic g20`}>
               <PrimaryButton onClick={() => router.push(`${process.env.NEXT_PUBLIC_LOGIN_ROUTE}`)}>{t('header.login')}</PrimaryButton>
               <SecondaryButton onClick={() => router.push(`${process.env.NEXT_PUBLIC_REGISTER_ROUTE}`)}>{t('header.register')}</SecondaryButton>

@@ -33,7 +33,7 @@ export const userProductsSlice = createSlice({
       state.isLoading = true
     })
     builder.addCase(getUserProducts.fulfilled, (state, { payload }) => {
-      state.userProducts = payload
+      state.userProducts = payload.reverse()
       state.isLoading = false
     })
     builder.addCase(getUserProducts.rejected, (state, action) => {

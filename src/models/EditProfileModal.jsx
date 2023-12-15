@@ -11,7 +11,7 @@ const EditProfileModal = () => {
 
   return (
     <Modal
-      open={openEditProfileModal}
+      open={openEditProfileModal ? openEditProfileModal : false}
       onClose={handleCloseEditProfileModal}
       aria-labelledby="modal-modal-title"
       aria-describedby="modal-modal-description"

@@ -11,7 +11,7 @@ export const PrimaryButton = styled(Button)(({ theme }) => ({
   borderRadius: "30px",
   fontSize: "18px",
   boxShadow: " rgba(0, 0, 0, 0.18) 0px 2px 4px;",
-  fontFamily:"Cairo",
+  fontFamily: "Cairo",
   "&:hover": {
     backgroundColor: theme.palette.white,
     color: theme.palette.primary.main,

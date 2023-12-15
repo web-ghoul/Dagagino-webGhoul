@@ -6,22 +6,28 @@ import { PrimaryContainer } from "@/muiCustomize/PrimaryContainer"
 import { SecondaryButton } from "@/muiCustomize/SecondaryButton"
 import { getProducts } from "@/store/productsSlice"
 import { Box, Typography } from "@mui/material"
-import { useEffect, useState } from "react"
+import { useContext, useEffect, useState } from "react"
 import { useTranslation } from "react-i18next"
 import { useDispatch, useSelector } from "react-redux"
 import LoadingProductsSection from "./LoadingProductsSection"
 import styles from "./ProductsSection.module.scss"
 import FilterByCategory from "../../components/FilterByCategory/FilterByCategory"
+import { ProductsContext } from "../../context/ProductsContext"
 
 const ProductsSection = () => {
   const dispatch = useDispatch()
   const { t } = useTranslation()
   const { isLoading, products, index, last } = useSelector((state) => state.products)
   const [loading, setLoading] = useState(false)
+  const { category } = useContext(ProductsContext)
 
   const handleShowMore = async () => {
     setLoading(true)
-    await dispatch(getProducts({ index: index + 10 }))
+    if (category) {
+      await dispatch(getProducts({ categoryId: category, index: index + 10 }))
+    } else {
+      await dispatch(getProducts({ index: index + 10 }))
+    }
     setLoading(false)
   }
 

@@ -43,3 +43,49 @@
     }
   }
 }
+
+
+
+.pending_sale_details {
+  .pending_sale_details_details_box {
+    grid-template-columns: repeat(2, 1fr);
+
+    .data_box {
+      background-color: $gray;
+      box-shadow: $box_shadow;
+    }
+  }
+
+  .pending_sale_details_products_box {
+    .table_head {
+      background-color: $main;
+      color: $white;
+    }
+
+
+    .table_row {
+      grid-template-columns: 10% 30% 15% 20% 20%;
+    }
+
+
+    .table_row_data {
+      color: $main;
+      background-color: $gray;
+      box-shadow: $box_shadow;
+    }
+  }
+
+  @media (max-width:$md_size) {
+    .pending_sale_details_products_box {
+      .table_row {
+        grid-template-columns: 10% 35% 15% 15% 20%;
+      }
+    }
+  }
+
+  @media (max-width:$sm_size) {
+    .pending_sale_details_details_box {
+      grid-template-columns: repeat(1, 1fr);
+    }
+  }
+}

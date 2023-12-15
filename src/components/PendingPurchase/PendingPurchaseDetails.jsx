@@ -24,32 +24,33 @@ const PendingPurchaseDetails = () => {
           <Typography sx={{ color: (theme) => theme.palette.primary.main }} variant="h6">{handleDate(pendingPurchase.updatedAt, t("lang"))}</Typography>
         </Box>
         <Box className={`${styles.data_box} pad20 br6 flex jcs aic flex_wrap g10`}>
-          <Typography sx={{ color: (theme) => theme.palette.dark }} variant="h6">{t("dashboard.pending_purchase_details.quantity")}</Typography>
-          <Typography sx={{ color: (theme) => theme.palette.primary.main }} variant="h6">{pendingPurchase.products[0].qty}</Typography>
+          <Typography sx={{ color: (theme) => theme.palette.dark }} variant="h6">{t("dashboard.pending_purchase_details.total_price")}</Typography>
+          <Typography sx={{ color: (theme) => theme.palette.primary.main }} variant="h6">{pendingPurchase.totalValue.toFixed(1)}</Typography>
         </Box>
         <Box className={`${styles.data_box} pad20 br6 flex jcs aic flex_wrap g10`}>
-          <Typography sx={{ color: (theme) => theme.palette.dark }} variant="h6">{t("dashboard.pending_purchase_details.total_price")}</Typography>
-          <Typography sx={{ color: (theme) => theme.palette.primary.main }} variant="h6">{pendingPurchase.products[0].totalPrice.toFixed(1)}</Typography>
+          <Typography sx={{ color: (theme) => theme.palette.dark }} variant="h6">{t("dashboard.pending_purchase_details.total_priceAfterDiscount")}</Typography>
+          <Typography sx={{ color: (theme) => theme.palette.primary.main }} variant="h6">{pendingPurchase.totalAfterDiscount.toFixed(1)}</Typography>
         </Box>
       </Box>
-      <Box className={`grid cjs aic pad20 br10 g20 ${styles.pending_purchase_details_product_box}`}>
-        <Box className={`${styles.data_box_image_box} flex jcc aic`}>
-          <LazyLoadImage src={pendingPurchase.products[0].product.imageURL} alt={"product"} />
+      <Box className={`grid cjs aic br10 g20 ${styles.pending_purchase_details_products_box}`}>
+        <Box className={`grid jcs aic pad10 ${styles.table_head} ${styles.table_row}`}>
+          <Typography variant="h6">#</Typography>
+          <Typography variant="h6">{t("dashboard.pending_purchase_details.product_name")}</Typography>
+          <Typography variant="h6">{t("dashboard.pending_purchase_details.quantity")}</Typography>
+          <Typography variant="h6">{t("dashboard.pending_purchase_details.product_price")}</Typography>
+          <Typography variant="h6">{t("dashboard.pending_purchase_details.product_priceAfterDiscount")}</Typography>
         </Box>
-        <Box className={`grid jcs aic g10`}>
-          <Box className={`${styles.data_box} pad20 br6 flex jcs aic flex_wrap g10`}>
-            <Typography sx={{ color: (theme) => theme.palette.dark }} variant="h6">{t("dashboard.pending_purchase_details.product_name")}</Typography>
-            <Typography sx={{ color: (theme) => theme.palette.primary.main }} variant="h6">{t("lang") === "ar" ? pendingPurchase.products[0].product.arName : pendingPurchase.products[0].product.enName}</Typography>
-          </Box>
-          <Box className={`${styles.data_box} pad20 br6 flex jcs aic flex_wrap g10`}>
-            <Typography sx={{ color: (theme) => theme.palette.dark }} variant="h6">{t("dashboard.pending_purchase_details.product_description")}</Typography>
-            <Typography sx={{ color: (theme) => theme.palette.primary.main }} variant="h6">{t("lang") === "ar" ? pendingPurchase.products[0].product.arDescription : pendingPurchase.products[0].product.enDescription}</Typography>
-          </Box>
-          <Box className={`${styles.data_box} pad20 br6 flex jcs aic flex_wrap g10`}>
-            <Typography sx={{ color: (theme) => theme.palette.dark }} variant="h6">{t("dashboard.pending_purchase_details.product_price")}</Typography>
-            <Typography sx={{ color: (theme) => theme.palette.primary.main }} variant="h6">{pendingPurchase.products[0].price.toFixed(1)}</Typography>
-          </Box>
-        </Box>
+        {
+          pendingPurchase.products.map((product, i) => (
+            <Box className={`grid jcs aic pad10 ${styles.table_row_data} ${styles.table_row}`}>
+              <Typography variant="h6">#{i + 1}</Typography>
+              <Typography variant="h6">{t("lang") === "ar" ? product.product.arName : product.product.enName}</Typography>
+              <Typography variant="h6">{product.qty}</Typography>
+              <Typography variant="h6">{product.price.toFixed(1)}</Typography>
+              <Typography variant="h6">{product.priceAfterDiscount.toFixed(1)}</Typography>
+            </Box>
+          ))
+        }
       </Box>
     </Box>
   )

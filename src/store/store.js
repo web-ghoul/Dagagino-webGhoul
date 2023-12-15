@@ -17,6 +17,7 @@ import pendingPurchasesReducer from "./pendingPurchasesSlice"
 import confirmedPurchasesReducer from "./confirmedPurchasesSlice"
 import categoryDetailsReducer from "./categoryDetailsSlice"
 import categoriesReducer from "./categoriesSlice"
+import cartOrdersReducer from "./cartOrdersSlice"
 
 export const store = configureStore({
   reducer: {
@@ -37,6 +38,7 @@ export const store = configureStore({
     "pendingPurchases": pendingPurchasesReducer,
     "confirmedPurchases": confirmedPurchasesReducer,
     "categoryDetails": categoryDetailsReducer,
-    "categories": categoriesReducer
+    "categories": categoriesReducer,
+    "cartOrders": cartOrdersReducer
   },
 })

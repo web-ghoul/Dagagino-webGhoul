@@ -8,14 +8,15 @@ import styles from "./Header.module.scss"
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import { useTranslation } from 'react-i18next';
-import { useEffect, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { ArrowDropUpRounded, ArrowDropDownRounded, ViewListRounded, LanguageRounded, LogoutRounded } from '@mui/icons-material'
+import { ArrowDropUpRounded, ArrowDropDownRounded, ViewListRounded, LanguageRounded, ShoppingCartRounded } from '@mui/icons-material'
 import HeaderMenu from '@/components/Header/HeaderMenu'
 import { logout } from '@/store/authSlice'
-import toast from 'react-hot-toast'
 import LanguagesMenu from '@/components/Header/LanguagesMenu'
 import { handleAlert } from '../../functions/handleAlert'
+import { CartContext } from '../../context/CartContext'
+import { SpecialIconButton } from '../../muiCustomize/SpecialIconButton'
 
 const Header = () => {
   const router = useRouter()
@@ -23,6 +24,7 @@ const Header = () => {
   const [active, setActive] = useState(false)
   const [activeMenu, setActiveMenu] = useState(false)
   const [activeLanguagesMenu, setActiveLanguagesMenu] = useState(false)
+  const { openCart, handleOpenCart } = useContext(CartContext)
   const { userId, userType, signed } = useSelector((state) => state.auth)
   const lgSize = useMediaQuery("(max-width:1200px)")
   const mdSize = useMediaQuery("(max-width:992px)")
@@ -56,7 +58,7 @@ const Header = () => {
   if (typeof window !== "undefined") {
     window.addEventListener('click', (e) => {
       const classes = e.target.classList
-
+      // console.log(classes)
       //For Menu List
       if (!(classes.contains("Header_header_menu_button__Qgj0A") || classes.contains("MuiSvgIcon-root") || (e.target.parentElement && e.target.parentElement.classList.contains("MuiSvgIcon-root")))) {
         setActiveMenu(false)
@@ -144,28 +146,24 @@ const Header = () => {
                   <Typography variant="h6">{t('header.navbar.contact')}</Typography>
                 </Link>
               </ListItem>
-
-              <ListItem>
-                <Link href={`${process.env.NEXT_PUBLIC_COMPLAINT_ROUTE}/${userId}`}>
-                  <Typography variant="h6">{t('header.navbar.complaint')}</Typography>
-                </Link>
-              </ListItem>
             </>
           )
         }
       </List>
 
-      <Box className={`flex jcfe aic g20`}>
-        {signed && <IconButton onClick={handleToggleMenu} className={`${styles.header_menu_button} flex jcc aic`}>
-          <ViewListRounded sx={{ color: (theme) => theme.palette.primary.main }} />
-        </IconButton>}
+      <Box className={`flex jcfe aic g10`}>
+        {signed && (<Box className={`flex jcc aic g20`}>
+          <SpecialIconButton onClick={handleToggleMenu} className={` flex jcc aic`}>
+            <ViewListRounded sx={{ color: (theme) => theme.palette.primary.main }} />
+          </SpecialIconButton>
+          <SpecialIconButton onClick={handleOpenCart} className={`${styles.cart_button}  flex jcc aic`}>
+            <ShoppingCartRounded sx={{ color: (theme) => theme.palette.primary.main }} />
+          </SpecialIconButton>
+        </Box>)}
 
         <Box className={`flex jcc aic g20`}>
           {
-            signed ? (
-              <PrimaryButton onClick={handleLogout}>
-                {t('header.logout')}</PrimaryButton>
-            ) : (
+            !signed && (
               <>
                 <PrimaryButton onClick={() => router.push(`${process.env.NEXT_PUBLIC_LOGIN_ROUTE}`)}>{t('header.login')}</PrimaryButton>
                 <SecondaryButton onClick={() => router.push(`${process.env.NEXT_PUBLIC_REGISTER_ROUTE}`)}>{t('header.register')}</SecondaryButton>
@@ -240,28 +238,26 @@ const Header = () => {
                   <Typography variant="h6">{t('header.navbar.contact')}</Typography>
                 </Link>
               </ListItem>
-
-              <ListItem>
-                <Link href={`${process.env.NEXT_PUBLIC_COMPLAINT_ROUTE}/${userId}`}>
-                  <Typography variant="h6">{t('header.navbar.complaint')}</Typography>
-                </Link>
-              </ListItem>
             </>
           )
         }
       </List>
 
-      <Box className={`flex jcfe aic g20`}>
-        {signed && <IconButton onClick={handleToggleMenu} className={`${styles.header_menu_button} flex jcc aic`}>
-          <ViewListRounded sx={{ color: (theme) => theme.palette.primary.main }} />
-        </IconButton>}
+      <Box className={`flex jcfe aic g10`}>
+        {signed && (<>
+          <SpecialIconButton onClick={handleToggleMenu} className={` flex jcc aic`}>
+            <ViewListRounded sx={{ color: (theme) => theme.palette.primary.main }} />
+          </SpecialIconButton>
+          <SpecialIconButton onClick={handleOpenCart} className={`${styles.cart_button}  flex jcc aic`}>
+            <ShoppingCartRounded sx={{ color: (theme) => theme.palette.primary.main }} />
+          </SpecialIconButton>
+        </>)}
+
+
 
         <Box className={`flex jcc aic g20`}>
           {
-            signed ? (
-              <PrimaryButton onClick={handleLogout}>
-                <LogoutRounded /></PrimaryButton>
-            ) : (
+            !signed && (
               <PrimaryButton onClick={() => router.push(`${process.env.NEXT_PUBLIC_LOGIN_ROUTE}`)}>{t('header.login')}</PrimaryButton>
             )
           }
@@ -279,9 +275,14 @@ const Header = () => {
   const smHeader = (
     <>
       <Box className={`flex jcfe aic g20`}>
-        <IconButton onClick={handleToggleMenu} className={` ${styles.header_menu_button} flex jcc aic`}>
+        <SpecialIconButton onClick={handleToggleMenu} className={` flex jcc aic`}>
           <ViewListRounded sx={{ color: (theme) => theme.palette.primary.main }} />
-        </IconButton>
+        </SpecialIconButton>
+        {signed &&
+          <SpecialIconButton onClick={handleOpenCart} className={`${styles.cart_button} flex jcc aic`}>
+            <ShoppingCartRounded sx={{ color: (theme) => theme.palette.primary.main }} />
+          </SpecialIconButton>
+        }
         <PrimaryButton onClick={handleToggleLanguagesMenu} className={`${styles.header_languages_list_button} flex jcc aic`}>
           {
             activeLanguagesMenu ? <ArrowDropUpRounded /> : <ArrowDropDownRounded />
