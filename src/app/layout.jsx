@@ -31,7 +31,7 @@ export default function RootLayout({ children }) {
     if (typeof window !== 'undefined' && localStorage.getItem("lang")) {
       i18n.changeLanguage(localStorage.getItem("lang"))
     }
-  }, [localStorage])
+  }, [])
   return (
     <html lang={t("lang")} dir={t("lang") === "ar" ? "rtl" : "ltr"}>
       <head>
