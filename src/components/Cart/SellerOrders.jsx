@@ -13,16 +13,18 @@ const SellerOrders = ({ sellerOrders, index }) => {
   const [totalValue, setTotalValue] = useState(0)
   const [totalAfterDiscount, setTotalAfterDiscount] = useState(0)
 
-  useEffect(() => {
-    let v1 = []
-    let v2 = []
-    new Array(sellerOrders.products.length).fill(0).map(() => {
-      v1.push(0)
-      v2.push(0)
-    })
-    setPriceVals(v1)
-    setPriceAfterDiscountVals(v2)
-  }, [])
+  // useEffect(() => {
+  //   let v1 = []
+  //   let v2 = []
+  //   new Array(sellerOrders.products.length).fill(0).map(() => {
+  //     v1.push(0)
+  //     v2.push(0)
+  //   })
+  //   setPriceVals(v1)
+  //   setPriceAfterDiscountVals(v2)
+  //   console.log(1)
+  // }, [])
+
   return (
     <Accordion className={`${styles.seller_orders} br10 pad10`}>
       <AccordionSummary

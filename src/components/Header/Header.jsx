@@ -58,7 +58,6 @@ const Header = () => {
   if (typeof window !== "undefined") {
     window.addEventListener('click', (e) => {
       const classes = e.target.classList
-      console.log(classes)
       //For Menu List
       if (!(classes.contains("Header_header_menu_button__Qgj0A") || classes.contains("MuiSvgIcon-root") || (e.target.parentElement && e.target.parentElement.classList.contains("MuiSvgIcon-root")))) {
         setActiveMenu(false)

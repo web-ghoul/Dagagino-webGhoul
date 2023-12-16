@@ -8,20 +8,17 @@ import Forms from '../../Forms/Forms'
 const Order = ({ priceVals, setPriceVals, priceAfterDiscountVals, setTotalValue, setPriceAfterDiscountVals, setTotalAfterDiscount, product, number }) => {
   const { t } = useTranslation()
   const [val, setVal] = useState(0)
-  useEffect(() => {
-    console.log(priceVals, priceAfterDiscountVals)
+
+  const handleTotals = (val) => {
     let v1 = priceVals
     if (v1.length >= number) {
       v1[number - 1] = val * +product.price
     }
     setPriceVals(v1)
-    console.log(priceVals, priceAfterDiscountVals)
     let v2 = priceAfterDiscountVals
-    console.log(v2, product.priceAfterDiscount)
     if (v2.length >= number) {
       v2[number - 1] = val * +product.priceAfterDiscount
     }
-    console.log(v2)
     setPriceAfterDiscountVals(v2)
     let total1 = 0;
     v1.map((val) => {
@@ -33,8 +30,12 @@ const Order = ({ priceVals, setPriceVals, priceAfterDiscountVals, setTotalValue,
       total2 += val
     })
     setTotalAfterDiscount(total2)
-    console.log(priceVals, priceAfterDiscountVals)
-  }, [val])
+  }
+
+  // useEffect(() => {
+  //   handleTotals(val)
+  //   console.log(2)
+  // }, [val])
   return (
     <Box className={`${styles.order} br6 pad10 grid jcs aic g20`}>
       <Box className={`flex jcsb aic g30`}>

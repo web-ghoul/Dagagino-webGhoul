@@ -634,16 +634,12 @@ const Forms = ({ type, removeProductId, createInvoiceData }) => {
         return
       }
       console.log(cartOrders[createInvoiceData.index])
-      values.seller = cartOrders[createInvoiceData.index].user.type._id
+      values.seller = cartOrders[createInvoiceData.index]._id
       values.totalValue = createInvoiceData.totalValue
       values.totalAfterDiscount = createInvoiceData.totalAfterDiscount
       values.products = []
       console.log(createInvoiceData.priceVals.includes(0))
-      if (createInvoiceData.priceVals.includes(0)) {
-        handleAlert(t("forms.cart.should_quantify_all_product.message"), "error")
-        setLoading(false)
-        return
-      }
+      let isZeroOrNegativeExist = false
       cartOrders[createInvoiceData.index].products.map((pro, i) => {
         let product = {
           product: pro._id,
@@ -652,8 +648,17 @@ const Forms = ({ type, removeProductId, createInvoiceData }) => {
           qty: createInvoiceData.priceVals[i] / pro.price,
           totalPrice: (createInvoiceData.priceVals[i] / pro.price) * +pro.priceAfterDiscount
         };
+        if (createInvoiceData.priceVals[i] <= 0) {
+          isZeroOrNegativeExist = true
+        }
         values.products.push(product)
       })
+      if (isZeroOrNegativeExist) {
+        handleAlert(t("forms.cart.should_quantify_all_product.message"), "error")
+        setLoading(false)
+        return
+      }
+      console.log(values, userId)
       await axios.post(`${server_url}/Invoices/CreateInvoice?id=${userId}`, values, {
         headers: {
           "Authorization": `Bearer ${token}`
