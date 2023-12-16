@@ -39,8 +39,12 @@ import EditUserProductForm from "./EditUserProductForm";
 import ConfirmPendingSaleForm from "./ConfirmPendingSaleForm";
 import { getPendingSales } from "../store/pendingSalesSlice";
 import { getConfirmedInvoices } from "../store/confirmedInvoicesSlice";
+import { getCartOrders } from "../store/cartOrdersSlice";
+import CreateInvoiceForm from "./CreateInvoiceForm";
+import RemoveProductFromCartForm from "./RemoveProductFromCartForm";
+import ClearCartForm from "./ClearCartForm";
 
-const Forms = ({ type }) => {
+const Forms = ({ type, removeProductId, createInvoiceData }) => {
   const { t } = useTranslation()
   const { token, userType, userTypeId, userId, providerTypeId } = useSelector((state) => state.auth)
   const [loading, setLoading] = useState(false)
@@ -52,6 +56,7 @@ const Forms = ({ type }) => {
   const { profileData, handleCloseEditProfileModal, handleCloseChangeAvatarModal } = useContext(ProfileContext)
   const { deleteUserProductId, editUserProduct, addSystemProduct, handleCloseDeleteUserProductModal, handleCloseEditUserProductModal, pendingSaleId, handleCloseConfirmPendingSaleModal } = useContext(DashboardContext)
   const { avatarForRegister, setAvatarForChange, setAvatarForEdit, avatarForChange, avatarForEdit, handleClearAll } = useContext(UploadImageContext)
+  const { cartOrders } = useSelector((state) => state.cartOrders)
   const server_url = process.env.NEXT_PUBLIC_SERVER_URL
   const { id } = useParams()
   const { option } = useContext(AnalysisReportContext)
@@ -187,12 +192,13 @@ const Forms = ({ type }) => {
     enName: yup.string(t("forms.english_name.string")).required(t("forms.english_name.required")),
     email: yup.string(t("forms.email.string")).email(t("forms.email.email")).required(t("forms.email.required")),
     address: yup.string(t("forms.address.string")).required(t("forms.address.required")),
+    governorate: yup.string(t("forms.governorate.string")).required(t("forms.governorate.required")),
+    state: yup.string(t("forms.state.string")).required(t("forms.state.required")),
     arDescription: yup.string(t("forms.arabic_description.string")).required(t("forms.arabic_description.required")),
     enDescription: yup.string(t("forms.english_description.string")).required(t("forms.english_description.required")),
     clientType: type === "client" ? yup.string(t("forms.clientType.string")).required(t("forms.clientType.required")) : yup.string(t("forms.clientType.string")),
     commercialRegistrationNo: type !== "client" ? yup.string(t("forms.commercial_number.string")).required(t("forms.commercial_number.required")) : yup.string(t("forms.commercial_number.string")),
-    governorate: yup.string(t("forms.governorate.string")).required(t("forms.governorate.required")),
-    state: yup.string(t("forms.state.string")).required(t("forms.state.required")),
+
     imageURL: yup.string(),
     phone: yup.string(t("forms.phone.string")).required(t("forms.phone.required")),
     password: yup.string(t("forms.password.string"))
@@ -602,6 +608,73 @@ const Forms = ({ type }) => {
     }
   })
 
+
+
+  //Create Invoice
+  const createInvoiceInitialValues = {
+    address: "",
+    governorate: "",
+    state: ""
+  }
+
+  const createInvoiceSchema = yup.object({
+    address: yup.string(t("forms.address.string")).required(t("forms.address.required")),
+    governorate: yup.string(t("forms.governorate.string")).required(t("forms.governorate.required")),
+    state: yup.string(t("forms.state.string")).required(t("forms.state.required")),
+  })
+
+  const createInvoiceFormik = useFormik({
+    initialValues: createInvoiceInitialValues,
+    validationSchema: createInvoiceSchema,
+    onSubmit: async (values, { resetForm }) => {
+      setLoading(true)
+      if (!(createInvoiceData && createInvoiceData.hasOwnProperty("index") && createInvoiceData.hasOwnProperty("priceVals") && createInvoiceData.hasOwnProperty("totalAfterDiscount") && createInvoiceData.hasOwnProperty("totalValue"))) {
+        handleAlert(t("forms.fetch.public.error"), "error")
+        setLoading(false)
+        return
+      }
+      console.log(cartOrders[createInvoiceData.index])
+      values.seller = cartOrders[createInvoiceData.index].user.type._id
+      values.totalValue = createInvoiceData.totalValue
+      values.totalAfterDiscount = createInvoiceData.totalAfterDiscount
+      values.products = []
+      console.log(createInvoiceData.priceVals.includes(0))
+      if (createInvoiceData.priceVals.includes(0)) {
+        handleAlert(t("forms.cart.should_quantify_all_product.message"), "error")
+        setLoading(false)
+        return
+      }
+      cartOrders[createInvoiceData.index].products.map((pro, i) => {
+        let product = {
+          product: pro._id,
+          price: pro.price,
+          priceAfterDiscount: pro.priceAfterDiscount,
+          qty: createInvoiceData.priceVals[i] / pro.price,
+          totalPrice: (createInvoiceData.priceVals[i] / pro.price) * +pro.priceAfterDiscount
+        };
+        values.products.push(product)
+      })
+      await axios.post(`${server_url}/Invoices/CreateInvoice?id=${userId}`, values, {
+        headers: {
+          "Authorization": `Bearer ${token}`
+        }
+      }).then((res) => {
+        console.log(res)
+        try {
+          dispatch(getCartOrders())
+          handleAlert(t("forms.send_create_invoice_successfully.message"), "success")
+          resetForm()
+        } catch (err) {
+          console.log(err)
+          handleAlert(t("forms.fetch.public.error"), "error")
+        }
+      }).catch((err) => {
+        handleCatchError(err)
+      })
+      setLoading(false)
+    }
+  })
+
   //Delete User Product
   const handleDeleteUserProduct = async (e) => {
     e.preventDefault()
@@ -651,10 +724,56 @@ const Forms = ({ type }) => {
     setLoading(false)
   }
 
+
+  //Remove Product From Cart
+  const handleRemoveProductFromCart = async (e) => {
+    e.preventDefault()
+    setLoading(true)
+    const body = { "userID": userId, "productID": removeProductId }
+    await axios.put(`${server_url}/Cart/UnselectProduct`, body, {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    }).then(() => {
+      try {
+        handleAlert(t("forms.cart.remove_product_from_cart_successfully_message"), "success")
+        dispatch(getCartOrders())
+      } catch (err) {
+        console.log(err)
+        handleAlert(t("forms.fetch.public_error.message"), "erorr")
+      }
+    }).catch((err) => {
+      handleCatchError(err)
+    })
+    setLoading(false)
+  }
+
+  //Clear Cart
+  const handleClearCart = async (e) => {
+    e.preventDefault()
+    setLoading(true)
+    await axios.put(`${server_url}/Cart/ClearCart?id=${userId}`, {}, {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    }).then(() => {
+      try {
+        handleAlert(t("forms.cart.clear_cart_successfully_message"), "success")
+        dispatch(getCartOrders())
+      } catch (err) {
+        console.log(err)
+        handleAlert(t("forms.fetch.public_error.message"), "erorr")
+      }
+    }).catch((err) => {
+      handleCatchError(err)
+    })
+    setLoading(false)
+  }
+
   return (
-    <form onSubmit={type === "login" ? loginFormik.handleSubmit : (type === "supplier" || type === "farmer" || type === "client") ? registerFormik.handleSubmit : type === "contact" ? contactFormik.handleSubmit : type === "verify_otp" ? verifyOTPFormik.handleSubmit : (type === "edit_profile" || type === "change_avatar") ? editProfileFormik.handleSubmit : type === "handle_report_dates" ? handleReportDatesFormik.handleSubmit : type === "add_product" ? addSystemProduct ? addSystemProductFormik.handleSubmit : addProductFormik.handleSubmit : type === "edit_user_product" ? editUserProductFormik.handleSubmit : type === "complaint" ? complaintFormik.handleSubmit : type === "delete_user_product" ? handleDeleteUserProduct : type === "confirm_pending_sale" && handleConfirmPendngSale} className={`${t("lang") === "ar" ? "form_arabic" : "form_english"}`}>
+    <form onSubmit={type === "login" ? loginFormik.handleSubmit : (type === "supplier" || type === "farmer" || type === "client") ? registerFormik.handleSubmit : type === "contact" ? contactFormik.handleSubmit : type === "verify_otp" ? verifyOTPFormik.handleSubmit : (type === "edit_profile" || type === "change_avatar") ? editProfileFormik.handleSubmit : type === "handle_report_dates" ? handleReportDatesFormik.handleSubmit : type === "add_product" ? addSystemProduct ? addSystemProductFormik.handleSubmit : addProductFormik.handleSubmit : type === "edit_user_product" ? editUserProductFormik.handleSubmit : type === "complaint" ? complaintFormik.handleSubmit : type === "create_invoice" ? createInvoiceFormik.handleSubmit : type === "delete_user_product" ? handleDeleteUserProduct : type === "confirm_pending_sale" ? handleConfirmPendngSale : type === "remove_product_from_cart" ? handleRemoveProductFromCart : type === "clear_cart" && handleClearCart} className={`${t("lang") === "ar" ? "form_arabic" : "form_english"}`}>
       {
-        type === "login" ? <LoginForm loading={loading} formik={loginFormik} /> : (type === "client" || type === "supplier" || type === "farmer") ? <RegisterForm type={type} loading={loading} formik={registerFormik} /> : type === "contact" ? <ContactForm loading={loading} formik={contactFormik} /> : type === "verify_otp" ? <VerifyOTPForm loading={loading} sendOTP={sendOTP} formik={verifyOTPFormik} /> : type === "edit_profile" ? <EditProfileForm type={userType} loading={loading} formik={editProfileFormik} /> : type === "handle_report_dates" ? <HandleReportDateForm loading={loading} formik={handleReportDatesFormik} /> : type === "change_avatar" ? <ChangeAvatarForm loading={loading} formik={editProfileFormik} /> : type === "complaint" ? <ComplaintForm loading={loading} formik={complaintFormik} /> : type === "add_product" ? addSystemProduct ? <AddSystemProductForm loading={loading} formik={addSystemProductFormik} /> : <AddProductForm loading={loading} formik={addProductFormik} /> : type === "edit_user_product" ? <EditUserProductForm loading={loading} formik={editUserProductFormik} /> : type === "delete_user_product" ? <DeleteUserProductForm loading={loading} /> : type === "confirm_pending_sale" & <ConfirmPendingSaleForm loading={loading} />
+        type === "login" ? <LoginForm loading={loading} formik={loginFormik} /> : (type === "client" || type === "supplier" || type === "farmer") ? <RegisterForm type={type} loading={loading} formik={registerFormik} /> : type === "contact" ? <ContactForm loading={loading} formik={contactFormik} /> : type === "verify_otp" ? <VerifyOTPForm loading={loading} sendOTP={sendOTP} formik={verifyOTPFormik} /> : type === "edit_profile" ? <EditProfileForm type={userType} loading={loading} formik={editProfileFormik} /> : type === "handle_report_dates" ? <HandleReportDateForm loading={loading} formik={handleReportDatesFormik} /> : type === "change_avatar" ? <ChangeAvatarForm loading={loading} formik={editProfileFormik} /> : type === "complaint" ? <ComplaintForm loading={loading} formik={complaintFormik} /> : type === "add_product" ? addSystemProduct ? <AddSystemProductForm loading={loading} formik={addSystemProductFormik} /> : <AddProductForm loading={loading} formik={addProductFormik} /> : type === "edit_user_product" ? <EditUserProductForm loading={loading} formik={editUserProductFormik} /> : type === "create_invoice" ? <CreateInvoiceForm loading={loading} formik={createInvoiceFormik} /> : type === "delete_user_product" ? <DeleteUserProductForm loading={loading} /> : type === "confirm_pending_sale" ? <ConfirmPendingSaleForm loading={loading} /> : type === "remove_product_from_cart" ? <RemoveProductFromCartForm loading={loading} /> : type === "clear_cart" && <ClearCartForm />
       }
     </form>
   )

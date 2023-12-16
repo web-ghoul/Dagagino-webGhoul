@@ -15,7 +15,7 @@ export const SpecialIconButton = styled(Button)(({ theme }) => ({
   minWidth: "auto !important",
   "&:hover": {
     cursor: "pointer",
-    backgroundColor: theme.palette.main,
+    backgroundColor: theme.palette.primary.main,
     "& svg": {
       color: theme.palette.white,
     }

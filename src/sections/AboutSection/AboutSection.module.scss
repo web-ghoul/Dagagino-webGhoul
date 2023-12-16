@@ -1,0 +1,29 @@
+@import "../../assets/styles/variable.scss";
+
+.about_contain {
+  .about_us {
+    grid-template-columns: repeat(3, 1fr);
+
+    .view {
+      transition: $transition;
+      background-color: $white;
+      height: 100%;
+      width: 100%;
+
+      &:hover {
+        background-color: rgb(245, 139, 48);
+        color: $white;
+
+        .view_description {
+          color: #eee !important;
+        }
+      }
+    }
+  }
+
+  @media (max-width:$sm_size) {
+    .about_us {
+      grid-template-columns: repeat(1, 1fr);
+    }
+  }
+}

@@ -6,13 +6,13 @@ import { LazyLoadImage } from "react-lazy-load-image-component"
 import styles from "./ContactSection.module.scss"
 import contactImg from "../../assets/images/emails.svg"
 import { useTranslation } from "react-i18next";
-import { LocationOnRounded ,CallRounded , EmailRounded } from "@mui/icons-material"
+import { LocationOnRounded, CallRounded, EmailRounded } from "@mui/icons-material"
 import Forms from "@/Forms/Forms"
 
 const ContactSection = () => {
-  const {t} = useTranslation()
+  const { t } = useTranslation()
   return (
-    <PrimaryBox>
+    <PrimaryBox id={"Contact"}>
       <PrimaryContainer className={`${styles.contact_section_contain} grid jcs aic g50`}>
         <Box className={`grid jcc aic g10 ${styles.contact_title}`}>
           <Box className={`flex jcc aic`}>
@@ -25,7 +25,7 @@ const ContactSection = () => {
           <Box className={`${styles.contacts} grid jcs aic g30`}>
             <Box className={`${styles.contact} flex jcs aifs g10`}>
               <Box className={`${styles.icon} flex jcc aic br4`}>
-                <LocationOnRounded/>
+                <LocationOnRounded />
               </Box>
               <Box className={`grid jcs aic`}>
                 <Typography variant="h5">{t("contact.location.text")}</Typography>
@@ -35,7 +35,7 @@ const ContactSection = () => {
 
             <Box className={`${styles.contact} flex jcs aifs g10`}>
               <Box className={`${styles.icon} flex jcc aic  br4`}>
-                <CallRounded/>
+                <CallRounded />
               </Box>
               <Box className={`grid jcs aic`}>
                 <Typography variant="h5">{t("contact.call_us")}</Typography>
@@ -45,7 +45,7 @@ const ContactSection = () => {
 
             <Box className={`${styles.contact} flex jcs aifs g10`}>
               <Box className={`${styles.icon} flex jcc aic  br4`}>
-                <EmailRounded/>
+                <EmailRounded />
               </Box>
               <Box className={`grid jcs aic`}>
                 <Typography variant="h5">{t("contact.email.text")}</Typography>

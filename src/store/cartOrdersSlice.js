@@ -29,7 +29,7 @@ export const cartOrdersSlice = createSlice({
       state.isLoading = true
     })
     builder.addCase(getCartOrders.fulfilled, (state, { payload }) => {
-      state.cartOrders = payload
+      state.cartOrders = payload.reverse()
       state.isLoading = false
     })
     builder.addCase(getCartOrders.rejected, (state, action) => {

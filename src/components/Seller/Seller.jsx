@@ -81,10 +81,9 @@ const Seller = ({ seller, type }) => {
             <Box className={`grid jcs aic pad10 g20`}>
                 <Box className={`flex flex_wrap jcsb aifs g10`}>
                     <Typography variant={"h6"} >{t("lang") === "ar" ? seller.arName : seller.enName}</Typography>
-
-                    <LoadButton loading={loading}>
+                    {userId !== seller._id && <LoadButton loading={loading}>
                         <PrimaryButton onClick={handleAddToCart}>{t("seller.add_to_cart.button")}</PrimaryButton>
-                    </LoadButton>
+                    </LoadButton>}
                 </Box>
                 <Box className={`flex flex_wrap jcsb aic g10 pad10`}>
                     <Box className={`grid jcc aic g5`}>

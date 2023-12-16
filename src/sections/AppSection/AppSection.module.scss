@@ -1,0 +1,51 @@
+@import "../../assets/styles/variable.scss";
+
+.app_box {
+  background-color: $main;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 100%;
+
+  .app_contain {
+    color: $white;
+
+    .app_data_box {
+
+      .app_image_box {
+        height: 100%;
+
+        img {
+          height: 100%;
+          width: auto;
+        }
+
+        @media (max-width:$sm_size) {
+          display: none !important;
+        }
+      }
+
+      .feats {
+        .feat {
+          color: $white;
+
+          @media (max-width:$md_size) {
+            .star {
+              img {
+                width: 50px;
+              }
+            }
+          }
+
+          @media (max-width:$sm_size) {
+            .star {
+              img {
+                width: 30px;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

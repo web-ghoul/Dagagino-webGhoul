@@ -10,34 +10,34 @@ import { useParams } from 'next/navigation';
 import { getSellers } from '@/store/sellersSlice';
 import { SignalCellularConnectedNoInternet0BarSharp } from '@mui/icons-material';
 import Seller from '@/components/Seller/Seller';
-import  LoadingSellersSection from "./LoadingSellersSection"
+import LoadingSellersSection from "./LoadingSellersSection"
 
 const SellersSection = () => {
-    const {t} = useTranslation()
-    const dispatch =useDispatch()
-    const {sellers , isLoading , type} = useSelector((state)=>state.sellers)
-    const {id} = useParams()
+    const { t } = useTranslation()
+    const dispatch = useDispatch()
+    const { sellers, isLoading, type } = useSelector((state) => state.sellers)
+    const { id } = useParams()
 
-    useEffect(()=>{
-        dispatch(getSellers({id}))
-    },[dispatch ,id])
-    
+    useEffect(() => {
+        dispatch(getSellers({ id }))
+    }, [dispatch, id])
+
     return (
         <PrimaryBox>
             <PrimaryContainer className={`${styles.sellers_section_contain} grid jcs aic g30 `}>
                 <Typography variant={"h4"} >{t("sellers.title")}</Typography>
                 <Box className={`grid jcs aic g30`}>
                     {
-                        isLoading ? (<LoadingSellersSection/>) : sellers && sellers.length > 0 ? (
-                            <Box className={`grid jcs aic g30 ${styles.sellers}`}>
+                        isLoading ? (<LoadingSellersSection />) : sellers && sellers.length > 0 ? (
+                            <Box className={`grid jcs aifs g30 ${styles.sellers}`}>
                                 {
-                                    sellers.map((seller,i)=>(
+                                    sellers.map((seller, i) => (
                                         <Seller seller={seller} type={type} key={i} />
                                     ))
                                 }
                             </Box>
-                        ):(
-                            <Typography variant={"h5"} sx={{color:(theme)=>theme.palette.gray}} >{t("sellers.no_sellers_yet")}</Typography>
+                        ) : (
+                            <Typography variant={"h5"} sx={{ color: (theme) => theme.palette.gray }} >{t("sellers.no_sellers_yet")}</Typography>
                         )
                     }
                 </Box>

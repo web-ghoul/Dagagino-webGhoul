@@ -1,0 +1,31 @@
+{
+  "cards": [
+    {
+      "id": 73930892,
+      "arTitle": "الأسعار",
+      "enTitle": "the prices",
+      "arDescription": "مع الموقع اسعارنا تفرق معك",
+      "enDescription": "With the website, our prices differ with you",
+      "firstimage": "/money.svg",
+      "arrow": "/arrow.svg"
+    },
+    {
+      "id": 73930469,
+      "arTitle": "تهمنا سلامتك",
+      "enTitle": "Your safety matters to us",
+      "arDescription": "يتم مراقبة جميع الرحلات من قبل فريقنا وقنوات التواصل مفتوحة في حال حدوث اي مكروه .. سلامتك تهمنا مع رايد",
+      "enDescription": "All trips are monitored by our team and communication channels are open in the event of anything bad happening. Your safety is important to us with Raid.",
+      "firstimage": "/trusted.svg",
+      "arrow": "/arrow.svg"
+    },
+    {
+      "id": 73930385,
+      "arTitle": "24/7 دعم",
+      "enTitle": "24/7 support",
+      "arDescription": "فريقنا متواجد لخدمتك في حال واجهتك اي مشكلة اثناء رحلتك",
+      "enDescription": "Our team is here to serve you if you encounter any problem during your trip",
+      "firstimage": "/headset.svg",
+      "arrow": "/arrow.svg"
+    }
+  ]
+}

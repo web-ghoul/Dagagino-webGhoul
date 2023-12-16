@@ -136,13 +136,13 @@ const Header = () => {
               </ListItem>
 
               <ListItem>
-                <Link href={`${process.env.NEXT_PUBLIC_HOME_ROUTE}`}>
+                <Link href={`${process.env.NEXT_PUBLIC_APP_ROUTE}`}>
                   <Typography variant="h6">{t('header.navbar.app')}</Typography>
                 </Link>
               </ListItem>
 
               <ListItem>
-                <Link href={`${process.env.NEXT_PUBLIC_REPORT_ROUTE}`}>
+                <Link href={`${process.env.NEXT_PUBLIC_CONTACT_ROUTE}`}>
                   <Typography variant="h6">{t('header.navbar.contact')}</Typography>
                 </Link>
               </ListItem>
@@ -228,13 +228,13 @@ const Header = () => {
               </ListItem>
 
               <ListItem>
-                <Link href={`${process.env.NEXT_PUBLIC_HOME_ROUTE}`}>
+                <Link href={`${process.env.NEXT_PUBLIC_APP_ROUTE}`}>
                   <Typography variant="h6">{t('header.navbar.app')}</Typography>
                 </Link>
               </ListItem>
 
               <ListItem>
-                <Link href={`${process.env.NEXT_PUBLIC_REPORT_ROUTE}`}>
+                <Link href={`${process.env.NEXT_PUBLIC_CONTACT_ROUTE}`}>
                   <Typography variant="h6">{t('header.navbar.contact')}</Typography>
                 </Link>
               </ListItem>

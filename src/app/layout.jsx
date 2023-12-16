@@ -29,7 +29,6 @@ export default function RootLayout({ children }) {
     <html lang={t("lang")} dir={t("lang") === "ar" ? "rtl" : "ltr"}>
       <head>
         <link rel="stylesheet" href={"./fonts.css"} />
-
         <title>{t("title")}</title>
       </head>
       <body>

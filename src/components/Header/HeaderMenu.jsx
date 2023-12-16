@@ -1,4 +1,4 @@
-import { Button, List, useMediaQuery, ListItem, ListItemButton, Divider, Typography } from '@mui/material'
+import { List, useMediaQuery, ListItem, Divider, Typography } from '@mui/material'
 import { PrimaryButton } from '@/muiCustomize/PrimaryButton'
 import { SecondaryButton } from '@/muiCustomize/SecondaryButton'
 import Link from 'next/link'
@@ -6,14 +6,12 @@ import styles from "./Header.module.scss"
 import { useTranslation } from 'react-i18next'
 import { useSelector } from 'react-redux'
 import { useRouter } from 'next/navigation'
-import { useState } from 'react'
 import { Box } from '@mui/material'
 
 const HeaderMenu = ({ activeMenu, handleLogout, handleCloseMenu }) => {
   const { signed, userId, userType } = useSelector((state) => state.auth)
   const { t } = useTranslation()
   const router = useRouter()
-  const lgSize = useMediaQuery("(max-width:1200px)")
   const mdSize = useMediaQuery("(max-width:992px)")
   const smSize = useMediaQuery("(max-width:768px)")
   return (
@@ -63,13 +61,13 @@ const HeaderMenu = ({ activeMenu, handleLogout, handleCloseMenu }) => {
       </ListItem>
 
       <ListItem onClick={handleCloseMenu}>
-        <Link href={`${process.env.NEXT_PUBLIC_HOME_ROUTE}`}>
+        <Link href={`${process.env.NEXT_PUBLIC_APP_ROUTE}`}>
           <Typography variant="h6">{t('header.navbar.app')}</Typography>
         </Link>
       </ListItem>
 
       <ListItem onClick={handleCloseMenu}>
-        <Link href={`${process.env.NEXT_PUBLIC_REPORT_ROUTE}`}>
+        <Link href={`${process.env.NEXT_PUBLIC_CONTACT_ROUTE}`}>
           <Typography variant="h6">{t('header.navbar.contact')}</Typography>
         </Link>
       </ListItem>

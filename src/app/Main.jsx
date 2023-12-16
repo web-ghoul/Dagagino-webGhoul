@@ -16,6 +16,7 @@ import AnalysisReportProvider from "@/context/AnalysisReportContext"
 import DashboardProvider from "@/context/DashboardContext"
 import CartProvider from "../context/CartContext"
 import ProductsProvider from "../context/ProductsContext"
+import { getCartOrders } from "../store/cartOrdersSlice"
 
 const Main = ({ children }) => {
   const dispatch = useDispatch()
@@ -39,6 +40,7 @@ const Main = ({ children }) => {
       const userType = Cookies.get(`${process.env.NEXT_PUBLIC_USERTYPE_NAME}`)
       if (token && userId && userTypeId && userType) {
         dispatch(setAuth({ token, userId, userType, userTypeId, providerTypeId }))
+        dispatch(getCartOrders())
       } else {
         if (pathname === `${process.env.NEXT_PUBLIC_PROFILE_ROUTE}/${id}` || pathname === `${process.env.NEXT_PUBLIC_DASHBOARD_ROUTE}` || pathname === `${process.env.NEXT_PUBLIC_PRODUCTS_ROUTE}` || pathname === `${process.env.NEXT_PUBLIC_PRODUCT_ROUTE}/${id}` || pathname === `${process.env.NEXT_PUBLIC_REPORTS_ROUTE}`) {
           dispatch(logout())
