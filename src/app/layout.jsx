@@ -28,7 +28,7 @@ import { useEffect, useState } from "react"
 export default function RootLayout({ children }) {
   const { t } = useTranslation()
   useEffect(() => {
-    if (localStorage.getItem("lang")) {
+    if (typeof window !== 'undefined' && localStorage.getItem("lang")) {
       i18n.changeLanguage(localStorage.getItem("lang"))
     }
   }, [localStorage])
