@@ -42,7 +42,7 @@ const Cart = () => {
             <ShoppingBagRounded sx={{ color: (theme) => theme.palette.primary.main }} />
           </Box>
           {
-            !isLoading ? (
+            isLoading ? (
               <Box className={`grid jcs aic g30`}>
                 {new Array(Math.floor(Math.random() * 10)).fill(0).map((_, i) => (<LoadingSellerOrders key={i} />))}
               </Box>
