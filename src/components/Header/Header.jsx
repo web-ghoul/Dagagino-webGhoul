@@ -58,14 +58,14 @@ const Header = () => {
   if (typeof window !== "undefined") {
     window.addEventListener('click', (e) => {
       const classes = e.target.classList
-      // console.log(classes)
+      console.log(classes)
       //For Menu List
       if (!(classes.contains("Header_header_menu_button__Qgj0A") || classes.contains("MuiSvgIcon-root") || (e.target.parentElement && e.target.parentElement.classList.contains("MuiSvgIcon-root")))) {
         setActiveMenu(false)
       }
 
       //For Languages List
-      if (!(classes.contains("css-1qnayxv-MuiTypography-root") || classes.contains("css-wtk2ev-MuiButtonBase-root-MuiButton-root") || classes.contains("MuiSvgIcon-root") || (e.target.parentElement && e.target.parentElement.classList.contains("MuiSvgIcon-root")))) {
+      if (!(classes.contains("css-1qnayxv-MuiTypography-root") || classes.contains("css-wtk2ev-MuiButtonBase-root-MuiButton-root") || classes.contains("MuiSvgIcon-root") || (e.target.parentElement && e.target.parentElement.classList.contains("MuiSvgIcon-root")) || classes.contains("css-123gntw-MuiTypography-root"))) {
         setActiveLanguagesMenu(false)
       }
     })
@@ -175,7 +175,7 @@ const Header = () => {
           {
             activeLanguagesMenu ? <ArrowDropUpRounded /> : <ArrowDropDownRounded />
           }
-          <Typography>{t('header.change_language_text')}</Typography>
+          <Typography variant='subtitle1' className={`${styles.change_language_text}`}>{t('header.change_language_text')}</Typography>
         </PrimaryButton>
       </Box>
     </>
