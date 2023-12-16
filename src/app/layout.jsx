@@ -26,16 +26,14 @@ import i18n from "@/i18n"
 import { useEffect, useState } from "react"
 
 export default function RootLayout({ children }) {
-  const [lang, setLang] = useState("ar")
   const { t } = useTranslation()
   useEffect(() => {
     if (localStorage.getItem("lang")) {
       i18n.changeLanguage(localStorage.getItem("lang"))
-      setLang(localStorage.getItem("lang"))
     }
-  }, [])
+  }, [localStorage])
   return (
-    <html lang={lang} dir={lang === "ar" ? "rtl" : "ltr"}>
+    <html lang={t("lang")} dir={t("lang") === "ar" ? "rtl" : "ltr"}>
       <head>
         <link rel="stylesheet" href={"./fonts.css"} />
         <title>{t("title")}</title>
