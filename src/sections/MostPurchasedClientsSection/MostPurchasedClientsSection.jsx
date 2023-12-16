@@ -22,7 +22,7 @@ const MostPurchasedClientsSection = () => {
     <Box className={`grid jcs aic g20`} >
       <PurchasedClient def={true} />
       {
-        !isLoading ? (<>
+        isLoading ? (<>
           {new Array(Math.floor(Math.random() * 5 + 1)).fill(0).map((_, i) => (
             <LoadingPurchasedClient key={i} />
           ))}

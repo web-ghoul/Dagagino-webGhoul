@@ -22,7 +22,7 @@ const MostBoughtFromSection = () => {
     <Box className={`grid jcs aic g20`} >
       <BoughtFrom def={true} />
       {
-        !isLoading ? (<>
+        isLoading ? (<>
           {new Array(Math.floor(Math.random() * 5 + 1)).fill(0).map((_, i) => (
             <LoadingBoughtFrom key={i} />
           ))}
