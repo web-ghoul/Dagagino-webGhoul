@@ -24,11 +24,11 @@ const TestmonialSection = () => {
               </Box>
               <Typography variant="h5">{t("lang") === "ar" ? review.arDescription : review.enDescription}</Typography>
               <Box className={`flex jcsb g20`}>
-                <Box className={`flex jcs aic`}>
+                <Box className={`flex jcs aic g10`}>
                   <Box className={`flex jcc aic`}>
                     <LazyLoadImage src={backgroundImg.src} alt={"user"} />
                   </Box>
-                  <Box className={`grid jcs aic g5`}>
+                  <Box className={`grid jcs aic`}>
                     <Typography variant="h5">{t("lang") === "ar" ? review.arClientname : review.enClientname}</Typography>
                     <Typography variant="h6" sx={{ color: (theme) => theme.palette.gray }}>{t("lang") === "ar" ? review.arRole : review.enRole}</Typography>
                   </Box>

@@ -26,7 +26,7 @@ const AppSection = () => {
                   <LazyLoadImage src={starImg.src} alt={"star"} />
                 </Box>
                 <Box className={`grid jcs aic g10`}>
-                  <Typography variant="h6">{t("app.title_1")}</Typography>
+                  <Typography variant="h6" className={`fw600`}>{t("app.title_1")}</Typography>
                   <Typography variant="h6">{t("app.text_1")}</Typography>
                 </Box>
               </Box>
@@ -35,7 +35,7 @@ const AppSection = () => {
                   <LazyLoadImage src={starImg.src} alt={"star"} />
                 </Box>
                 <Box className={`grid jcs aic g10`}>
-                  <Typography variant="h6">{t("app.title_2")}</Typography>
+                  <Typography variant="h6" className={`fw600`}>{t("app.title_2")}</Typography>
                   <Typography variant="h6">{t("app.text_2")}</Typography>
                 </Box>
               </Box>
@@ -44,7 +44,7 @@ const AppSection = () => {
                   <LazyLoadImage src={starImg.src} alt={"star"} />
                 </Box>
                 <Box className={`grid jcs aic g10`}>
-                  <Typography variant="h6">{t("app.title_3")}</Typography>
+                  <Typography variant="h6" className={`fw600`}>{t("app.title_3")}</Typography>
                   <Typography variant="h6">{t("app.text_3")}</Typography>
                 </Box>
               </Box>
@@ -53,7 +53,7 @@ const AppSection = () => {
                   <LazyLoadImage src={starImg.src} alt={"star"} />
                 </Box>
                 <Box className={`grid jcs aic g10`}>
-                  <Typography variant="h6">{t("app.title_4")}</Typography>
+                  <Typography variant="h6" className={`fw600`}>{t("app.title_4")}</Typography>
                   <Typography variant="h6">{t("app.text_4")}</Typography>
                 </Box>
               </Box>
@@ -62,7 +62,7 @@ const AppSection = () => {
                   <LazyLoadImage src={starImg.src} alt={"star"} />
                 </Box>
                 <Box className={`grid jcs aic g10`}>
-                  <Typography variant="h6">{t("app.title_5")}</Typography>
+                  <Typography variant="h6" className={`fw600`}>{t("app.title_5")}</Typography>
                   <Typography variant="h6">{t("app.text_5")}</Typography>
                 </Box>
               </Box>
