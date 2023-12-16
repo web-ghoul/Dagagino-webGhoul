@@ -54,19 +54,19 @@ const HeaderMenu = ({ activeMenu, handleLogout, handleCloseMenu }) => {
         </Link>
       </ListItem>
 
-      <ListItem onClick={handleCloseMenu}>
+      <ListItem>
         <Link href={`${process.env.NEXT_PUBLIC_ABOUT_ROUTE}`}>
           <Typography variant="h6">{t('header.navbar.about')}</Typography>
         </Link>
       </ListItem>
 
-      <ListItem onClick={handleCloseMenu}>
+      <ListItem>
         <Link href={`${process.env.NEXT_PUBLIC_APP_ROUTE}`}>
           <Typography variant="h6">{t('header.navbar.app')}</Typography>
         </Link>
       </ListItem>
 
-      <ListItem onClick={handleCloseMenu}>
+      <ListItem>
         <Link href={`${process.env.NEXT_PUBLIC_CONTACT_ROUTE}`}>
           <Typography variant="h6">{t('header.navbar.contact')}</Typography>
         </Link>

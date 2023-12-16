@@ -107,6 +107,7 @@
     "forms.otp.check_your_phone.message": "تفقد هاتفك",
     "forms.fetch.public_error.message": "حدث خطا",
     "forms.cart.should_quantify_all_product.message": "يجب ان تحدد الكمية لكل المنتجات",
+    "forms.send_create_invoice_successfully.message": "تم عمل الفاتورة بنجاح!!",
     "forms.verify_phone_number_successfully.message": "رقم هاتفك تم تفعيله بنجاح",
     "forms.register.createe_account_successfully.message": "تم انشاء الحساب بنجاح!!",
     "forms.edit_profile_successfully.message": "تم تعديل ملفك بنجاح!!",

@@ -114,6 +114,7 @@
     "seller.add_to_cart_successfully.message": "Product is Added To Cart Successfully!!",
     "forms.pending_sale.confirm_successfully_message": "Confirm Sale Successfully!!",
     "forms.cart.should_quantify_all_product.message": "Should Quantify All Products",
+    "forms.send_create_invoice_successfully.message": "Invoice is Created Successfully!!",
     "forms.password.min": "Password should be of minimum 8 characters length",
     "forms.confirm_password.match": "Password must be Match",
     "forms.arabic_name.required": "Arabic Name is Required",

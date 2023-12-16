@@ -4,6 +4,7 @@ import { Box, Typography } from "@mui/material"
 import { useContext } from "react";
 import { DashboardContext } from "../../context/DashboardContext";
 import { handleDate } from "../../functions/handleDate";
+import LogoImage from "../LogoImage/LogoImage";
 
 const ConfirmedPurchaseDetails = () => {
   const { t } = useTranslation()
@@ -11,7 +12,9 @@ const ConfirmedPurchaseDetails = () => {
   return (
     <Box className={`grid jcs aic g30 ${styles.confirmed_purchase_details}`}>
       <Typography sx={{ color: (theme) => theme.palette.primary.main }} variant={"h4"} className={`tac`}>{t("dashboard.confirmed_purchase_details.title")}</Typography>
-
+      <Box className={`${styles.logo} flex jcc aic`}>
+        <LogoImage />
+      </Box>
       <Box className={`grid jcs iac g30 ${styles.confirmed_purchase_details_box}`}>
         <Box className={`${styles.data_box} pad20 br6 flex jcs aic flex_wrap g10`}>
           <Typography sx={{ color: (theme) => theme.palette.dark }} variant="h6">{t("dashboard.confirmed_purchase_details.seller_name")}</Typography>

@@ -1,12 +1,12 @@
 export const handleStartDateAndEndDate = () => {
   const today = new Date();
-  const nextMonth = new Date();
-  nextMonth.setMonth(today.getMonth() + 1);
+  const lastMonth = new Date();
+  lastMonth.setMonth(today.getMonth() - 1);
   const formattedToday = formatDate(today);
-  const formattedNextMonth = formatDate(nextMonth);
+  const formattedLastMonth = formatDate(lastMonth);
   return {
-    startDate: formattedToday,
-    endDate: formattedNextMonth,
+    startDate: formattedLastMonth,
+    endDate: formattedToday,
   };
 }
 

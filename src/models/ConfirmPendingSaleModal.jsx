@@ -5,12 +5,12 @@ import Forms from '../Forms/Forms';
 
 
 const ConfirmPendingSaleModal = () => {
-  const { openConfirmePendingSaleModal, handleCloseConfirmePendingSaleModal } = useContext(DashboardContext)
+  const { openConfirmPendingSaleModal, handleCloseConfirmPendingSaleModal } = useContext(DashboardContext)
 
   return (
     <Modal
-      open={openConfirmePendingSaleModal ? openConfirmePendingSaleModal : false}
-      onClose={handleCloseConfirmePendingSaleModal}
+      open={openConfirmPendingSaleModal ? openConfirmPendingSaleModal : false}
+      onClose={handleCloseConfirmPendingSaleModal}
       aria-labelledby="modal-modal-title"
       aria-describedby="modal-modal-description"
     >

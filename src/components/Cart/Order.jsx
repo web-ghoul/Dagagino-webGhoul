@@ -7,7 +7,7 @@ import Forms from '../../Forms/Forms'
 
 const Order = ({ priceVals, setPriceVals, priceAfterDiscountVals, setTotalValue, setPriceAfterDiscountVals, setTotalAfterDiscount, product, number }) => {
   const { t } = useTranslation()
-  const [val, setVal] = useState(0)
+  const [val, setVal] = useState()
 
   const handleTotals = (val) => {
     let v1 = priceVals
@@ -32,10 +32,10 @@ const Order = ({ priceVals, setPriceVals, priceAfterDiscountVals, setTotalValue,
     setTotalAfterDiscount(total2)
   }
 
-  // useEffect(() => {
-  //   handleTotals(val)
-  //   console.log(2)
-  // }, [val])
+  useEffect(() => {
+    handleTotals(val)
+  }, [val])
+
   return (
     <Box className={`${styles.order} br6 pad10 grid jcs aic g20`}>
       <Box className={`flex jcsb aic g30`}>

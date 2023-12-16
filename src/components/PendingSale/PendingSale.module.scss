@@ -47,7 +47,13 @@
 
 
 .pending_sale_details {
-  .pending_sale_details_details_box {
+  .logo {
+    img {
+      width: 100px;
+    }
+  }
+
+  .pending_sale_details_box {
     grid-template-columns: repeat(2, 1fr);
 
     .data_box {
@@ -76,6 +82,16 @@
   }
 
   @media (max-width:$md_size) {
+    .logo {
+      img {
+        width: 75px;
+      }
+    }
+
+    .pending_sale_details_box {
+      grid-template-columns: repeat(1, 1fr);
+    }
+
     .pending_sale_details_products_box {
       .table_row {
         grid-template-columns: 10% 35% 15% 15% 20%;
@@ -84,6 +100,12 @@
   }
 
   @media (max-width:$sm_size) {
+    .logo {
+      img {
+        width: 50px;
+      }
+    }
+
     .pending_sale_details_details_box {
       grid-template-columns: repeat(1, 1fr);
     }

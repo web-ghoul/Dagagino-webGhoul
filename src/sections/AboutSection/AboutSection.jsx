@@ -16,7 +16,7 @@ const logos = [moneyImg, trustedImg, headSetImg]
 const AboutSection = () => {
   const { t } = useTranslation()
   return (
-    <PrimaryBox>
+    <PrimaryBox id={"About"}>
       <PrimaryContainer className={`grid jcs aic g50 ${styles.about_contain}`}>
         <Typography variant="h4" className={`fw700 tac`}>{t("about.title")}</Typography>
         <Box className={`grid jcs aic g30 ${styles.about_us}`}>

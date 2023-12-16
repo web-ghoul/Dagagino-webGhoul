@@ -43,6 +43,7 @@ import { getCartOrders } from "../store/cartOrdersSlice";
 import CreateInvoiceForm from "./CreateInvoiceForm";
 import RemoveProductFromCartForm from "./RemoveProductFromCartForm";
 import ClearCartForm from "./ClearCartForm";
+import { CartContext } from "../context/CartContext";
 
 const Forms = ({ type, removeProductId, createInvoiceData }) => {
   const { t } = useTranslation()
@@ -56,6 +57,7 @@ const Forms = ({ type, removeProductId, createInvoiceData }) => {
   const { profileData, handleCloseEditProfileModal, handleCloseChangeAvatarModal } = useContext(ProfileContext)
   const { deleteUserProductId, editUserProduct, addSystemProduct, handleCloseDeleteUserProductModal, handleCloseEditUserProductModal, pendingSaleId, handleCloseConfirmPendingSaleModal } = useContext(DashboardContext)
   const { avatarForRegister, setAvatarForChange, setAvatarForEdit, avatarForChange, avatarForEdit, handleClearAll } = useContext(UploadImageContext)
+  const { handleCloseCart } = useContext(CartContext)
   const { cartOrders } = useSelector((state) => state.cartOrders)
   const server_url = process.env.NEXT_PUBLIC_SERVER_URL
   const { id } = useParams()
@@ -633,16 +635,14 @@ const Forms = ({ type, removeProductId, createInvoiceData }) => {
         setLoading(false)
         return
       }
-      console.log(cartOrders[createInvoiceData.index])
-      values.seller = cartOrders[createInvoiceData.index]._id
+      values.seller = cartOrders[createInvoiceData.index].user._id
       values.totalValue = createInvoiceData.totalValue
       values.totalAfterDiscount = createInvoiceData.totalAfterDiscount
       values.products = []
-      console.log(createInvoiceData.priceVals.includes(0))
       let isZeroOrNegativeExist = false
       cartOrders[createInvoiceData.index].products.map((pro, i) => {
         let product = {
-          product: pro._id,
+          product: pro.product._id,
           price: pro.price,
           priceAfterDiscount: pro.priceAfterDiscount,
           qty: createInvoiceData.priceVals[i] / pro.price,
@@ -658,16 +658,20 @@ const Forms = ({ type, removeProductId, createInvoiceData }) => {
         setLoading(false)
         return
       }
-      console.log(values, userId)
       await axios.post(`${server_url}/Invoices/CreateInvoice?id=${userId}`, values, {
         headers: {
           "Authorization": `Bearer ${token}`
         }
-      }).then((res) => {
-        console.log(res)
+      }).then(() => {
         try {
-          dispatch(getCartOrders())
+          handleRemoveCartElement(cartOrders[createInvoiceData.index]._id)
           handleAlert(t("forms.send_create_invoice_successfully.message"), "success")
+          if (userType === "client") {
+            router.push(`${process.env.NEXT_PUBLIC_ANALYSIS_REPORTS_ROUTE}/${userId}`)
+          } else {
+            router.push(`${process.env.NEXT_PUBLIC_DASHBOARD_ROUTE}/${userId}`)
+          }
+          handleCloseCart()
           resetForm()
         } catch (err) {
           console.log(err)
@@ -685,11 +689,11 @@ const Forms = ({ type, removeProductId, createInvoiceData }) => {
     e.preventDefault()
     setLoading(true)
 
-    await axios.delete(`${server_url}/Products/${userType === "farm" ? "RemoveFarmProduct?farmID" : userType === "supplier" && "RemoveSupplierProduct?supplierID"}=${userTypeId}&productID=${deleteUserProductId}`, {
+    await axios.delete(`${server_url}/Products/${userType === "farm" ? "RemoveFarmProduct?farmID" : userType === "supplier" && "RemoveSupplierProduct?supplierID"}=${userTypeId}&productID=${deleteUserProductId}`, {}, {
       headers: {
         Authorization: `Bearer ${token}`
       }
-    }).then((res) => {
+    }).then(() => {
       try {
         handleAlert(t("forms.user_product.delete_successfully_message"), "success")
         handleCloseDeleteUserProductModal()
@@ -753,6 +757,32 @@ const Forms = ({ type, removeProductId, createInvoiceData }) => {
     setLoading(false)
   }
 
+
+  //Remove Cart Element
+  const handleRemoveCartElement = async (id) => {
+    setLoading(true)
+    const body = {
+      userID: userId,
+      elementID: id
+    }
+    await axios.put(`${server_url}/Cart/RemoveCartElement`, body, {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    }).then(() => {
+      try {
+        dispatch(getCartOrders())
+      } catch (err) {
+        console.log(err)
+        handleAlert(t("forms.fetch.public_error.message"), "erorr")
+      }
+    }).catch((err) => {
+      handleCatchError(err)
+    })
+    setLoading(false)
+  }
+
+
   //Clear Cart
   const handleClearCart = async (e) => {
     e.preventDefault()
@@ -774,6 +804,7 @@ const Forms = ({ type, removeProductId, createInvoiceData }) => {
     })
     setLoading(false)
   }
+
 
   return (
     <form onSubmit={type === "login" ? loginFormik.handleSubmit : (type === "supplier" || type === "farmer" || type === "client") ? registerFormik.handleSubmit : type === "contact" ? contactFormik.handleSubmit : type === "verify_otp" ? verifyOTPFormik.handleSubmit : (type === "edit_profile" || type === "change_avatar") ? editProfileFormik.handleSubmit : type === "handle_report_dates" ? handleReportDatesFormik.handleSubmit : type === "add_product" ? addSystemProduct ? addSystemProductFormik.handleSubmit : addProductFormik.handleSubmit : type === "edit_user_product" ? editUserProductFormik.handleSubmit : type === "complaint" ? complaintFormik.handleSubmit : type === "create_invoice" ? createInvoiceFormik.handleSubmit : type === "delete_user_product" ? handleDeleteUserProduct : type === "confirm_pending_sale" ? handleConfirmPendngSale : type === "remove_product_from_cart" ? handleRemoveProductFromCart : type === "clear_cart" && handleClearCart} className={`${t("lang") === "ar" ? "form_arabic" : "form_english"}`}>

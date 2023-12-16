@@ -9,6 +9,7 @@ import SellerOrders from "./SellerOrders"
 import { Close, ShoppingBagRounded } from "@mui/icons-material"
 import { PrimaryIconButton } from "../../muiCustomize/PrimaryIconButton"
 import Forms from "../../Forms/Forms"
+import LoadingSellerOrders from "./LoadingSellerOrders"
 
 const Cart = () => {
   const { openCart, handleCloseCart } = useContext(CartContext)
@@ -41,7 +42,11 @@ const Cart = () => {
             <ShoppingBagRounded sx={{ color: (theme) => theme.palette.primary.main }} />
           </Box>
           {
-            isLoading ? (<></>) : cartOrders && cartOrders.length > 0 ? (
+            !isLoading ? (
+              <Box className={`grid jcs aic g30`}>
+                {new Array(Math.floor(Math.random() * 10)).fill(0).map((_, i) => (<LoadingSellerOrders key={i} />))}
+              </Box>
+            ) : cartOrders && cartOrders.length > 0 ? (
               <>
                 <Box className={`${styles.cart_orders}  grid jcs aic g30`}>
                   {cartOrders.map((sellerOrders, i) => (

@@ -75,6 +75,7 @@ const DashboardProvider = ({ children }) => {
     const handleOpenConfirmPendingSaleModal = (id) => {
         setPendingSaleId(id)
         setOpenConfirmPendingSaleModal(true)
+        handleClosePendingSaleModal()
     }
 
     const handleCloseConfirmPendingSaleModal = () => {

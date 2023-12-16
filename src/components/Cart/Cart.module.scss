@@ -23,6 +23,10 @@
       }
     }
 
+    .loading_seller_orders {
+      height: 120px !important;
+    }
+
     .seller_orders {
       box-shadow: $box_shadow !important;
       border: none !important;
@@ -87,6 +91,10 @@
     }
 
     .cart_box {
+      .loading_seller_orders {
+        height: 100px !important;
+      }
+
       .cart_box_title {
         svg {
           font-size: 30px;
@@ -106,6 +114,10 @@
     }
 
     .cart_box {
+      .loading_seller_orders {
+        height: 80px !important;
+      }
+
       .cart_box_title {
         svg {
           font-size: 25px;
@@ -125,6 +137,10 @@
     }
 
     .cart_box {
+      .loading_seller_orders {
+        height: 60px !important;
+      }
+
       .cart_box_title {
         svg {
           font-size: 20px;

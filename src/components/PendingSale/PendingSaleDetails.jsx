@@ -7,6 +7,7 @@ import { handleDate } from "../../functions/handleDate";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import { CheckRounded } from "@mui/icons-material";
 import { ConfirmButton } from '@/muiCustomize/ConfirmButton'
+import LogoImage from "../LogoImage/LogoImage";
 
 const PendingSaleDetails = () => {
   const { t } = useTranslation()
@@ -15,6 +16,9 @@ const PendingSaleDetails = () => {
   return (
     <Box className={`grid jcs aic g30 ${styles.pending_sale_details}`}>
       <Typography sx={{ color: (theme) => theme.palette.primary.main }} variant={"h4"} className={`tac`}>{t("dashboard.pending_sale_details.title")}</Typography>
+      <Box className={`${styles.logo} flex jcc aic`}>
+        <LogoImage />
+      </Box>
       <Box className={`grid jcs iac g30 ${styles.pending_sale_details_box}`}>
         <Box className={`${styles.data_box} pad20 br6 flex jcs aic flex_wrap g10`}>
           <Typography sx={{ color: (theme) => theme.palette.dark }} variant="h6">{t("dashboard.pending_sale_details.buyer_name")}</Typography>
@@ -26,7 +30,7 @@ const PendingSaleDetails = () => {
         </Box>
         <Box className={`${styles.data_box} pad20 br6 flex jcs aic flex_wrap g10`}>
           <Typography sx={{ color: (theme) => theme.palette.dark }} variant="h6">{t("dashboard.pending_sale_details.total_price")}</Typography>
-          <Typography sx={{ color: (theme) => theme.palette.primary.main }} variant="h6">{pendingSale.totalvalue.toFixed(1)}</Typography>
+          <Typography sx={{ color: (theme) => theme.palette.primary.main }} variant="h6">{pendingSale.totalValue.toFixed(1)}</Typography>
         </Box>
         <Box className={`${styles.data_box} pad20 br6 flex jcs aic flex_wrap g10`}>
           <Typography sx={{ color: (theme) => theme.palette.dark }} variant="h6">{t("dashboard.pending_sale_details.total_priceAfterDiscount")}</Typography>

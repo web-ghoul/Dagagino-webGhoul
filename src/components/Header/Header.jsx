@@ -24,7 +24,7 @@ const Header = () => {
   const [active, setActive] = useState(false)
   const [activeMenu, setActiveMenu] = useState(false)
   const [activeLanguagesMenu, setActiveLanguagesMenu] = useState(false)
-  const { openCart, handleOpenCart } = useContext(CartContext)
+  const { handleOpenCart } = useContext(CartContext)
   const { userId, userType, signed } = useSelector((state) => state.auth)
   const lgSize = useMediaQuery("(max-width:1200px)")
   const mdSize = useMediaQuery("(max-width:992px)")
@@ -219,7 +219,6 @@ const Header = () => {
                   <Typography variant="h6">{t('header.navbar.home')}</Typography>
                 </Link>
               </ListItem>
-
               <ListItem>
                 <Link href={`${process.env.NEXT_PUBLIC_ABOUT_ROUTE}`}>
                   <Typography variant="h6">{t('header.navbar.about')}</Typography>

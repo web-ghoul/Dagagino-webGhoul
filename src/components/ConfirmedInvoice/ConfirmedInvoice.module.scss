@@ -44,6 +44,12 @@
 }
 
 .confirmed_invoice_details {
+  .logo {
+    img {
+      width: 100px;
+    }
+  }
+
   .confirmed_invoice_details_box {
     grid-template-columns: repeat(2, 1fr);
 
@@ -72,6 +78,12 @@
   }
 
   @media (max-width:$md_size) {
+    .logo {
+      img {
+        width: 75px;
+      }
+    }
+
     .confirmed_invoice_details_products_box {
       .table_row {
         grid-template-columns: 10% 35% 15% 15% 20%;
@@ -80,6 +92,12 @@
   }
 
   @media (max-width:$sm_size) {
+    .logo {
+      img {
+        width: 50px;
+      }
+    }
+
     .confirmed_invoice_details_box {
       grid-template-columns: repeat(1, 1fr);
 
