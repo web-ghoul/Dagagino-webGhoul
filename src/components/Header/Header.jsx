@@ -65,7 +65,7 @@ const Header = () => {
       }
 
       //For Languages List
-      if (!(classes.contains("css-1qnayxv-MuiTypography-root") || classes.contains("css-wtk2ev-MuiButtonBase-root-MuiButton-root") || classes.contains("MuiSvgIcon-root") || (e.target.parentElement && e.target.parentElement.classList.contains("MuiSvgIcon-root")) || classes.contains("css-123gntw-MuiTypography-root"))) {
+      if (!(classes.contains("css-1qnayxv-MuiTypography-root") || classes.contains("css-wtk2ev-MuiButtonBase-root-MuiButton-root") || classes.contains("MuiSvgIcon-root") || (e.target.parentElement && e.target.parentElement.classList.contains("MuiSvgIcon-root")) || classes.contains("css-1vo6ci0"))) {
         setActiveLanguagesMenu(false)
       }
     })
