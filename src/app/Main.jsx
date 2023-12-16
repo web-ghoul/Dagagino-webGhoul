@@ -2,7 +2,6 @@
 import { ThemeProvider } from "@mui/material"
 import { theme } from "./theme"
 import { useEffect } from "react"
-import i18n from "@/i18n"
 import LangProvider from "@/context/LangContext"
 import ProfileProvider from "@/context/ProfileContext"
 import { toast } from "react-hot-toast"
@@ -24,12 +23,6 @@ const Main = ({ children }) => {
   const { id } = useParams()
   const pathname = usePathname()
   const router = useRouter()
-
-  useEffect(() => {
-    if (localStorage.getItem("lang")) {
-      i18n.changeLanguage(localStorage.getItem("lang"))
-    }
-  }, [])
 
   useEffect(() => {
     try {

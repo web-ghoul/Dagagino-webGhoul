@@ -20,10 +20,10 @@
   }
 
   @media (max-width:$sm_size) {
-    grid-template-columns: 10% 30% 30% 30%;
+    grid-template-columns: 10% 40% 20% 30%;
 
     &.loading_box {
-      grid-template-columns: 7.5% 27.5% 27.5% 27.5%;
+      grid-template-columns: 7% 30% 17% 27%;
     }
   }
 }

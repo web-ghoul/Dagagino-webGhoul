@@ -251,12 +251,15 @@ const RegisterForm = ({ loading, formik, type }) => {
           </Box>)
         }
       </Box>
-      <PhoneInput
-        country={"om"}
-        name="phone"
-        value={phone}
-        onChange={(e) => { setPhone("+" + e); formik.values.phone = "+" + e }}
-      />
+      <Box className={`grid jcs aic g10`} sx={{ width: "100%" }}>
+        <Typography variant="h6">{t("forms.phone.label")}</Typography>
+        <PhoneInput
+          country={"om"}
+          name="phone"
+          value={phone}
+          onChange={(e) => { setPhone("+" + e); formik.values.phone = "+" + e }}
+        />
+      </Box>
       <Box className={`grid jcs aic g10`} sx={{ width: "100%" }}>
         <Typography variant="h6">{t("forms.password.label")}</Typography>
         <PrimaryTextField

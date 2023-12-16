@@ -22,11 +22,20 @@ import ConfirmPendingSaleModal from "../models/ConfirmPendingSaleModal"
 import Cart from "../components/Cart/Cart"
 import SlideUp from "../components/SlideUp/SlideUp"
 import { Toaster } from "react-hot-toast"
+import i18n from "@/i18n"
+import { useEffect, useState } from "react"
 
 export default function RootLayout({ children }) {
+  const [lang, setLang] = useState("ar")
   const { t } = useTranslation()
+  useEffect(() => {
+    if (localStorage.getItem("lang")) {
+      i18n.changeLanguage(localStorage.getItem("lang"))
+      setLang(localStorage.getItem("lang"))
+    }
+  }, [])
   return (
-    <html lang={t("lang")} dir={t("lang") === "ar" ? "rtl" : "ltr"}>
+    <html lang={lang} dir={lang === "ar" ? "rtl" : "ltr"}>
       <head>
         <link rel="stylesheet" href={"./fonts.css"} />
         <title>{t("title")}</title>
