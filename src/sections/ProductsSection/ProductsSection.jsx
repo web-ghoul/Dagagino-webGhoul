@@ -43,7 +43,7 @@ const ProductsSection = () => {
         <Box>
           {
             isLoading ? (<LoadingProductsSection />) : (products && products.length > 0) ? (
-              <Box className={`${styles.products} grid jcs aic g30`}>
+              <Box className={`${styles.products} grid jcs aifs g30`}>
                 {
                   products.map((product, i) => (
                     <Product key={i} product={product} />
