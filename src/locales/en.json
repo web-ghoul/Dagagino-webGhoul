@@ -46,6 +46,7 @@
     "forms.change_avatar.title": "Change Avatar",
     "forms.register.title": "Register",
     "forms.edit_profile.title": "Edit Profile",
+    "forms.verify_otp.title": "Verify Your Phone Number",
     "dashboard.confirm_pending_sale.title": "Confirm Sale",
     "forms.fetch.error.jwt.decode": "Authentication is Expire",
     "forms.register.client_type": "Client",

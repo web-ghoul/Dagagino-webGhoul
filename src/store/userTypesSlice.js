@@ -22,7 +22,7 @@ export const userTypesSlice = createSlice({
       state.isLoading = true
     })
     builder.addCase(getUserTypes.fulfilled, (state, { payload }) => {
-      state.userTypes = payload
+      state.userTypes = payload[0].subTypes
       state.isLoading = false
     })
     builder.addCase(getUserTypes.rejected, (state, action) => {

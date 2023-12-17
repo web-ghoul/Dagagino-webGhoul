@@ -3,13 +3,13 @@ import { initializeApp } from "firebase/app";
 import { getAuth } from 'firebase/auth';
 
 const firebaseConfig = {
-  apiKey: "AIzaSyAVzmCyvM1r002rmqwEg-_itvWZPcvyLSY",
-  authDomain: "dagagino-a40dd.firebaseapp.com",
-  projectId: "dagagino-a40dd",
-  storageBucket: "dagagino-a40dd.appspot.com",
-  messagingSenderId: "516477251405",
-  appId: "1:516477251405:web:6030d447be4b5f00e15104",
-  measurementId: "G-8H2248WWDN"
+  apiKey: "AIzaSyCPp_FDG4WgOlDvmmGgTsy5W4kK4MvPyDQ",
+  authDomain: "dagagino-2d6bd.firebaseapp.com",
+  projectId: "dagagino-2d6bd",
+  storageBucket: "dagagino-2d6bd.appspot.com",
+  messagingSenderId: "473018084705",
+  appId: "1:473018084705:web:495b72974171b0fc1f6920",
+  measurementId: "G-P9034SGZRB"
 };
 
 const app = initializeApp(firebaseConfig);

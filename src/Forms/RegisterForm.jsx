@@ -31,7 +31,6 @@ const RegisterForm = ({ loading, formik, type }) => {
       setStates(governorate.states)
     }
   }, [formik, dispatch, type])
-
   return (
     <Box className={`grid jcs aic g30`}>
       <Box className={`flex jcsb aic g30 sm_wrap`}>
@@ -101,6 +100,8 @@ const RegisterForm = ({ loading, formik, type }) => {
           <Typography variant="h6">{t("forms.arabic_description.label")}</Typography>
           <PrimaryTextField
             fullWidth
+            multiline
+            rows={4}
             variant="outlined"
             type="text"
             id="arDescription"
@@ -116,6 +117,8 @@ const RegisterForm = ({ loading, formik, type }) => {
           <Typography variant="h6">{t("forms.english_description.label")}</Typography>
           <PrimaryTextField
             fullWidth
+            multiline
+            rows={4}
             variant="outlined"
             type="text"
             id="enDescription"
@@ -166,7 +169,7 @@ const RegisterForm = ({ loading, formik, type }) => {
               <option key={-1} value={""}>
               </option>
               {
-                userTypes && userTypes[2].subTypes.map((type, i) => (
+                userTypes && userTypes.map((type, i) => (
                   <option key={i} value={type._id}>
                     {t("lang") === "ar" ? type.arName : type.enName}
                   </option>

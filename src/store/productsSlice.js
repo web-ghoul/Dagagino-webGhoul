@@ -6,6 +6,9 @@ import { handleAlert } from "@/functions/handleAlert";
 
 export const getProducts = createAsyncThunk("products/getProducts", async (args) => {
   const token = Cookies.get(`${process.env.NEXT_PUBLIC_TOKEN_NAME}`)
+  if (!token) {
+    return [];
+  }
   let url;
   let b = args.hasOwnProperty("categoryId")
   if (b) {
@@ -57,6 +60,7 @@ export const productsSlice = createSlice({
     })
     builder.addCase(getProducts.rejected, (state, action) => {
       state.isLoading = true
+      state.products = true
       if (action.payload) {
         handleAlert(action.payload.errorMessage, "error")
       } else {

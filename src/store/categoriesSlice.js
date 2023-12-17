@@ -5,6 +5,9 @@ import { handleAlert } from "@/functions/handleAlert";
 
 export const getCategories = createAsyncThunk("categories/getCategories", async () => {
   const token = Cookies.get(`${process.env.NEXT_PUBLIC_TOKEN_NAME}`)
+  if (!token) {
+    return [];
+  }
   const res = await axios.get(`${process.env.NEXT_PUBLIC_SERVER_URL}/Products/GetAllCategories`, {
     headers: {
       Authorization: `Bearer ${token}`

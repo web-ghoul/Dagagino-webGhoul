@@ -5,30 +5,25 @@ import 'react-phone-input-2/lib/style.css'
 import { PrimaryButton } from "@/muiCustomize/PrimaryButton";
 import LoadButton from "@/components/LoadButton/LoadButton";
 import { useState, useEffect, useContext } from "react";
-import { useDispatch, useSelector } from "react-redux"
+import { useDispatch } from "react-redux"
 import governorates from "../data/governorates.json"
-import { getUserTypes } from "@/store/userTypesSlice";
 import UploadImage from "@/components/UploadImage/UploadImage";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import { UploadImageContext } from "@/context/UploadImageContext";
 import { DeleteButton } from "@/muiCustomize/DeleteButton";
 
-const EditProfileForm = ({ loading, formik, type }) => {
+const EditProfileForm = ({ loading, formik }) => {
   const { avatarForEdit, setAvatarForEdit } = useContext(UploadImageContext)
   const { t } = useTranslation()
   const [states, setStates] = useState([])
   const dispatch = useDispatch()
-  const { userTypes } = useSelector((state) => state.userTypes)
 
   useEffect(() => {
-    if (type === "client") {
-      dispatch(getUserTypes())
-    }
     if (formik.values.governorate !== "") {
       const governorate = governorates.governorates.find((gov) => gov._id === formik.values.governorate)
       setStates(governorate.states)
     }
-  }, [formik, dispatch, type])
+  }, [formik, dispatch])
 
   return (
     <Box className={`grid jcs aic g30`}>
@@ -130,54 +125,6 @@ const EditProfileForm = ({ loading, formik, type }) => {
           />
         </Box>
       </Box>
-      {
-        type !== "client" ? (
-          <Box className={`grid jcs aic g10`} sx={{ width: "100%" }}>
-            <Typography variant="h6">{t("forms.commercial_number.label")}</Typography>
-            <PrimaryTextField
-              fullWidth
-              variant="outlined"
-              type="text"
-              id="commercialRegistrationNo"
-              name="commercialRegistrationNo"
-              value={formik.values.commercialRegistrationNo}
-              onChange={formik.handleChange}
-              onBlur={formik.handleBlur}
-              error={formik.touched.commercialRegistrationNo && Boolean(formik.errors.commercialRegistrationNo)}
-              helperText={formik.touched.commercialRegistrationNo && formik.errors.commercialRegistrationNo}
-            />
-          </Box>
-        ) : (
-          <Box className={`grid jcs aic g10`} sx={{ width: "100%" }}>
-            <Typography variant="h6">{t("forms.client_type.label")}</Typography>
-            <PrimaryTextField
-              id="clientType"
-              name="clientType"
-              select
-              fullWidth
-              variant="outlined"
-              SelectProps={{
-                native: true,
-              }}
-              value={formik.values.clientType}
-              onChange={formik.handleChange}
-              onBlur={formik.handleBlur}
-              error={formik.touched.clientType && Boolean(formik.errors.clientType)}
-              helperText={formik.touched.clientType && formik.errors.clientType}
-            >
-              <option key={-1} value={""}>
-              </option>
-              {
-                userTypes && userTypes[2].subTypes.map((type, i) => (
-                  <option key={i} value={type._id}>
-                    {t("lang") === "ar" ? type.arName : type.enName}
-                  </option>
-                ))
-              }
-            </PrimaryTextField>
-          </Box>
-        )
-      }
       <Box className={`flex jcsb aic g30 sm_wrap`}>
         <Box className={`grid jcs aic g10`} sx={{ width: "100%" }}>
           <Typography variant="h6">{t("forms.governorate.label")}</Typography>

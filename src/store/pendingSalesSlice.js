@@ -5,6 +5,9 @@ import { handleAlert } from "@/functions/handleAlert";
 
 export const getPendingSales = createAsyncThunk("pendingSales/getPendingSales", async () => {
   const token = Cookies.get(`${process.env.NEXT_PUBLIC_TOKEN_NAME}`)
+  if (!token) {
+    return null;
+  }
   const userId = Cookies.get(`${process.env.NEXT_PUBLIC_USERID_NAME}`)
   const res = await axios.get(`${process.env.NEXT_PUBLIC_SERVER_URL}/Invoices/SoldPendingInvoices?id=${userId}`, {
     headers: {

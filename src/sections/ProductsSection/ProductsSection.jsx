@@ -34,7 +34,6 @@ const ProductsSection = () => {
   useEffect(() => {
     dispatch(getProducts({ index: 0 }))
   }, [dispatch])
-
   return (
     <PrimaryBox>
       <PrimaryContainer className={` grid jcs aic g50 acfs`}>

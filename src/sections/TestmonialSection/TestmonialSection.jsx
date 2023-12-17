@@ -18,7 +18,7 @@ const TestmonialSection = () => {
         <Typography variant="h4" className={`tac fw700`}>{t("testmonail.title")}</Typography>
         <Box className={`grid jcs aic g30 ${styles.reviews}`}>
           {reviews.map((review, i) => (
-            <Box className={`grid jcs aic g20 pad20 br6 ${styles.review}`}>
+            <Box key={i} className={`grid jcs aic g20 pad20 br6 ${styles.review}`}>
               <Box className={`flex jcc aic`}>
                 <LazyLoadImage src={quoteImg.src} alt={"quote"} />
               </Box>

@@ -34,10 +34,13 @@ const Main = ({ children }) => {
       if (token && userId && userTypeId && userType) {
         dispatch(setAuth({ token, userId, userType, userTypeId, providerTypeId }))
         dispatch(getCartOrders())
+        if (userType === "client" && pathname === `${process.env.NEXT_PUBLIC_ANALYSIS_REPORTS_ROUTE}/${id}`) {
+          router.push(`${process.env.NEXT_PUBLIC_PRODUCTS_ROUTE}`)
+        }
       } else {
-        if (pathname === `${process.env.NEXT_PUBLIC_PROFILE_ROUTE}/${id}` || pathname === `${process.env.NEXT_PUBLIC_DASHBOARD_ROUTE}` || pathname === `${process.env.NEXT_PUBLIC_PRODUCTS_ROUTE}` || pathname === `${process.env.NEXT_PUBLIC_PRODUCT_ROUTE}/${id}` || pathname === `${process.env.NEXT_PUBLIC_REPORTS_ROUTE}`) {
-          dispatch(logout())
+        if (pathname === `${process.env.NEXT_PUBLIC_PROFILE_ROUTE}/${id}` || pathname === `${process.env.NEXT_PUBLIC_DASHBOARD_ROUTE}/${id}` || pathname === `${process.env.NEXT_PUBLIC_PRODUCTS_ROUTE}` || pathname === `${process.env.NEXT_PUBLIC_PRODUCT_ROUTE}/${id}` || pathname === `${process.env.NEXT_PUBLIC_ANALYSIS_REPORTS_ROUTE}/${id}`) {
           router.push(`${process.env.NEXT_PUBLIC_LOGIN_ROUTE}`)
+          dispatch(logout())
         }
       }
     } catch (err) {

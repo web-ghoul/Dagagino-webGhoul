@@ -43,7 +43,7 @@ const ConfirmedInvoiceDetails = () => {
         </Box>
         {
           confirmedInvoice.products.map((product, i) => (
-            <Box className={`grid jcs aic pad10 ${styles.table_row_data} ${styles.table_row}`}>
+            <Box key={i} className={`grid jcs aic pad10 ${styles.table_row_data} ${styles.table_row}`}>
               <Typography variant="h6">#{i + 1}</Typography>
               <Typography variant="h6">{t("lang") === "ar" ? product.product.arName : product.product.enName}</Typography>
               <Typography variant="h6">{product.qty}</Typography>

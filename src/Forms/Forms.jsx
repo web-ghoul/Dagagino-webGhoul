@@ -102,6 +102,7 @@ const Forms = ({ type, removeProductId, createInvoiceData }) => {
       handleAlert(t("forms.otp.check_your_phone.message"), "success")
       setConfirmation(conf)
       setSendOTP(true)
+      console.log(1)
     } catch (err) {
       console.log(err)
       handleAlert(t("forms.fetch.public_error.message"), "error")
@@ -143,7 +144,6 @@ const Forms = ({ type, removeProductId, createInvoiceData }) => {
           if (!isVerified) {
             handleAlert(t("forms.fetch.error.jwt.decode"), "error")
           } else {
-            console.log(user)
             providerTypeId = user.type._id
             if (user.hasOwnProperty("farm")) {
               userType = 'farm'
@@ -306,7 +306,6 @@ const Forms = ({ type, removeProductId, createInvoiceData }) => {
     }
   })
 
-
   //Edit Profile
   const editProfileInitialValues = {
     arName: profileData && profileData.arName,
@@ -315,8 +314,6 @@ const Forms = ({ type, removeProductId, createInvoiceData }) => {
     address: profileData && profileData.address,
     arDescription: profileData && profileData.arDescription,
     enDescription: profileData && profileData.enDescription,
-    clientType: profileData && profileData.clientType,
-    commercialRegistrationNo: profileData && profileData.commercialRegistrationNo,
     governorate: profileData && profileData.governorate,
     state: profileData && profileData.state,
     imageURL: profileData && profileData.imageURL,
@@ -329,8 +326,6 @@ const Forms = ({ type, removeProductId, createInvoiceData }) => {
     address: yup.string(t("forms.address.string")).required(t("forms.address.required")),
     arDescription: yup.string(t("forms.arabic_description.string")).required(t("forms.arabic_description.required")),
     enDescription: yup.string(t("forms.english_description.string")).required(t("forms.english_description.required")),
-    clientType: userType === "client" ? yup.string(t("forms.clientType.string")).required(t("forms.clientType.required")) : yup.string(t("forms.clientType.string")),
-    commercialRegistrationNo: userType !== "client" ? yup.string(t("forms.commercial_number.string")).required(t("forms.commercial_number.required")) : yup.string(t("forms.commercial_number.string")),
     governorate: yup.string(t("forms.governorate.string")).required(t("forms.governorate.required")),
     state: yup.string(t("forms.state.string")).required(t("forms.state.required")),
     imageURL: yup.string(),
@@ -666,11 +661,7 @@ const Forms = ({ type, removeProductId, createInvoiceData }) => {
         try {
           handleRemoveCartElement(cartOrders[createInvoiceData.index]._id)
           handleAlert(t("forms.send_create_invoice_successfully.message"), "success")
-          if (userType === "client") {
-            router.push(`${process.env.NEXT_PUBLIC_ANALYSIS_REPORTS_ROUTE}/${userId}`)
-          } else {
-            router.push(`${process.env.NEXT_PUBLIC_DASHBOARD_ROUTE}/${userId}`)
-          }
+          router.push(`${process.env.NEXT_PUBLIC_DASHBOARD_ROUTE}/${userId}`)
           handleCloseCart()
           resetForm()
         } catch (err) {
@@ -689,11 +680,11 @@ const Forms = ({ type, removeProductId, createInvoiceData }) => {
     e.preventDefault()
     setLoading(true)
 
-    await axios.delete(`${server_url}/Products/${userType === "farm" ? "RemoveFarmProduct?farmID" : userType === "supplier" && "RemoveSupplierProduct?supplierID"}=${userTypeId}&productID=${deleteUserProductId}`, {}, {
+    await axios.delete(`${server_url}/Products/${userType === "farm" ? "RemoveFarmProduct?farmID" : userType === "supplier" && "RemoveSupplierProduct?supplierID"}=${userTypeId}&productID=${deleteUserProductId}`, {
       headers: {
         Authorization: `Bearer ${token}`
       }
-    }).then(() => {
+    }).then((res) => {
       try {
         handleAlert(t("forms.user_product.delete_successfully_message"), "success")
         handleCloseDeleteUserProductModal()
@@ -809,7 +800,7 @@ const Forms = ({ type, removeProductId, createInvoiceData }) => {
   return (
     <form onSubmit={type === "login" ? loginFormik.handleSubmit : (type === "supplier" || type === "farmer" || type === "client") ? registerFormik.handleSubmit : type === "contact" ? contactFormik.handleSubmit : type === "verify_otp" ? verifyOTPFormik.handleSubmit : (type === "edit_profile" || type === "change_avatar") ? editProfileFormik.handleSubmit : type === "handle_report_dates" ? handleReportDatesFormik.handleSubmit : type === "add_product" ? addSystemProduct ? addSystemProductFormik.handleSubmit : addProductFormik.handleSubmit : type === "edit_user_product" ? editUserProductFormik.handleSubmit : type === "complaint" ? complaintFormik.handleSubmit : type === "create_invoice" ? createInvoiceFormik.handleSubmit : type === "delete_user_product" ? handleDeleteUserProduct : type === "confirm_pending_sale" ? handleConfirmPendngSale : type === "remove_product_from_cart" ? handleRemoveProductFromCart : type === "clear_cart" && handleClearCart} className={`${t("lang") === "ar" ? "form_arabic" : "form_english"}`}>
       {
-        type === "login" ? <LoginForm loading={loading} formik={loginFormik} /> : (type === "client" || type === "supplier" || type === "farmer") ? <RegisterForm type={type} loading={loading} formik={registerFormik} /> : type === "contact" ? <ContactForm loading={loading} formik={contactFormik} /> : type === "verify_otp" ? <VerifyOTPForm loading={loading} sendOTP={sendOTP} formik={verifyOTPFormik} /> : type === "edit_profile" ? <EditProfileForm type={userType} loading={loading} formik={editProfileFormik} /> : type === "handle_report_dates" ? <HandleReportDateForm loading={loading} formik={handleReportDatesFormik} /> : type === "change_avatar" ? <ChangeAvatarForm loading={loading} formik={editProfileFormik} /> : type === "complaint" ? <ComplaintForm loading={loading} formik={complaintFormik} /> : type === "add_product" ? addSystemProduct ? <AddSystemProductForm loading={loading} formik={addSystemProductFormik} /> : <AddProductForm loading={loading} formik={addProductFormik} /> : type === "edit_user_product" ? <EditUserProductForm loading={loading} formik={editUserProductFormik} /> : type === "create_invoice" ? <CreateInvoiceForm loading={loading} formik={createInvoiceFormik} /> : type === "delete_user_product" ? <DeleteUserProductForm loading={loading} /> : type === "confirm_pending_sale" ? <ConfirmPendingSaleForm loading={loading} /> : type === "remove_product_from_cart" ? <RemoveProductFromCartForm loading={loading} /> : type === "clear_cart" && <ClearCartForm />
+        type === "login" ? <LoginForm loading={loading} formik={loginFormik} /> : (type === "client" || type === "supplier" || type === "farmer") ? <RegisterForm type={type} loading={loading} formik={registerFormik} /> : type === "contact" ? <ContactForm loading={loading} formik={contactFormik} /> : type === "verify_otp" ? <VerifyOTPForm loading={loading} sendOTP={sendOTP} formik={verifyOTPFormik} /> : type === "edit_profile" ? <EditProfileForm loading={loading} formik={editProfileFormik} /> : type === "handle_report_dates" ? <HandleReportDateForm loading={loading} formik={handleReportDatesFormik} /> : type === "change_avatar" ? <ChangeAvatarForm loading={loading} formik={editProfileFormik} /> : type === "complaint" ? <ComplaintForm loading={loading} formik={complaintFormik} /> : type === "add_product" ? addSystemProduct ? <AddSystemProductForm loading={loading} formik={addSystemProductFormik} /> : <AddProductForm loading={loading} formik={addProductFormik} /> : type === "edit_user_product" ? <EditUserProductForm loading={loading} formik={editUserProductFormik} /> : type === "create_invoice" ? <CreateInvoiceForm loading={loading} formik={createInvoiceFormik} /> : type === "delete_user_product" ? <DeleteUserProductForm loading={loading} /> : type === "confirm_pending_sale" ? <ConfirmPendingSaleForm loading={loading} /> : type === "remove_product_from_cart" ? <RemoveProductFromCartForm loading={loading} /> : type === "clear_cart" && <ClearCartForm />
       }
     </form>
   )

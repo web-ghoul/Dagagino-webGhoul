@@ -8,7 +8,7 @@ import { getProducts } from "../../store/productsSlice"
 import { ProductsContext } from "../../context/ProductsContext"
 
 const FilterByCategory = () => {
-  const { categories } = useSelector((state) => state.categories)
+  const { categories, isLoading } = useSelector((state) => state.categories)
   const dispatch = useDispatch()
   const { t } = useTranslation()
   const { handleSetCategory, handleClearCategory } = useContext(ProductsContext)
@@ -45,7 +45,7 @@ const FilterByCategory = () => {
             {t("filter_by_category.all")}
           </option>
           {
-            categories && categories.map((cat, i) => (
+            !isLoading && categories && categories.map((cat, i) => (
               <option key={i} value={cat._id}>
                 {
                   t("lang") === "ar" ? cat.arName : cat.enName

@@ -6,6 +6,9 @@ import { handleAlert } from "@/functions/handleAlert";
 
 export const getMostSoldProducts = createAsyncThunk("mostSoldProducts/getMostSoldProducts", async (args) => {
   const token = Cookies.get(`${process.env.NEXT_PUBLIC_TOKEN_NAME}`)
+  if (!token) {
+    return null;
+  }
   const userId = Cookies.get(`${process.env.NEXT_PUBLIC_USERID_NAME}`)
   const res = await axios.post(`${process.env.NEXT_PUBLIC_SERVER_URL}/AnalysisReports/MostSoldProduct?id=${userId}`, args.values, {
     headers: {

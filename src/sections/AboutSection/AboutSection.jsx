@@ -22,7 +22,7 @@ const AboutSection = () => {
         <Box className={`grid jcs aic g30 ${styles.about_us}`}>
           {
             cards.map((card, i) => (
-              <Box className={`grid jcs aifs acfs pad20 br6 g20 ${styles.view}`}>
+              <Box key={i} className={`grid jcs aifs acfs pad20 br6 g20 ${styles.view}`}>
                 <Box className={`flex jcc aic ${styles.about_us_icon}`}>
                   <LazyLoadImage src={logos[i].src} alt={"about"} />
                 </Box>

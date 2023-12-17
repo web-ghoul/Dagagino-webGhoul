@@ -6,6 +6,9 @@ import { handleAlert } from "@/functions/handleAlert";
 
 export const getUserProducts = createAsyncThunk("userProducts/getUserProducts", async () => {
   const token = Cookies.get(`${process.env.NEXT_PUBLIC_TOKEN_NAME}`)
+  if (!token) {
+    return []
+  }
   const userType = Cookies.get(`${process.env.NEXT_PUBLIC_USERTYPE_NAME}`)
   const userTypeId = Cookies.get(`${process.env.NEXT_PUBLIC_USERTYPEID_NAME}`)
   if (userType === "client") {

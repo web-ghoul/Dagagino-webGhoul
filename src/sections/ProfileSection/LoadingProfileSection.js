@@ -1,4 +1,4 @@
-import LoadingAvatar from '@/components/Avatar/LoadingAvatar'
+import LoadingAvatar from '../../components/Avatar/LoadingAvatar'
 import LoadingProfileDataBox from '../../components/ProfileDataBox/LoadingProfileDataBox'
 
 const LoadingProfileSection = () => {
