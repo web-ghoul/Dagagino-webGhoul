@@ -99,21 +99,6 @@ const AddSystemProductForm = ({ loading, formik }) => {
             helperText={formik.touched.price && formik.errors.price}
           />
         </Box>
-        <Box className={`grid jcs aic g10`} sx={{ width: "100%" }}>
-          <Typography variant="h6">{t("forms.priceAfterDiscount.label")}</Typography>
-          <PrimaryTextField
-            fullWidth
-            variant="outlined"
-            type="text"
-            id="priceAfterDiscount"
-            name="priceAfterDiscount"
-            value={formik.values.priceAfterDiscount}
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
-            error={formik.touched.priceAfterDiscount && Boolean(formik.errors.priceAfterDiscount)}
-            helperText={formik.touched.priceAfterDiscount && formik.errors.priceAfterDiscount}
-          />
-        </Box>
       </Box>
       <LoadButton loading={loading}>
         <PrimaryButton type={"submit"}>{t("forms.add_product.button.text")}</PrimaryButton>

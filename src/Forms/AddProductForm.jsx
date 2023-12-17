@@ -155,21 +155,6 @@ const AddProductForm = ({ loading, formik }) => {
           />
         </Box>
         <Box className={`grid jcs aic g10`} sx={{ width: "100%" }}>
-          <Typography variant="h6">{t("forms.priceAfterDiscount.label")}</Typography>
-          <PrimaryTextField
-            fullWidth
-            variant="outlined"
-            type="text"
-            id="priceAfterDiscount"
-            name="priceAfterDiscount"
-            value={formik.values.priceAfterDiscount}
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
-            error={formik.touched.priceAfterDiscount && Boolean(formik.errors.priceAfterDiscount)}
-            helperText={formik.touched.priceAfterDiscount && formik.errors.priceAfterDiscount}
-          />
-        </Box>
-        <Box className={`grid jcs aic g10`} sx={{ width: "100%" }}>
           <Typography variant="h6">{t("forms.quantity.label")}</Typography>
           <PrimaryTextField
             fullWidth

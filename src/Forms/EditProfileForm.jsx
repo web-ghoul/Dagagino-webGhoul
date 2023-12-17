@@ -4,16 +4,11 @@ import { useTranslation } from "react-i18next";
 import 'react-phone-input-2/lib/style.css'
 import { PrimaryButton } from "@/muiCustomize/PrimaryButton";
 import LoadButton from "@/components/LoadButton/LoadButton";
-import { useState, useEffect, useContext } from "react";
+import { useState, useEffect } from "react";
 import { useDispatch } from "react-redux"
 import governorates from "../data/governorates.json"
-import UploadImage from "@/components/UploadImage/UploadImage";
-import { LazyLoadImage } from "react-lazy-load-image-component";
-import { UploadImageContext } from "@/context/UploadImageContext";
-import { DeleteButton } from "@/muiCustomize/DeleteButton";
 
 const EditProfileForm = ({ loading, formik }) => {
-  const { avatarForEdit, setAvatarForEdit } = useContext(UploadImageContext)
   const { t } = useTranslation()
   const [states, setStates] = useState([])
   const dispatch = useDispatch()
@@ -186,19 +181,6 @@ const EditProfileForm = ({ loading, formik }) => {
             }
           </PrimaryTextField>
         </Box>
-      </Box>
-      <Box className={`grid jcs aic g20`}>
-        <Typography variant={"h6"}>{t("forms.register.upload_avatar.label")}</Typography>
-        {!avatarForEdit && <UploadImage type={"edit_profile"} />}
-        {
-          avatarForEdit &&
-          (<Box className={`grid jcfs aic g20`}>
-            <DeleteButton sx={{ width: "fit-content" }} onClick={() => setAvatarForEdit(null)}>Remove Avatar</DeleteButton>
-            <Box className={`flex jcfs aic avatar`}>
-              <LazyLoadImage src={avatarForEdit} className={`br6`} alt={"avatar"} />
-            </Box>
-          </Box>)
-        }
       </Box>
       <LoadButton loading={loading}>
         <PrimaryButton type={"submit"}>{t("forms.edit_profile.button.text")}</PrimaryButton>

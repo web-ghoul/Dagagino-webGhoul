@@ -335,11 +335,6 @@ const Forms = ({ type, removeProductId, createInvoiceData }) => {
     validationSchema: editProfileSchema,
     onSubmit: async (values) => {
       setLoading(true)
-      if (type === "edit_profile") {
-        values.imageURL = avatarForEdit
-      } else if (type === "change_avatar") {
-        values.imageURL = avatarForChange
-      }
       await axios.put(`${server_url}/Users/UpdateProfile?id=${userId}`, values, {
         headers: {
           "Authorization": `Bearer ${token}`
@@ -348,8 +343,6 @@ const Forms = ({ type, removeProductId, createInvoiceData }) => {
         try {
           handleCloseEditProfileModal()
           handleCloseChangeAvatarModal()
-          setAvatarForChange(null)
-          setAvatarForEdit(null)
           dispatch(getProfile({ id: userId }))
           handleClearAll()
           if (type === "edit_profile") {
@@ -445,7 +438,6 @@ const Forms = ({ type, removeProductId, createInvoiceData }) => {
     enDescription: "",
     stock: "",
     price: "",
-    priceAfterDiscount: "",
     category: ""
   }
 
@@ -457,7 +449,6 @@ const Forms = ({ type, removeProductId, createInvoiceData }) => {
     enDescription: yup.string(t("forms.english_description.string")).required(t("forms.english_description.required")),
     stock: yup.string(t("forms.quantity.string")).required(t("forms.quantity.required")),
     price: yup.string(t("forms.price.string")).required(t("forms.price.required")),
-    priceAfterDiscount: yup.string(t("forms.priceAfterDiscount.string")),
     category: yup.string(t("forms.category.string")).required(t("forms.category.required"))
   })
 
@@ -498,14 +489,12 @@ const Forms = ({ type, removeProductId, createInvoiceData }) => {
     category: "",
     stock: "",
     price: "",
-    priceAfterDiscount: "",
   }
 
   const addSystemProductSchema = yup.object({
     systemProduct: yup.string(t("forms.systemProduct.string")).required(t("forms.systemProduct.required")),
     stock: yup.string(t("forms.quantity.string")).required(t("forms.quantity.required")),
     price: yup.string(t("forms.price.string")).required(t("forms.price.required")),
-    priceAfterDiscount: yup.string(t("forms.priceAfterDiscount.string")),
   })
 
   const addSystemProductFormik = useFormik({

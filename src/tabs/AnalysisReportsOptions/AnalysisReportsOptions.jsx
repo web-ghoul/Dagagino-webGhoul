@@ -57,22 +57,22 @@ const AnalysisReportsOptions = () => {
       <Box className={`grid jcs aic g30`}>
         <Forms type={"handle_report_dates"} />
         <Tabs variant='scrollable' scrollButtons="auto" value={value} onChange={handleChange} aria-label="scrollable auto tabs example">
-          <PrimaryTab label={t("analysis_reports.most_purchased_clients.tab")} {...a11yProps(0)} />
-          <PrimaryTab label={t("analysis_reports.most_sold_products.tab")} {...a11yProps(1)} />
-          <PrimaryTab label={t("analysis_reports.most_brought_From.tab")} {...a11yProps(2)} />
-          <PrimaryTab label={t("analysis_reports.most_brought_products.tab")} {...a11yProps(3)} />
+          <PrimaryTab label={t("analysis_reports.most_sold_products.tab")} {...a11yProps(0)} />
+          <PrimaryTab label={t("analysis_reports.most_purchased_clients.tab")} {...a11yProps(1)} />
+          <PrimaryTab label={t("analysis_reports.most_bought_products.tab")} {...a11yProps(2)} />
+          <PrimaryTab label={t("analysis_reports.most_bought_From.tab")} {...a11yProps(3)} />
         </Tabs>
         <CustomTabPanel value={value} index={0}>
-          <MostPurchasedClientsSection />
-        </CustomTabPanel>
-        <CustomTabPanel value={value} index={1}>
           <MostSoldProductsSection />
         </CustomTabPanel>
+        <CustomTabPanel value={value} index={1}>
+          <MostPurchasedClientsSection />
+        </CustomTabPanel>
         <CustomTabPanel value={value} index={2}>
-          <MostBoughtFromSection />
+          <MostBoughtProductsSection />
         </CustomTabPanel>
         <CustomTabPanel value={value} index={3}>
-          <MostBoughtProductsSection />
+          <MostBoughtFromSection />
         </CustomTabPanel>
       </Box>
     </Box>
