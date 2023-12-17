@@ -176,7 +176,7 @@
     "analysis_reports.most_purchased_clients.tab": "العملاء الاكثر شراءا",
     "analysis_reports.most_sold_products.tab": "المنتجات الاكثر مبيعا",
     "analysis_reports.most_bought_From.tab": "اكثر البائعين قمت بالشراء منهم",
-    "analysis_reports.most_bought_products.tab": "اكثر المنتجات قمت بشرلئها",
+    "analysis_reports.most_bought_products.tab": "اكثر المنتجات قمت بشرائها",
     "analysis_report.purchased_clients.no_client_yet": "لا يوجد عملاء...",
     "analysis_report.purchased_client.name": "الاسم",
     "analysis_report.purchased_client.client_type": "نوع العميل",
