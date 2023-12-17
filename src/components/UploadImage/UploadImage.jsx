@@ -11,7 +11,7 @@ const fileTypes = ["JPG", "PNG", "GIF", "jpeg"];
 
 const UploadImage = ({ type }) => {
   const { t } = useTranslation()
-  const { setAvatarForRegister, setAvatarForEdit, loadingUploading, setLoadingUploading, setAvatarForChange, setProductImageForEdit, setProductImageForCreate } = useContext(UploadImageContext)
+  const { setAvatarForRegister, loadingUploading, setLoadingUploading, setAvatarForChange, setProductImageForEdit, setProductImageForCreate } = useContext(UploadImageContext)
   const handleChange = async (file) => {
     const formData = new FormData()
     formData.append("image", file)
@@ -22,8 +22,6 @@ const UploadImage = ({ type }) => {
           setAvatarForRegister(res.data.data.url);
         } else if (type === "change_avatar") {
           setAvatarForChange(res.data.data.url)
-        } else if (type === "edit_profile") {
-          setAvatarForEdit(res.data.data.url)
         } else if (type === "edit_product") {
           setProductImageForEdit(res.data.data.url)
         } else if (type === "add_product") {
