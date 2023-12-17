@@ -102,7 +102,6 @@ const Forms = ({ type, removeProductId, createInvoiceData }) => {
       handleAlert(t("forms.otp.check_your_phone.message"), "success")
       setConfirmation(conf)
       setSendOTP(true)
-      console.log(1)
     } catch (err) {
       console.log(err)
       handleAlert(t("forms.fetch.public_error.message"), "error")
